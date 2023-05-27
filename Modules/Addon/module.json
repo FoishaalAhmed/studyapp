@@ -1,0 +1,15 @@
+{
+    "name": "Addon",
+    "alias": "addon",
+    "core": true,
+    "version": "1.0",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Addon\\Providers\\AddonServiceProvider"
+    ],
+    "files": [
+        "Entities/helper.php"
+    ]
+}

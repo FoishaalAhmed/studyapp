@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\Admin\UsersDataTable;
 use App\Http\Controllers\Controller;
-use App\DataTables\UsersDataTable;
 use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
 use App\Models\{

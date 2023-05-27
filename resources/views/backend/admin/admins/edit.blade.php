@@ -1,10 +1,7 @@
 @extends('backend.layouts.app')
 
 @section('title', __('Update Admin'))
-@section('css')
-    <!-- Plugins css -->
-    <link href="{{ asset('public/assets/backend/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
+
 @section('content')
     <!-- Start Content-->
     <div class="container-fluid">
@@ -116,10 +113,4 @@
         <!-- end row-->
 
     </div> <!-- container -->
-@endsection
-
-@section('js')
-    <!-- Init js-->
-    <script src="{{ asset('public/assets/backend/libs/select2/js/select2.min.js') }}"></script>
-    <script src="{{ asset('public/assets/backend/js/pages/form-advanced.init.js') }}"></script>
 @endsection

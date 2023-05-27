@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController,
+    WriterController,
     AdminController,
-    UserController
+    UserController,
 };
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('Users'))
+@section('title', __('Admin Dashboard'))
 @section('content')
 
     <!-- Start Content-->

@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\Admin\WritesDataTable;
 use App\Http\Controllers\Controller;
-use App\DataTables\AdminsDataTable;
-use App\Http\Requests\AdminRequest;
+use App\Http\Requests\WriterRequest;
 use Spatie\Permission\Models\Role;
-use App\Models\{
-    Admin, 
-    User
-};
+use App\Models\Writer;
 
 class WriterController extends Controller
 {
@@ -17,7 +14,7 @@ class WriterController extends Controller
 
     public function __construct()
     {
-        $this->writerModelObject = new Admin();
+        $this->writerModelObject = new Writer();
     }
 
     /**
@@ -25,9 +22,9 @@ class WriterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(AdminsDataTable $dataTable)
+    public function index(WritesDataTable $dataTable)
     {
-        return $dataTable->render('backend.admin.admins.index');
+        return $dataTable->render('backend.admin.writers.index');
     }
 
     /**
@@ -37,8 +34,8 @@ class WriterController extends Controller
      */
     public function create()
     {
-        $role = Role::where('name', 'Admin')->first(['id', 'name']);
-        return view('backend.admin.admins.create', compact('role'));
+        $role = Role::where('name', 'Writer')->first(['id', 'name']);
+        return view('backend.admin.writers.create', compact('role'));
     }
 
     /**
@@ -47,49 +44,49 @@ class WriterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdminRequest $request)
+    public function store(WriterRequest $request)
     {
-        $this->writerModelObject->storeAdmin($request);
+        $this->writerModelObject->storeWriter($request);
         return back();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  object  Admin $admin
+     * @param  object  Writer $writer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit(Writer $writer)
     {
         $data = [
-            'admin' => $admin,
-            'role' => Role::where('name', 'Admin')->first(['id', 'name'])
+            'writer' => $writer,
+            'role' => Role::where('name', 'Writer')->first(['id', 'name'])
         ];
-        return view('backend.admin.admins.edit', $data);
+        return view('backend.admin.writers.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  object Admin $admin
+     * @param  object Writer $writer
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminRequest $request, Admin $admin)
+    public function update(WriterRequest $request, Writer $writer)
     {
-        $this->writerModelObject->updateAdmin($request, $admin);
-        return redirect()->route('admin.admins.index');
+        $this->writerModelObject->updateWriter($request, $writer);
+        return redirect()->route('admin.writers.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  object  $admin
+     * @param  object  $writer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Writer $writer)
     {
-        $this->writerModelObject->destroyAdmin($admin);
+        $this->writerModelObject->destroyWriter($writer);
         return back(); 
     }
 }

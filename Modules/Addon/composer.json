@@ -1,0 +1,23 @@
+{
+    "name": "kewme/addon",
+    "description": "",
+    "authors": [
+        {
+            "name": "Foisal Ahmed",
+            "email": "foisal.cse@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Addon\\": ""
+        }
+    }
+}

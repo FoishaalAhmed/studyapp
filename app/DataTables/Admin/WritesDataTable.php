@@ -1,36 +1,36 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Admin;
 
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
 
-class AdminsDataTable extends DataTable
+class WritesDataTable extends DataTable
 {
     public function ajax(): JsonResponse
     {
         return datatables()
             ->eloquent($this->query())
             ->addIndexColumn(true)
-            ->addColumn('name', function ($admin) {
-                return $admin->name;
+            ->addColumn('name', function ($writer) {
+                return $writer->name;
             })
-            ->addColumn('email', function ($admin) {
-                return $admin->email;
+            ->addColumn('email', function ($writer) {
+                return $writer->email;
             })
-            ->addColumn('phone', function ($admin) {
-                return !empty($admin->phone) ? $admin->phone : '-';
+            ->addColumn('phone', function ($writer) {
+                return !empty($writer->phone) ? $writer->phone : '-';
             })
-            ->addColumn('age', function ($admin) {
-                return !empty($admin->age) ? $admin->age : '-';
+            ->addColumn('age', function ($writer) {
+                return !empty($writer->age) ? $writer->age : '-';
             })
-            ->addColumn('gender', function ($admin) {
-                return !empty($admin->gender) ? $admin->gender : '-';
+            ->addColumn('gender', function ($writer) {
+                return !empty($writer->gender) ? $writer->gender : '-';
             })
-            ->addColumn('action', function ($admin) {
-                $edit = '<a href="' . route('admin.admins.edit', $admin->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
-                $delete = '<a href="' . route('admin.admins.destroy', $admin->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
+            ->addColumn('action', function ($writer) {
+                $edit = '<a href="' . route('admin.writers.edit', $writer->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+                $delete = '<a href="' . route('admin.writers.destroy', $writer->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $edit . $delete;
             })
             ->rawColumns(['action'])
@@ -40,7 +40,7 @@ class AdminsDataTable extends DataTable
     public function query()
     {
         $query = User::whereHas("roles", function ($q) {
-            $q->where("name", "Admin");
+            $q->where("name", "Writer");
         })->orderBy('name', 'asc');
         return $this->applyScopes($query);
     }
