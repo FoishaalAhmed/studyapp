@@ -15,14 +15,12 @@ $(document).on('click', '.delete-warning', function(e){
 });
 
 //picture display on input
-
-function readPicture(input, imageId) {
-    if (input.files && input.files[0]) {
+function readPicture(element, previewElement) {
+    if (element.files && element.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#' + imageId)
-                .attr('src', e.target.result);
+            $(previewElement).attr('src', e.target.result);
         };
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(element.files[0]);
     }
 }

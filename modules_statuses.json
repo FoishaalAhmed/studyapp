@@ -1,4 +1,6 @@
 {
     "Page": true,
-    "Addon": true
+    "Addon": true,
+    "Setting": true,
+    "Category": true
 }

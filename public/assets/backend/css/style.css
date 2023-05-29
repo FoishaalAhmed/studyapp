@@ -5,3 +5,12 @@
 .card-border {
     border: 2px solid cadetblue;
 }
+
+.large-logo {
+    width: 98px;
+    height: 20px;
+}
+.small-logo {
+    width: 22px;
+    height: 22px;
+}

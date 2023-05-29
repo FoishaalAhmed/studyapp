@@ -32,7 +32,7 @@
                             <p class="text-muted">{{ auth()->user()->name }}</p>
 
                             <div class="mb-3">
-                                <input class="form-control" name="photo" type="file" onchange="readPicture(this)">
+                                <input class="form-control" name="photo" type="file" id="profile-photo-input">
                             </div>
 
                             <button type="submit"

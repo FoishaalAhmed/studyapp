@@ -36,7 +36,7 @@
                 @if (auth()->user()->hasRole('Admin'))
                     <li class="menu-item {{ request()->is('admin/users/*') || request()->is('admin/users') || request()->is('admin/writers/*') || request()->is('admin/writers') || request()->is('admin/admins/*') || request()->is('admin/admins') ? 'menuitem-active' : '' }}">
                         <a href="#menuUsers" data-bs-toggle="collapse" class="menu-link">
-                            <span class="menu-icon"><i class="fe-users "></i></span>
+                            <span class="menu-icon"><i class="fe-users"></i></span>
                             <span class="menu-text"> {{ __('Users') }} </span>
                             <span class="menu-arrow"></span>
                         </a>
@@ -61,6 +61,45 @@
                         </div>
                     </li>
 
+                    <li class="menu-item {{ request()->is('admin/categories') ? 'menuitem-active' : '' }}">
+                        <a href="#menuCategories" data-bs-toggle="collapse" class="menu-link">
+                            <span class="menu-icon"><i class="fe-book"></i></span>
+                            <span class="menu-text"> {{ __('Categories') }} </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse {{ request()->is('admin/categories') ? 'show' : '' }}" id="menuCategories">
+                            <ul class="sub-menu">
+                                <li class="menu-item {{ request()->is('admin/categories') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('admin.categories.index') }}" class="menu-link {{request()->is('admin/categories') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Category') }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-item {{ request()->is('admin/addons') || request()->is('admin/settings') ? 'menuitem-active' : '' }}">
+                        <a href="#menuSetting" data-bs-toggle="collapse" class="menu-link">
+                            <span class="menu-icon"><i class="fe-settings"></i></span>
+                            <span class="menu-text"> {{ __('Settings') }} </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse {{ request()->is('admin/addons/*') || request()->is('admin/settings') ? 'show' : '' }}" id="menuSetting">
+                            <ul class="sub-menu">
+                                <li class="menu-item {{ request()->is('admin/addons/*') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('admin.addons.index') }}" class="menu-link {{ request()->is('admin/addons/*') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Addons') }}</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item {{ request()->is('admin/settings') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('admin.settings.create') }}" class="menu-link {{ request()->is('admin/settings/*') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Settings') }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                     @if (module('Page') && isActive('Page'))
                         <li class="menu-item {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'menuitem-active' : '' }}">
                             <a href="{{ route('admin.pages.index') }}" class="menu-link {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'active' : '' }}">
@@ -69,7 +108,7 @@
                             </a>
                         </li>
                     @endif
-                    
+
                 @endif
 
 

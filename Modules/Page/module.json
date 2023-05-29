@@ -1,7 +1,8 @@
 {
     "name": "Page",
     "alias": "page",
-    "description": "",
+    "description": "You can deactivate this module by clicking deactivate link",
+    "version": "1.0",
     "keywords": [],
     "priority": 0,
     "providers": [
