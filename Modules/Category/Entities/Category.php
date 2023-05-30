@@ -13,10 +13,6 @@ class Category extends Model
         'name',
     ];
 
-    public static $validateRule = [
-        'name' => ['required', 'string', 'max:255']
-    ];
-
     public function exams()
     {
         return $this->hasMany(Exam::class, 'category_id');
@@ -34,13 +30,14 @@ class Category extends Model
 
         if ($image) {
 
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/category/';
-            $image_url       = $upload_path . $image_full_name;
-            $image->move($upload_path, $image_full_name);
-            $this->photo     = $image_url;
+            $response = uploadImage($image, 'public/images/category/', 'category', '100*100');
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $this->photo = 'public/images/category/' . $response['file_name'];
         }
 
         $this->name = $request->name;
@@ -58,16 +55,16 @@ class Category extends Model
 
         if ($image) {
 
-            if (file_exists($category->photo)) unlink($category->photo);
+            $response = uploadImage($image, 'public/images/category/', 'category', '100*100', $category->photo);
 
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/category/';
-            $image_url       = $upload_path . $image_full_name;
-            $image->move($upload_path, $image_full_name);
-            $category->photo = $image_url;
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $category->photo = 'public/images/category/' . $response['file_name'];
         }
+
         $category->name = $request->name;
         $updateCategory = $category->save();
 

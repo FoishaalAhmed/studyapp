@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Modules\Category\Entities\Category;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Modules\Category\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -32,9 +33,8 @@ class CategoryController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $request->validate(Category::$validateRule);
         $this->categoryModelObject->storeCategory($request);
         return back();
     }
@@ -45,9 +45,8 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $request->validate(Category::$validateRule);
         $this->categoryModelObject->updateCategory($request);
         return back();
     }

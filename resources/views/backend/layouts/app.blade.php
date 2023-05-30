@@ -9,7 +9,7 @@
     <meta content="Coderthemes" name="author" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('public/assets/backend/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset(getFavIcon()) }}">
 
     @include('backend.layouts.partials.style')
 </head>

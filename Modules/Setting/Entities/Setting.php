@@ -25,15 +25,15 @@ class Setting extends Model
             if ($largeLogo) {
                 $response = uploadImage($largeLogo, 'public/images/settings/', 'large_logo', '98*20', $largeLogoOld);
 
-                if ($response['status'] === true) {
-                    Setting::where(['name' => 'large_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
-                } else {
+                if (!$response['status']) {
                     DB::rollBack();
                     return [
                         'alert' => 'error',
                         'message' => $response['message']
                     ];
                 }
+
+                Setting::where(['name' => 'large_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
             }
 
             $smallLogoOld = Setting::where(['name' => 'small_logo', 'type' => 'General'])->first()->value;
@@ -41,30 +41,31 @@ class Setting extends Model
 
             if ($smallLogo) {
                 $response = uploadImage($smallLogo, 'public/images/settings/', 'small_logo', '22*22', $smallLogoOld);
-                if ($response['status'] === true) {
-                    Setting::where(['name' => 'small_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
-                } else {
+                if (!$response['status']) {
                     DB::rollBack();
                     return [
                         'alert' => 'error',
                         'message' => $response['message']
                     ];
                 }
+
+                Setting::where(['name' => 'small_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
             }
+
             $favIconOld = Setting::where(['name' => 'favicon', 'type' => 'General'])->first()->value;
             $favIcon = $request->file('favicon');
 
             if ($favIcon) {
                 $response = uploadImage($favIcon, 'public/images/settings/', 'favicon', '22*22', $favIconOld);
-                if ($response['status'] === true) {
-                    Setting::where(['name' => 'favicon', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
-                } else {
+                if (!$response['status']) {
                     DB::rollBack();
                     return [
                         'alert' => 'error',
                         'message' => $response['message']
                     ];
                 }
+                
+                Setting::where(['name' => 'favicon', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
             }
 
             Setting::where(['name' => 'row_per_page', 'type' => 'General'])->update(['value' => $request->row_per_page]);

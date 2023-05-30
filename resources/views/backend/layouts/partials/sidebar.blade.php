@@ -5,14 +5,14 @@
         <div class="logo-box">
             <!-- Brand Logo Light -->
             <a href="{{ url('/') }}" class="logo-light">
-                <img src="{{ asset('public/assets/backend/images/logo-light.png') }}" alt="logo" class="logo-lg">
-                <img src="{{ asset('public/assets/backend/images/logo-sm.png') }}" alt="small logo" class="logo-sm">
+                <img src="{{ asset(largeLogo()) }}" alt="logo" class="logo-lg">
+                <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
             </a>
 
             <!-- Brand Logo Dark -->
             <a href="{{ url('/') }}" class="logo-dark">
-                <img src="{{ asset('public/assets/backend/images/logo-dark.png') }}" alt="dark logo" class="logo-lg">
-                <img src="{{ asset('public/assets/backend/images/logo-sm.png') }}" alt="small logo" class="logo-sm">
+                <img src="{{ asset(largeLogo()) }}" alt="dark logo" class="logo-lg">
+                <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
             </a>
         </div>
 
@@ -71,7 +71,7 @@
                             <ul class="sub-menu">
                                 <li class="menu-item {{ request()->is('admin/categories') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('admin.categories.index') }}" class="menu-link {{request()->is('admin/categories') ? 'active' : '' }}">
-                                        <span class="menu-text">{{ __('Category') }}</span>
+                                        <span class="menu-text">{{ __('Main Category') }}</span>
                                     </a>
                                 </li>
                             </ul>

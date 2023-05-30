@@ -25,21 +25,21 @@ class PageRequest extends FormRequest
     {
         $rules = [
 
-            'photo'  => 'mimes:jpeg,jpg,png,gif,webp|max:1000|nullable',
-            'content' => 'required|string',
-            'title' => 'nullable|string|max:255',
+            'photo'  => ['nullable', 'mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024],
+            'content' => ['required', 'string'],
+            'title' => ['nullable', 'string', 'max:255'],
         ];
 
         if ($this->getMethod() == 'POST') {
 
             return $rules + [
-                'name'    => 'required|string|max:255|unique:pages,name'
+                'name'    => ['required', 'string', 'max:255', 'unique:pages,name']
             ];
 
         } else {
 
             return $rules + [
-                'name'    => 'required|string|max:255|unique:pages,name,'.$this->page->id
+                'name'    => ['required', 'string', 'max:255', 'unique:pages,name,' . $this->page->id]
             ];
         }
     }

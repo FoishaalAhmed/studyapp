@@ -53,6 +53,11 @@
                                 <div class="col-md-12 mb-3 text-center">
                                     <img src="{{ asset('public/assets/backend/images/small/img-2.jpg') }}" alt="image" class="img-fluid rounded mb-3" width="200" id="add-photo">
                                     <input type="file" name="photo" class="form-control" id="add-photo-input">
+                                    @error('photo')
+                                        <div class="invalid-feedback error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">
@@ -93,6 +98,11 @@
                                 <div class="col-md-12 mb-3 text-center">
                                     <img src="{{ asset('public/assets/backend/images/small/img-2.jpg') }}" alt="image" class="img-fluid rounded mb-3" width="200" id="edit-photo">
                                     <input type="file" name="photo" class="form-control" id="edit-photo-input">
+                                    @error('photo')
+                                        <div class="invalid-feedback error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row">

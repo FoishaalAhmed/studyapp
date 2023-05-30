@@ -54,7 +54,12 @@
                                     <div class="card card-border">
                                         <img class="card-img-top img-fluid" id="page-photo" src="{{ asset('public\images\dummy\about.jpg') }}" alt="{{ __('Page Image') }}">
                                         <div class="card-body">
-                                            <input type="file" name="photo" class="form-control" onchange="readPicture(this, 'page-photo')">
+                                            <input type="file" name="photo" class="form-control" id="page-photo-input">
+                                            @error('photo')
+                                                <div class="invalid-feedback error">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -78,11 +83,5 @@
 
 @section('js')
     <script src="https://cdn.ckeditor.com/4.5.7/full/ckeditor.js"></script>
-    <script>
-        'use strict';
-
-        $(function() {
-            CKEDITOR.replace('editor')
-        });
-    </script>
+    <script src="{{ asset('Modules/Page/Resources/assets/js/page.js') }}"></script>
 @endsection

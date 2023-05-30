@@ -19,21 +19,21 @@ class Page extends Model
         $image = $request->file('photo');
 
         if ($image) {
+            $response = uploadImage($image, 'public/images/pages/', 'page', '1170*500');
 
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/pages/';
-            $image_url       = $upload_path . $image_full_name;
-            $success         = $image->move($upload_path, $image_full_name);
-            $this->photo     = $image_url;
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $this->photo = 'public/images/pages/' . $response['file_name'];
         }
 
-        $this->name = $request->name;
-        $this->title = $request->title;
-        $this->slug = Str::slug($request->title);
+        $this->name    = $request->name;
+        $this->title   = $request->title;
+        $this->slug    = Str::slug($request->title);
         $this->content = $request->content;
-        $storePage  = $this->save();
+        $storePage     = $this->save();
 
         $storePage
             ? session()->flash('success', 'New Page Created Successfully!')
@@ -45,23 +45,21 @@ class Page extends Model
         $image = $request->file('photo');
 
         if ($image) {
+            $response = uploadImage($image, 'public/images/pages/', 'page', '1170*500', $page->photo);
 
-            if (file_exists($page->photo)) unlink($page->photo);
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
 
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/pages/';
-            $image_url       = $upload_path . $image_full_name;
-            $success         = $image->move($upload_path, $image_full_name);
-            $page->photo     = $image_url;
+            $page->photo = 'public/images/pages/' . $response['file_name'];
         }
 
-        $page->name = $request->name;
-        $page->title = $request->title;
-        $page->slug = Str::slug($request->title);
+        $page->name    = $request->name;
+        $page->title   = $request->title;
+        $page->slug    = Str::slug($request->title);
         $page->content = $request->content;
-        $updatePage  = $page->save();
+        $updatePage    = $page->save();
 
         $updatePage
             ? session()->flash('success', 'Page Updated Successfully!')
