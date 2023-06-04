@@ -2,26 +2,32 @@
 
 namespace Modules\Category\DataTables;
 
+use Modules\Category\Entities\SubCategory;
 use Yajra\DataTables\Services\DataTable;
-use Modules\Category\Entities\Category;
 use Illuminate\Http\JsonResponse;
 
-class CategoriesDataTable extends DataTable
+class SubCategoriesDataTable extends DataTable
 {
     public function ajax(): JsonResponse
     {
         return datatables()
             ->eloquent($this->query())
             ->addIndexColumn(true)
-            ->addColumn('name', function ($category) {
-                return $category->name;
+            ->addColumn('name', function ($subCategory) {
+                return $subCategory->name;
+            })
+            ->addColumn('category', function ($subCategory) {
+                return $subCategory?->category?->name;
+            })
+            ->addColumn('type', function ($subCategory) {
+                return $subCategory?->categoryType?->name;
             })
             ->addColumn('photo', function ($writer) {
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($writer->photo) . '" alt="Category Photo" height="48">';
             })
-            ->addColumn('action', function ($category) {
-                $edit = '<a href="javascript:;" class="btn btn-outline-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#edit-modal" data-id="'.$category->id.'" data-name="'.$category->name.'" data-photo="'.$category->photo.'"><i class="fe-edit"></i></a>&nbsp;';
-                $delete = '<a href="' . route('admin.categories.destroy', $category->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
+            ->addColumn('action', function ($subCategory) {
+                $edit = '<a href="' . route('admin.sub-categories.edit', $subCategory->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+                $delete = '<a href="' . route('admin.sub-categories.destroy', $subCategory->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $edit . $delete;
             })
             ->rawColumns(['photo', 'action'])
@@ -30,7 +36,7 @@ class CategoriesDataTable extends DataTable
 
     public function query()
     {
-        $query = Category::oldest('name');
+        $query = SubCategory::with(['categoryType:id,name', 'category:id,name'])->oldest('name');
         return $this->applyScopes($query);
     }
 
@@ -45,19 +51,29 @@ class CategoriesDataTable extends DataTable
             ])
             ->addColumn([
                 'data' => 'id',
-                'name' => 'categories.id',
+                'name' => 'sub_categories.id',
                 'title' => __('ID'),
                 'searchable' => false,
                 'visible' => false
             ])
             ->addColumn([
                 'data' => 'name',
-                'name' => 'categories.name',
+                'name' => 'sub_categories.name',
                 'title' => __('Name')
             ])
             ->addColumn([
+                'data' => 'category',
+                'name' => 'categories.name',
+                'title' => __('Category')
+            ])
+            ->addColumn([
+                'data' => 'type',
+                'name' => 'category_types.name',
+                'title' => __('Type')
+            ])
+            ->addColumn([
                 'data' => 'photo',
-                'name' => 'categories.photo',
+                'name' => 'sub_categories.photo',
                 'title' => __('Photo')
             ])
             ->addColumn([

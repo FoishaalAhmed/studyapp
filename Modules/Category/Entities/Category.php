@@ -30,7 +30,7 @@ class Category extends Model
 
         if ($image) {
 
-            $response = uploadImage($image, 'public/images/category/', 'category', '100*100');
+            $response = uploadImage($image, 'public/images/category/', 'category', '465*260');
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);
@@ -55,7 +55,7 @@ class Category extends Model
 
         if ($image) {
 
-            $response = uploadImage($image, 'public/images/category/', 'category', '100*100', $category->photo);
+            $response = uploadImage($image, 'public/images/category/', 'category', '465*260', $category->photo);
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);

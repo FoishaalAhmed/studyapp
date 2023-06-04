@@ -6,10 +6,10 @@ use App\DataTables\Admin\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
-use App\Models\{
-    CategoryUser, 
-    Category, 
-    User
+use App\Models\User;
+use Modules\Category\Entities\{
+    CategoryUser,
+    Category
 };
 class UserController extends Controller
 {

@@ -2,30 +2,27 @@
 
 namespace Modules\Category\Http\Controllers;
 
-use Modules\Category\DataTables\CategoriesDataTable;
-use Modules\Category\Http\Requests\CategoryRequest;
+use Modules\Category\DataTables\CategoryTypesDataTable;
 use Illuminate\Contracts\Support\Renderable;
-use Modules\Category\Entities\Category;
+use Modules\Category\Entities\CategoryType;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategoryTypeController extends Controller
 {
     protected $categoryModelObject;
 
     public function __construct()
     {
-        $this->categoryModelObject = new Category();
+        $this->categoryModelObject = new CategoryType();
     }
-
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index(CategoriesDataTable $dataTable)
+    public function index(CategoryTypesDataTable $dataTable)
     {
-        $categories = Category::orderBy('name', 'asc')->get();
-        return $dataTable->render('category::category', compact('categories'));
+        return $dataTable->render('category::category-type');
     }
 
     /**
@@ -33,8 +30,9 @@ class CategoryController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
+        $request->validate(CategoryType::$validateRule);
         $this->categoryModelObject->storeCategory($request);
         return back();
     }
@@ -45,20 +43,22 @@ class CategoryController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate(CategoryType::$validateRule);
         $this->categoryModelObject->updateCategory($request);
         return back();
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param Category $category
-     * @return Renderable
+     *
+     * @param  \App\Models\CategoryType $categoryType
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(CategoryType $categoryType)
     {
-        $this->categoryModelObject->destroyCategory($category);
+        $this->categoryModelObject->destroyCategory($categoryType);
         return back();
     }
 }

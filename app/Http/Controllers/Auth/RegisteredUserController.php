@@ -8,20 +8,20 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\User;
 use DB, Exception;
 use Illuminate\Support\Facades\{
     Auth,
     Hash,
     Log
 };
-use App\Models\{
+use Modules\Category\Entities\{
     CategoryUser,
-    Category,
-    User
+    Category
 };
-use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {

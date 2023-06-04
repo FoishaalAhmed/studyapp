@@ -57,7 +57,12 @@
                             <div class="row mb-3">
                                 <label for="row-per-page" class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('Row Per Page') }}</label>
                                 <div class="col-8 col-xl-4">
-                                    <input type="text" name="row_per_page" id="row-per-page" class="form-control" placeholder="{{ __('Row Per Page') }}" required="" value="{{ old('row_per_page', settings('row_per_page')) }}">
+                                    <select id="row-per-page" class="form-select" name="row_per_page" required="">
+                                        <option value="10" {{ settings('row_per_page') == 10 ? 'selected' : '' }} >{{ __('10') }}</option>
+                                        <option value="25" {{ settings('row_per_page') == 25 ? 'selected' : '' }} >{{ __('25') }}</option>
+                                        <option value="50" {{ settings('row_per_page') == 50 ? 'selected' : '' }} >{{ __('50') }}</option>
+                                        <option value="100" {{ settings('row_per_page') == 100 ? 'selected' : '' }} >{{ __('100') }}</option>
+                                    </select>
                                     @error('row_per_page')
                                         <div class="invalid-feedback error">
                                             {{ $message }}

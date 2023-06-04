@@ -81,7 +81,7 @@ class User extends Authenticatable
                     ];
                 }
 
-                CategoryUser::insert($categoryData);
+                \Modules\Category\Entities\CategoryUser::insert($categoryData);
 
                 $user = $this::findOrFail($this->id);
                 $user->assignRole($request->role_id);
@@ -117,8 +117,8 @@ class User extends Authenticatable
                         'updated_at' => date('Y-m-d H:i:s'),
                     ];
                 }
-                CategoryUser::where('user_id', $user->id)->delete();
-                CategoryUser::insert($categoryData);
+                \Modules\Category\Entities\CategoryUser::where('user_id', $user->id)->delete();
+                \Modules\Category\Entities\CategoryUser::insert($categoryData);
 
                 $userUpdate
                     ? session()->flash('success', 'User Updated Successfully!')

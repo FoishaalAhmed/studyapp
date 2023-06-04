@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="card card-border">
-                                        <img class="card-img-top img-fluid" id="page-photo" src="{{ asset('public\images\dummy\about.jpg') }}" alt="{{ __('Page Image') }}">
+                                        <img class="card-img-top img-fluid" id="page-photo" src="{{ asset('public/images/dummy/about.jpg') }}" alt="{{ __('Page Image') }}">
                                         <div class="card-body">
                                             <input type="file" name="photo" class="form-control" id="page-photo-input">
                                             @error('photo')
