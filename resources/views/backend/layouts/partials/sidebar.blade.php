@@ -61,13 +61,13 @@
                         </div>
                     </li>
 
-                    <li class="menu-item {{ request()->is('admin/categories') || request()->is('admin/category-types') || request()->is('admin/sub-categories') || request()->is('admin/sub-categories/*') ? 'menuitem-active' : '' }}">
+                    <li class="menu-item {{ request()->is('admin/categories') || request()->is('admin/category-types') || request()->is('admin/sub-categories') || request()->is('admin/sub-categories/*') || request()->is('admin/child-categories') || request()->is('admin/child-categories/*') ? 'menuitem-active' : '' }}">
                         <a href="#menuCategories" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="fe-book"></i></span>
                             <span class="menu-text"> {{ __('Categories') }} </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse {{ request()->is('admin/categories') || request()->is('admin/category-types') || request()->is('admin/sub-categories/*') || request()->is('admin/sub-categories') ? 'show' : '' }}" id="menuCategories">
+                        <div class="collapse {{ request()->is('admin/categories') || request()->is('admin/category-types') || request()->is('admin/sub-categories/*') || request()->is('admin/sub-categories') || request()->is('admin/child-categories') || request()->is('admin/child-categories/*') ? 'show' : '' }}" id="menuCategories">
                             <ul class="sub-menu">
                                 <li class="menu-item {{ request()->is('admin/category-types') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('admin.category-types.index') }}" class="menu-link {{request()->is('admin/category-types') ? 'active' : '' }}">
@@ -82,6 +82,11 @@
                                 <li class="menu-item {{ request()->is('admin/sub-categories') || request()->is('admin/sub-categories/*') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('admin.sub-categories.index') }}" class="menu-link {{ request()->is('admin/sub-categories') || request()->is('admin/sub-categories/*') ? 'active' : '' }}">
                                         <span class="menu-text">{{ __('Sub Category') }}</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item {{ request()->is('admin/child-categories') || request()->is('admin/child-categories/*') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('admin.child-categories.index') }}" class="menu-link {{ request()->is('admin/child-categories') || request()->is('admin/child-categories/*') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Child Category') }}</span>
                                     </a>
                                 </li>
                             </ul>

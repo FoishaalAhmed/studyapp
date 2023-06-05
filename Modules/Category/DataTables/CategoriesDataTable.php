@@ -14,7 +14,7 @@ class CategoriesDataTable extends DataTable
             ->eloquent($this->query())
             ->addIndexColumn(true)
             ->addColumn('name', function ($category) {
-                return $category->name;
+            return '<a href="' . route('admin.sub-categories.index', ['category_id' => $category->id]) . '">' . $category->name . '</a>';
             })
             ->addColumn('photo', function ($writer) {
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($writer->photo) . '" alt="Category Photo" height="48">';
@@ -24,7 +24,7 @@ class CategoriesDataTable extends DataTable
                 $delete = '<a href="' . route('admin.categories.destroy', $category->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $edit . $delete;
             })
-            ->rawColumns(['photo', 'action'])
+            ->rawColumns(['name', 'photo', 'action'])
             ->make(true);
     }
 

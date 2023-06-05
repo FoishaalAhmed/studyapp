@@ -9,4 +9,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
     Route::resource('category-types', CategoryTypeController::class)->except(['show', 'create', 'edit']);
     Route::resource('categories', CategoryController::class)->except(['show', 'create', 'edit']);
     Route::resource('sub-categories', SubCategoryController::class)->except(['show']);
+    Route::resource('child-categories', ChildCategoryController::class)->except(['show']);
 });

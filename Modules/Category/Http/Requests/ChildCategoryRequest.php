@@ -4,7 +4,7 @@ namespace Modules\Category\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubCategoryRequest extends FormRequest
+class ChildCategoryRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,7 @@ class SubCategoryRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'category_id' => ['required', 'numeric', 'min:1'],
+            'sub_category_id' => ['required', 'numeric', 'min:1'],
             'type' => ['required', 'numeric', 'min: 1'],
             'name' => ['required', 'string', 'max: 255'],
         ];
@@ -38,5 +38,20 @@ class SubCategoryRequest extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'sub_category_id' => __('category'),
+            'type' => __('type'),
+            'name' => __('name'),
+            'photo' => __('photo'),
+        ];
     }
 }

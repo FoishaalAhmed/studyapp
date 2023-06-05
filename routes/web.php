@@ -1,14 +1,25 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\{
+    DashboardController,
+    ProfileController,
+    HelperController
+};
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::middleware('auth')->group(function () {
+
+    /** Helpers route start here **/
+    Route::post('get-sub-categories', [HelperController::class, 'getSubCategories'])->name('get.sub-category');
+
+    /** Helpers route end here **/
+
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::view('profile', 'backend.profile')->name('profile');
     Route::post('photo-update', [ProfileController::class, 'photo'])->name('profile.photo');
