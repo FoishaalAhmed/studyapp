@@ -3,6 +3,5 @@
     "Addon": true,
     "Setting": true,
     "Category": true,
-    "Controller": true,
-    "CategoryTypeController": true
+    "UserAccess": true
 }

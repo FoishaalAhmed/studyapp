@@ -17,7 +17,7 @@ class ChildCategoriesDataTable extends DataTable
                 
                 return $childCategory->name;
             })
-            ->addColumn('subCategory', function ($childCategory) {
+            ->addColumn('sub_category_id', function ($childCategory) {
                 return $childCategory?->subCategory?->name;
             })
             ->addColumn('type', function ($childCategory) {
@@ -66,13 +66,13 @@ class ChildCategoriesDataTable extends DataTable
                 'title' => __('Name')
             ])
             ->addColumn([
-                'data' => 'subCategory',
-                'name' => 'sub_categories.name',
+                'data' => 'sub_category_id',
+                'name' => 'subCategory.name',
                 'title' => __('Category')
             ])
             ->addColumn([
                 'data' => 'type',
-                'name' => 'category_types.name',
+                'name' => 'categoryType.name',
                 'title' => __('Type')
             ])
             ->addColumn([

@@ -16,7 +16,7 @@ class SubCategoriesDataTable extends DataTable
             ->addColumn('name', function ($subCategory) {
                 return '<a href="'. route('admin.child-categories.index', ['category_id' => $subCategory->id]) .'">'. $subCategory->name .'</a>';
             })
-            ->addColumn('category', function ($subCategory) {
+            ->addColumn('category_id', function ($subCategory) {
                 return $subCategory?->category?->name;
             })
             ->addColumn('type', function ($subCategory) {
@@ -66,13 +66,13 @@ class SubCategoriesDataTable extends DataTable
                 'title' => __('Name')
             ])
             ->addColumn([
-                'data' => 'category',
-                'name' => 'categories.name',
+                'data' => 'category_id',
+                'name' => 'category.name',
                 'title' => __('Category')
             ])
             ->addColumn([
                 'data' => 'type',
-                'name' => 'category_types.name',
+                'name' => 'categoryType.name',
                 'title' => __('Type')
             ])
             ->addColumn([

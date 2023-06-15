@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Setting\Entities;
+namespace Modules\UserAccess\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Category\Entities\ChildCategory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class UserAccess extends Model
 {
@@ -26,7 +26,7 @@ class UserAccess extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 
     public function storeAccess(Object $request)
@@ -46,21 +46,12 @@ class UserAccess extends Model
         session()->flash('success', 'Permission Added Successfully!');
     }
 
-    public function updateAccess(Object $request, Object $access)
+    public function destroyAccess(Object $access)
     {
-        $this::where('user_id', $request->user_id)->delete();
-        foreach ($request->child_category_id as $key => $value) {
+        $destroyAccess = $access->delete();
 
-            $data[] = [
-                'child_category_id' => $value,
-                'user_id' => $request->user_id,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ];
-        }
-
-        $this::insert($data);
-
-        session()->flash('success', 'Permission Updated Successfully!');
+        $destroyAccess
+            ? session()->flash('success', 'Permission Deleted Successfully!')
+            : session()->flash('error', 'Something Went Wrong!');
     }
 }

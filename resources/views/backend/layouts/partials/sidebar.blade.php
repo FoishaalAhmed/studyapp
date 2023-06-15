@@ -115,6 +115,36 @@
                         </div>
                     </li>
 
+                    
+                    @if (module('UserAccess') && isActive('UserAccess'))
+                        <li class="menu-item {{ request()->is('admin/writer-logs') || request()->is('admin/user-logs') ? 'menuitem-active' : '' }}">
+                            <a href="#menuUserAccess" data-bs-toggle="collapse" class="menu-link">
+                                <span class="menu-icon"><i class="fe-unlock"></i></span>
+                                <span class="menu-text"> {{ __('User Access') }} </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/accesses') || request()->is('admin/accesses/*') || request()->is('admin/writer-logs') || request()->is('admin/user-logs') ? 'show' : '' }}" id="menuUserAccess">
+                                <ul class="sub-menu">
+                                    <li class="menu-item {{ request()->is('admin/accesses') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.accesses.index') }}" class="menu-link {{ request()->is('admin/accesses') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('User Access') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('admin/user-logs') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.logs.user') }}" class="menu-link {{ request()->is('admin/user-logs') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('User Logs') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('admin/writer-logs') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.logs.writer') }}" class="menu-link {{ request()->is('admin/writer-logs') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Writer Logs') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    @endif
+
                     @if (module('Page') && isActive('Page'))
                         <li class="menu-item {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'menuitem-active' : '' }}">
                             <a href="{{ route('admin.pages.index') }}" class="menu-link {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'active' : '' }}">
