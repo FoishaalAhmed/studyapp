@@ -14,21 +14,21 @@ class PagesDataTable extends DataTable
         return datatables()
             ->eloquent($this->query())
             ->addIndexColumn(true)
-            ->addColumn('name', function ($writer) {
-                return $writer->name;
+            ->addColumn('name', function ($page) {
+                return $page->name;
             })
-            ->addColumn('title', function ($writer) {
-                return $writer->title;
+            ->addColumn('title', function ($page) {
+                return $page->title;
             })
-            ->addColumn('content', function ($writer) {
-                return Str::limit($writer->content, 100);
+            ->addColumn('content', function ($page) {
+                return Str::limit($page->content, 100);
             })
-            ->addColumn('photo', function ($writer) {
-                return '<img class="d-flex align-items-start rounded me-2" src="'. asset($writer->photo) .'" alt="Dominic Keller" height="48">';
+            ->addColumn('photo', function ($page) {
+                return '<img class="d-flex align-items-start rounded me-2" src="'. asset($page->photo) .'" alt="Dominic Keller" height="48">';
             })
-            ->addColumn('action', function ($writer) {
-                $edit = '<a href="' . route('admin.pages.edit', $writer->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
-                $delete = '<a href="' . route('admin.pages.destroy', $writer->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
+            ->addColumn('action', function ($page) {
+                $edit = '<a href="' . route('admin.pages.edit', $page->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+                $delete = '<a href="' . route('admin.pages.destroy', $page->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $edit . $delete;
             })
             ->rawColumns(['photo', 'content', 'action'])

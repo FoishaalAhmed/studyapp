@@ -23,8 +23,8 @@ class ChildCategoriesDataTable extends DataTable
             ->addColumn('type', function ($childCategory) {
                 return $childCategory?->categoryType?->name;
             })
-            ->addColumn('photo', function ($writer) {
-                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($writer->photo) . '" alt="Category Photo" height="48">';
+            ->addColumn('photo', function ($childCategory) {
+                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($childCategory->photo) . '" alt="Category Photo" height="48">';
             })
             ->addColumn('action', function ($childCategory) {
                 $edit = '<a href="' . route('admin.child-categories.edit', $childCategory->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';

@@ -22,8 +22,8 @@ class SubCategoriesDataTable extends DataTable
             ->addColumn('type', function ($subCategory) {
                 return $subCategory?->categoryType?->name;
             })
-            ->addColumn('photo', function ($writer) {
-                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($writer->photo) . '" alt="Category Photo" height="48">';
+            ->addColumn('photo', function ($subCategory) {
+                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($subCategory->photo) . '" alt="Category Photo" height="48">';
             })
             ->addColumn('action', function ($subCategory) {
                 $edit = '<a href="' . route('admin.sub-categories.edit', $subCategory->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';

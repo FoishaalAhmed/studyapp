@@ -3,7 +3,7 @@
 if (!function_exists('addonThumbnail')) {
     function addonThumbnail($name)
     {
-        $path = join(DIRECTORY_SEPARATOR, ['Modules', $name, 'Resources', 'assets', 'thumbnail.jpg']);
+        $path = join(DIRECTORY_SEPARATOR, ['Modules', $name, 'Resources', 'assets', 'thumbnail.png']);
 
         if (file_exists($path)) {
             return url($path);

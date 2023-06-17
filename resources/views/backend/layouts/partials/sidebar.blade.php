@@ -154,6 +154,15 @@
                         </li>
                     @endif
 
+                    @if (module('Forum') && isActive('Forum'))
+                        <li class="menu-item {{ request()->is('admin/forums/*') || request()->is('admin/forums') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.forums.index') }}" class="menu-link {{ request()->is('admin/forums/*') || request()->is('admin/forums') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="mdi mdi-text-box-multiple-outline"></i></span>
+                                <span class="menu-text"> {{ __('Forums') }} </span>
+                            </a>
+                        </li>
+                    @endif
+
                 @endif
 
 

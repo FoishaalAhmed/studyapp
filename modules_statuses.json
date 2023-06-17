@@ -3,5 +3,7 @@
     "Addon": true,
     "Setting": true,
     "Category": true,
-    "UserAccess": true
+    "UserAccess": true,
+    "Forum": true,
+    "Job": true
 }

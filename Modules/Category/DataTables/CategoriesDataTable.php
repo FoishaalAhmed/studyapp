@@ -16,8 +16,8 @@ class CategoriesDataTable extends DataTable
             ->addColumn('name', function ($category) {
             return '<a href="' . route('admin.sub-categories.index', ['category_id' => $category->id]) . '">' . $category->name . '</a>';
             })
-            ->addColumn('photo', function ($writer) {
-                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($writer->photo) . '" alt="Category Photo" height="48">';
+            ->addColumn('photo', function ($category) {
+                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($category->photo) . '" alt="Category Photo" height="48">';
             })
             ->addColumn('action', function ($category) {
                 $edit = '<a href="javascript:;" class="btn btn-outline-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#edit-modal" data-id="'.$category->id.'" data-name="'.$category->name.'" data-photo="'.$category->photo.'"><i class="fe-edit"></i></a>&nbsp;';
