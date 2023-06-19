@@ -3,18 +3,27 @@
 namespace Modules\Job\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Modules\Job\DataTables\JobsDataTable;
 use Illuminate\Routing\Controller;
+use Modules\Job\Entities\Job;
+use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    protected $jobModelObject;
+
+    public function __construct()
+    {
+        $this->jobModelObject = new Job();
+    }
+    
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(JobsDataTable $dataTable)
     {
-        return view('job::index');
+        return $dataTable->render('job::job');
     }
 
     /**
@@ -72,8 +81,9 @@ class JobController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
-        //
+        $this->jobModelObject->destroyJob($job);
+        return back();
     }
 }

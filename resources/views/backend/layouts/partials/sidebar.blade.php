@@ -145,6 +145,35 @@
                         </li>
                     @endif
 
+                    @if (module('Job') && isActive('Job'))
+                        <li class="menu-item {{ request()->is('admin/jobs') || request()->is('admin/jobs/*') || request()->is('admin/job-categories') || request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'menuitem-active' : '' }}">
+                            <a href="#menuJob" data-bs-toggle="collapse" class="menu-link">
+                                <span class="menu-icon"><i class="fe-unlock"></i></span>
+                                <span class="menu-text"> {{ __('Jobs') }} </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse {{ request()->is('admin/jobs') || request()->is('admin/jobs/*') || request()->is('admin/job-categories') || request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'show' : '' }}" id="menuJob">
+                                <ul class="sub-menu">
+                                    <li class="menu-item {{ request()->is('admin/job-categories') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.job-categories.index') }}" class="menu-link {{ request()->is('admin/job-categories') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Job Category') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('admin/jobs') || request()->is('admin/jobs/*') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.jobs.index') }}" class="menu-link {{ request()->is('admin/jobs') || request()->is('admin/jobs/*') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Jobs') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.logs.user') }}" class="menu-link {{ request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Job Applied') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    @endif
+
                     @if (module('Page') && isActive('Page'))
                         <li class="menu-item {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'menuitem-active' : '' }}">
                             <a href="{{ route('admin.pages.index') }}" class="menu-link {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'active' : '' }}">
