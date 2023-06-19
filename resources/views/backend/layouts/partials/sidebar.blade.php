@@ -117,7 +117,7 @@
 
                     
                     @if (module('UserAccess') && isActive('UserAccess'))
-                        <li class="menu-item {{ request()->is('admin/writer-logs') || request()->is('admin/user-logs') ? 'menuitem-active' : '' }}">
+                        <li class="menu-item {{ request()->is('admin/writer-logs') || request()->is('admin/user-logs') || request()->is('admin/accesses') || request()->is('admin/accesses/*') ? 'menuitem-active' : '' }}">
                             <a href="#menuUserAccess" data-bs-toggle="collapse" class="menu-link">
                                 <span class="menu-icon"><i class="fe-unlock"></i></span>
                                 <span class="menu-text"> {{ __('User Access') }} </span>
@@ -126,8 +126,13 @@
                             <div class="collapse {{ request()->is('admin/accesses') || request()->is('admin/accesses/*') || request()->is('admin/writer-logs') || request()->is('admin/user-logs') ? 'show' : '' }}" id="menuUserAccess">
                                 <ul class="sub-menu">
                                     <li class="menu-item {{ request()->is('admin/accesses') ? 'menuitem-active' : '' }}">
-                                        <a href="{{ route('admin.accesses.index') }}" class="menu-link {{ request()->is('admin/accesses') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.accesses.index') }}" class="menu-link {{ request()->is('admin/accesses') | request()->is('admin/accesses/*') ? 'active' : '' }}">
                                             <span class="menu-text">{{ __('User Access') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('admin/quries') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.queries.index') }}" class="menu-link {{ request()->is('admin/quries') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('User Query') }}</span>
                                         </a>
                                     </li>
                                     <li class="menu-item {{ request()->is('admin/user-logs') ? 'menuitem-active' : '' }}">
