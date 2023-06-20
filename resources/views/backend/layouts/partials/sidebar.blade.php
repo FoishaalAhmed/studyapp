@@ -170,7 +170,7 @@
                                         </a>
                                     </li>
                                     <li class="menu-item {{ request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'menuitem-active' : '' }}">
-                                        <a href="{{ route('admin.logs.user') }}" class="menu-link {{ request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.jobs.users.index') }}" class="menu-link {{ request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'active' : '' }}">
                                             <span class="menu-text">{{ __('Job Applied') }}</span>
                                         </a>
                                     </li>
@@ -196,6 +196,13 @@
                             </a>
                         </li>
                     @endif
+
+                    <li class="menu-item {{ request()->is('admin/contacts') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="fe-map"></i></span>
+                                <span class="menu-text"> {{ __('Contact') }} </span>
+                            </a>
+                        </li>
 
                 @endif
 

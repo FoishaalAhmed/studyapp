@@ -8,9 +8,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
     
     Route::controller(UserLogController::class)->group(function () {
         Route::get('user-logs', 'userLog')->name('logs.user');
-        Route::post('writer-logs', 'writerLog')->name('logs.writer');
-        Route::post('writer-history', 'writerDetail')->name('writer.history');
-        Route::post('logs/destroy/{log}', 'destroy')->name('logs.destroy');
+        Route::get('writer-logs', 'writerLog')->name('logs.writer');
+        Route::get('writer-history', 'writerDetail')->name('writer.history');
+        Route::delete('logs/destroy/{log}', 'destroy')->name('logs.destroy');
     });
 
     Route::controller(QueryController::class)->as('queries.')->prefix('queries')->group(function () {
