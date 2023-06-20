@@ -115,6 +115,15 @@
                         </div>
                     </li>
 
+                    @if (module('Forum') && isActive('Forum'))
+                        <li class="menu-item {{ request()->is('admin/forums/*') || request()->is('admin/forums') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.forums.index') }}" class="menu-link {{ request()->is('admin/forums/*') || request()->is('admin/forums') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="mdi mdi-text-box-multiple-outline"></i></span>
+                                <span class="menu-text"> {{ __('Forums') }} </span>
+                            </a>
+                        </li>
+                    @endif
+
                     
                     @if (module('UserAccess') && isActive('UserAccess'))
                         <li class="menu-item {{ request()->is('admin/writer-logs') || request()->is('admin/user-logs') || request()->is('admin/accesses') || request()->is('admin/accesses/*') ? 'menuitem-active' : '' }}">
@@ -188,21 +197,21 @@
                         </li>
                     @endif
 
-                    @if (module('Forum') && isActive('Forum'))
-                        <li class="menu-item {{ request()->is('admin/forums/*') || request()->is('admin/forums') ? 'menuitem-active' : '' }}">
-                            <a href="{{ route('admin.forums.index') }}" class="menu-link {{ request()->is('admin/forums/*') || request()->is('admin/forums') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="mdi mdi-text-box-multiple-outline"></i></span>
-                                <span class="menu-text"> {{ __('Forums') }} </span>
+                    @if (module('Testimonial') && isActive('Testimonial'))
+                        <li class="menu-item {{ request()->is('admin/testimonials') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.testimonials.index') }}" class="menu-link {{ request()->is('admin/testimonials') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="fe-user-check"></i></span>
+                                <span class="menu-text"> {{ __('Testimonial') }} </span>
                             </a>
                         </li>
                     @endif
 
                     <li class="menu-item {{ request()->is('admin/contacts') ? 'menuitem-active' : '' }}">
-                            <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="fe-map"></i></span>
-                                <span class="menu-text"> {{ __('Contact') }} </span>
-                            </a>
-                        </li>
+                        <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-map"></i></span>
+                            <span class="menu-text"> {{ __('Contact') }} </span>
+                        </a>
+                    </li>
 
                 @endif
 
