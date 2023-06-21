@@ -6,5 +6,6 @@
     "UserAccess": true,
     "Forum": true,
     "Job": true,
-    "Testimonial": true
+    "Testimonial": true,
+    "Blog": true
 }

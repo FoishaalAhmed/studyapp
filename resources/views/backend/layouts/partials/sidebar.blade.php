@@ -197,6 +197,15 @@
                         </li>
                     @endif
 
+                    @if (module('Blog') && isActive('Blog'))
+                        <li class="menu-item {{ request()->is('admin/blogs') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.blogs.index') }}" class="menu-link {{ request()->is('admin/blogs') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="fe-book"></i></span>
+                                <span class="menu-text"> {{ __('Blog') }} </span>
+                            </a>
+                        </li>
+                    @endif
+
                     @if (module('Testimonial') && isActive('Testimonial'))
                         <li class="menu-item {{ request()->is('admin/testimonials') ? 'menuitem-active' : '' }}">
                             <a href="{{ route('admin.testimonials.index') }}" class="menu-link {{ request()->is('admin/testimonials') ? 'active' : '' }}">
