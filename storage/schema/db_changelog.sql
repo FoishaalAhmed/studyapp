@@ -7,3 +7,7 @@ ALTER TABLE `testimonials` CHANGE `status` `status` VARCHAR(15) CHARACTER SET ut
 -- Blog table
 
 ALTER TABLE `blogs` CHANGE `status` `status` VARCHAR(15) NOT NULL DEFAULT 'In Review' COMMENT 'In Review, Published'; 
+
+-- Buy table
+
+ALTER TABLE `buys` CHANGE `status` `status` VARCHAR(15) NOT NULL DEFAULT 'Not Confirm' COMMENT 'Not Confirm, Confirm'; 

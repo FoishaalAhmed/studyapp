@@ -222,6 +222,13 @@
                         </a>
                     </li>
 
+                    <li class="menu-item {{ request()->is('admin/resource-buys') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.buys.index') }}" class="menu-link {{ request()->is('admin/resource-buys') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="fe-dollar-sign"></i></span>
+                                <span class="menu-text"> {{ __('Resource Sell') }} </span>
+                            </a>
+                        </li>
+
                 @endif
 
 
