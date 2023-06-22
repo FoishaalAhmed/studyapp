@@ -1,0 +1,13 @@
+{
+    "name": "Subject",
+    "alias": "subject",
+     "core": true,
+    "version": "1.0",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Subject\\Providers\\SubjectServiceProvider"
+    ],
+    "files": []
+}

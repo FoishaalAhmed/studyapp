@@ -9,5 +9,6 @@
     "Testimonial": true,
     "Blog": true,
     "Faq": true,
-    "Content": true
+    "Content": true,
+    "Subject": true
 }

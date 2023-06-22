@@ -93,6 +93,13 @@
                         </div>
                     </li>
 
+                    <li class="menu-item {{ request()->is('admin/subjects/*') || request()->is('admin/subjects') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.subjects.index') }}" class="menu-link {{ request()->is('admin/subjects/*') || request()->is('admin/subjects') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-book"></i></span>
+                            <span class="menu-text"> {{ __('Subjects') }} </span>
+                        </a>
+                    </li>
+
                     <li class="menu-item {{ request()->is('admin/addons') || request()->is('admin/settings') ? 'menuitem-active' : '' }}">
                         <a href="#menuSetting" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="fe-settings"></i></span>
