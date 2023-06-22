@@ -215,6 +215,15 @@
                         </li>
                     @endif
 
+                    @if (module('Faq') && isActive('Faq'))
+                        <li class="menu-item {{ request()->is('admin/faqs') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('admin.faqs.index') }}" class="menu-link {{ request()->is('admin/faqs') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="mdi mdi-account-question"></i></span>
+                                <span class="menu-text"> {{ __('Faq') }} </span>
+                            </a>
+                        </li>
+                    @endif
+
                     <li class="menu-item {{ request()->is('admin/contacts') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
                             <span class="menu-icon"><i class="fe-map"></i></span>

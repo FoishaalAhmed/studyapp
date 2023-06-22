@@ -7,5 +7,6 @@
     "Forum": true,
     "Job": true,
     "Testimonial": true,
-    "Blog": true
+    "Blog": true,
+    "Faq": true
 }
