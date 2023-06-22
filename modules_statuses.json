@@ -8,5 +8,6 @@
     "Job": true,
     "Testimonial": true,
     "Blog": true,
-    "Faq": true
+    "Faq": true,
+    "Content": true
 }

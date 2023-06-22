@@ -8,3 +8,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
         Route::delete('destroy/{faq}', 'destroy')->name('destroy');
     });
 });
+
+Route::resource('contents', ContentController::class)->except(['show']);

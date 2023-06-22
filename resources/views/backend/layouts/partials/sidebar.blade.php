@@ -224,6 +224,13 @@
                         </li>
                     @endif
 
+                    <li class="menu-item {{ request()->is('admin/contents') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.contents.index') }}" class="menu-link {{ request()->is('admin/contents') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="mdi mdi-text-box-multiple-outline"></i></span>
+                            <span class="menu-text"> {{ __('Content') }} </span>
+                        </a>
+                    </li>
+
                     <li class="menu-item {{ request()->is('admin/contacts') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
                             <span class="menu-icon"><i class="fe-map"></i></span>

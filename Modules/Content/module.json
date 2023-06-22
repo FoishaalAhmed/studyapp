@@ -1,0 +1,13 @@
+{
+    "name": "Content",
+    "alias": "content",
+    "core": true,
+    "version": "1.0",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Content\\Providers\\ContentServiceProvider"
+    ],
+    "files": []
+}
