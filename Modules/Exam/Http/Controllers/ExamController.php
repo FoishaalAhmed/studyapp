@@ -3,18 +3,26 @@
 namespace Modules\Exam\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use Modules\Exam\DataTables\ExamsDataTable;
 use Illuminate\Routing\Controller;
+use Modules\Exam\Entities\Exam;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
+    protected $examModelObject;
+
+    public function __construct()
+    {
+        $this->examModelObject = new Exam();
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(ExamsDataTable $dataTable)
     {
-        return view('exam::index');
+        return $dataTable->render('exam::exams.index');
     }
 
     /**

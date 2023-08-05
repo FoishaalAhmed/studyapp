@@ -16,8 +16,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
     Route::controller(ExamController::class)->prefix('exams')->as('exams.')
     ->group(function () {
         Route::get('', 'index')->name('index');
-        Route::post('store', 'store')->name('store');
+        Route::get('status/{exam}/{status}', 'status')->name('status');
         Route::put('update', 'update')->name('update');
-        Route::delete('destroy/{examType}', 'destroy')->name('destroy');
+        Route::delete('destroy/{exam}', 'destroy')->name('destroy');
     });
 });
