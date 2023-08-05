@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function index(CategoriesDataTable $dataTable)
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::oldest('name')->get();
         return $dataTable->render('category::category', compact('categories'));
     }
 

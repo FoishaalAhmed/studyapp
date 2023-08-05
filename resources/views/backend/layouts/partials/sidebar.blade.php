@@ -34,6 +34,39 @@
                 <li class="menu-title">{{ __('Web') }}</li>
 
                 @if (auth()->user()->hasRole('Admin'))
+
+                    <li class="menu-item">
+                        <a href="#resource" data-bs-toggle="collapse" class="menu-link">
+                            <span class="menu-icon"><i class="mdi mdi-share-variant"></i></span>
+                            <span class="menu-text"> {{ __('Resources') }} </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="resource">
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a href="#exam" data-bs-toggle="collapse" class="menu-link">
+                                        <span class="menu-text"> {{ __('Exam') }} </span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+                                    <div class="collapse" id="exam">
+                                        <ul class="sub-menu">
+                                            <li class="menu-item">
+                                                <a href="{{ route('admin.exam-types.index') }}" class="menu-link">
+                                                    <span class="menu-text">{{ __('Type') }}</span>
+                                                </a>
+                                            </li>
+                                            <li class="menu-item">
+                                                <a href="javascript: void(0);" class="menu-link">
+                                                    <span class="menu-text">{{ __('Exam') }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                     <li class="menu-item {{ request()->is('admin/users/*') || request()->is('admin/users') || request()->is('admin/writers/*') || request()->is('admin/writers') || request()->is('admin/admins/*') || request()->is('admin/admins') ? 'menuitem-active' : '' }}">
                         <a href="#menuUsers" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="fe-users"></i></span>

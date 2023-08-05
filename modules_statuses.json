@@ -10,5 +10,6 @@
     "Blog": true,
     "Faq": true,
     "Content": true,
-    "Subject": true
+    "Subject": true,
+    "Exam": true
 }
