@@ -210,3 +210,12 @@ if (!function_exists('getFavIcon')) {
         return !empty(settings('favicon')) && file_exists(settings('favicon')) ? settings('favicon') : 'public/assets/backend/images/logo-sm.png';
     }
 }
+
+if (!function_exists('getSubjectsBByCategory')) {
+    function getSubjectsByCategory($categoryId)
+    {
+        $subjectIds = \Modules\Subject\Entities\CategorySubject::where('category_id', $categoryId)->pluck('subject_id')->toArray();
+
+        return \Modules\Subject\Entities\Subject::whereIn('id', $subjectIds)->get(['id','name']);
+    }
+}

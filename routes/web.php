@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
 
     /** Helpers route start here **/
     Route::post('get-sub-categories', [HelperController::class, 'getSubCategories'])->name('get.sub-category');
+    Route::post('get-category-subject', [HelperController::class, 'getCategorySubject'])->name('get.category-subject');
 
     /** Helpers route end here **/
 

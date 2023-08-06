@@ -7,6 +7,8 @@ use Modules\Exam\DataTables\ExamsDataTable;
 use Illuminate\Routing\Controller;
 use Modules\Exam\Entities\Exam;
 use Illuminate\Http\Request;
+use Modules\Category\Entities\Category;
+use Modules\Exam\Entities\ExamType;
 
 class ExamController extends Controller
 {
@@ -26,42 +28,20 @@ class ExamController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('exam::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('exam::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param Exam $exam
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Exam $exam)
     {
-        return view('exam::edit');
+        $data = [
+            'exam' => $exam,
+            'types' => ExamType::get(['id', 'name']),
+            'categories' => Category::oldest('name')->get(['id', 'name']),
+            'subjects' => getSubjectsByCategory($exam->category_id)
+        ];
+        
+        return view('exam::exams.edit', $data);
     }
 
     /**

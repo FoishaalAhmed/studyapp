@@ -12,4 +12,11 @@ class HelperController extends Controller
         $categories = SubCategory::where('type', $type)->get(['id', 'name']);
         echo json_encode($categories);
     }
+
+    public function getCategorySubject()
+    {
+        $categoryId = request()->category_id;
+        $categories = getSubjectsByCategory($categoryId);
+        echo json_encode($categories);
+    }
 }
