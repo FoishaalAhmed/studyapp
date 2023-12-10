@@ -11,5 +11,6 @@
     "Faq": true,
     "Content": true,
     "Subject": true,
-    "Exam": true
+    "Exam": true,
+    "LectureSheet": true
 }

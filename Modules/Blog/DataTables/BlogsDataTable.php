@@ -5,7 +5,6 @@ namespace Modules\Blog\DataTables;
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;
 use Modules\Blog\Entities\Blog;
-use Str;
 
 class BlogsDataTable extends DataTable
 {

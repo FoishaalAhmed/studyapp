@@ -5,7 +5,6 @@ if (!function_exists('dataTableOptions')) {
     function dataTableOptions(array $options = [])
     {
         $default = [
-            'order' => [[0, 'desc']],
             'pageLength' => settings('row_per_page')
         ];
 
@@ -58,9 +57,9 @@ if (!function_exists('uploadImage')) {
      *
      * @param string $file [original source]
      * @param string $location [file path where to upload]
+     * @param string $name [file name]
      * @param string $size [optional - for resizing the main file]
      * @param string $old [optional - delete the old file(pass only name with extension)]
-     * @param string $thumb [optional - thumb size (70*70) ]
      *
      * @return Array
      */
@@ -93,6 +92,53 @@ if (!function_exists('uploadImage')) {
                 $image->resize($size[0], $size[1]);
             }
             $image->save($location . '/' . $filename);
+
+            $response['file_name'] = $filename;
+        } catch (\Exception $e) {
+            $response = [
+                'status' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+        return $response;
+    }
+}
+
+if (!function_exists('uploadFile')) {
+
+    /**
+     * upload Image file
+     *
+     * @param string $file [original source]
+     * @param string $location [file path where to upload]
+     * @param string $name [file name]
+     * @param string $old [optional - delete the old file(pass only name with extension)]
+     *
+     * @return Array
+     */
+    function uploadFile($file, $location, $name, $old = null)
+    {
+        $response = [
+            'status' => true,
+            'message' => __('File uploaded successfully.')
+        ];
+
+        $path = makeDirectory($location);
+
+        if (!$path) {
+            $response = [
+                'status' => false,
+                'message' => __('Directory could not been created.'),
+            ];
+        }
+
+        if (!empty($old)) {
+            removeFile($old);
+        }
+
+        try {
+            $filename = $name. '_'.time() . '.' . strtolower($file->extension());
+            $file->save($location . '/' . $filename);
 
             $response['file_name'] = $filename;
         } catch (\Exception $e) {

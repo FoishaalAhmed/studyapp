@@ -28,7 +28,7 @@ return new class extends Migration
             $table->date('result_date')->nullable();
             $table->time('result_time')->nullable();
             $table->text('note')->nullable();
-            $table->boolean('type')->default(false)->comment('0=free, 1= premium');
+            $table->string('type')->default('Free')->comment('Free,Premium');
             $table->float('price', 11, 2)->nullable();
             $table->timestamps();
         });

@@ -1,0 +1,11 @@
+{
+    "name": "LectureSheet",
+    "alias": "lecturesheet",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LectureSheet\\Providers\\LectureSheetServiceProvider"
+    ],
+    "files": []
+}
