@@ -42,7 +42,7 @@ class LectureSheetsDataTable extends DataTable
 
     public function query()
     {
-        $query = LectureSheet::with(['category:id,name', 'subject:id,name'])->latest();
+        $query = LectureSheet::with(['category:id,name', 'subject:id,name']);
         return $this->applyScopes($query);
     }
 

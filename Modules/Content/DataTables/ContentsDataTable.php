@@ -33,7 +33,7 @@ class ContentsDataTable extends DataTable
 
     public function query()
     {
-        $query = Content::oldest('category');
+        $query = Content::select('*');
         return $this->applyScopes($query);
     }
 

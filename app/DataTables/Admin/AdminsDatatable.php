@@ -41,7 +41,7 @@ class AdminsDataTable extends DataTable
     {
         $query = User::whereHas("roles", function ($q) {
             $q->where("name", "Admin");
-        })->orderBy('name', 'asc');
+        });
         return $this->applyScopes($query);
     }
 

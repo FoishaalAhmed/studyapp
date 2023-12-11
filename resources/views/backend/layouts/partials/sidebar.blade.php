@@ -35,33 +35,38 @@
 
                 @if (auth()->user()->hasRole('Admin'))
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'menuitem-active' : '' }}">
                         <a href="#resource" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="mdi mdi-share-variant"></i></span>
                             <span class="menu-text"> {{ __('Resources') }} </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse" id="resource">
+                        <div class="collapse {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'show' : '' }}" id="resource">
                             <ul class="sub-menu">
-                                <li class="menu-item">
+                                <li class="menu-item {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') ? 'menuitem-active' : '' }}">
                                     <a href="#exam" data-bs-toggle="collapse" class="menu-link">
                                         <span class="menu-text"> {{ __('Exam') }} </span>
                                         <span class="menu-arrow"></span>
                                     </a>
-                                    <div class="collapse" id="exam">
+                                    <div class="collapse {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') ? 'show' : '' }}" id="exam">
                                         <ul class="sub-menu">
-                                            <li class="menu-item">
+                                            <li class="menu-item {{ request()->is('admin/exam-types') ? 'menuitem-active' : '' }}">
                                                 <a href="{{ route('admin.exam-types.index') }}" class="menu-link">
                                                     <span class="menu-text">{{ __('Type') }}</span>
                                                 </a>
                                             </li>
-                                            <li class="menu-item">
-                                                <a href="javascript: void(0);" class="menu-link">
+                                            <li class="menu-item {{ request()->is('admin/exams/*') || request()->is('admin/exams') ? 'menuitem-active' : '' }}">
+                                                <a href="{{ route('admin.exams.index') }}" class="menu-link">
                                                     <span class="menu-text">{{ __('Exam') }}</span>
                                                 </a>
                                             </li>
                                         </ul>
                                     </div>
+                                </li>
+                                <li class="menu-item {{ request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('admin.lecture_sheets.index') }}" class="menu-link {{ request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Lecture Sheets') }}</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

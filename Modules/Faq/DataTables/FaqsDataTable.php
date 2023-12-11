@@ -29,7 +29,7 @@ class FaqsDataTable extends DataTable
 
     public function query()
     {
-        $query = Faq::oldest('question');
+        $query = Faq::select('*');
         return $this->applyScopes($query);
     }
 

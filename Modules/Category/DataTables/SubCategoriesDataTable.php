@@ -39,8 +39,8 @@ class SubCategoriesDataTable extends DataTable
         $category = request()->category_id;
 
         $query = !empty($category) 
-                    ? SubCategory::with(['categoryType:id,name', 'category:id,name'])->oldest('name')->where('category_id', $category)
-                    : SubCategory::with(['categoryType:id,name', 'category:id,name'])->oldest('name');
+                    ? SubCategory::with(['categoryType:id,name', 'category:id,name'])->where('category_id', $category)
+                    : SubCategory::with(['categoryType:id,name', 'category:id,name']);
         return $this->applyScopes($query);
     }
 

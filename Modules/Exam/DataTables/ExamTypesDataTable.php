@@ -27,7 +27,7 @@ class ExamTypesDataTable extends DataTable
 
     public function query()
     {
-        $query = ExamType::oldest('name');
+        $query = ExamType::select('*');
         return $this->applyScopes($query);
     }
 

@@ -30,7 +30,7 @@ class CategoriesDataTable extends DataTable
 
     public function query()
     {
-        $query = Category::oldest('name');
+        $query = Category::select('*');
         return $this->applyScopes($query);
     }
 

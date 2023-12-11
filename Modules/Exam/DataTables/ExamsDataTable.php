@@ -42,7 +42,7 @@ class ExamsDataTable extends DataTable
 
     public function query()
     {
-        $query = Exam::with(['category:id,name', 'examType:id,name', 'subject:id,name'])->latest();
+        $query = Exam::with(['category:id,name', 'examType:id,name', 'subject:id,name']);
         return $this->applyScopes($query);
     }
 

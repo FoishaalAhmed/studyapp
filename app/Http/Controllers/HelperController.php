@@ -13,6 +13,13 @@ class HelperController extends Controller
         echo json_encode($categories);
     }
 
+    public function getChildCategorySubject()
+    {
+        $childCategoryId = request()->category_id;
+        $subjects = getSubjectsByChildCategory($childCategoryId);
+        echo json_encode($subjects);
+    }
+
     public function getCategorySubject()
     {
         $categoryId = request()->category_id;

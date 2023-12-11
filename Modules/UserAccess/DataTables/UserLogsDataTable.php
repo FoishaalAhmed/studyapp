@@ -33,7 +33,7 @@ class UserLogsDataTable extends DataTable
             $q->where("name", "User");
         })->pluck('id')->toArray();
 
-        $query = UserLog::with('user')->whereIn('user_id', $userIds)->latest()->take(100);
+        $query = UserLog::with('user')->whereIn('user_id', $userIds)->take(100);
         return $this->applyScopes($query);
     }
 

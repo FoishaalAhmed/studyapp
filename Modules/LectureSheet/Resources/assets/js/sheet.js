@@ -1,5 +1,11 @@
 'use strict';
 
+// preview thumb photo on change
+$(document).on('change','#thumb-photo-input', function() {
+    readPicture(this, '#thumb-photo')
+});
+
+
 $('#type').on('change', function() {
     let type = $('#type').val();
     if (type == 'Premium') {

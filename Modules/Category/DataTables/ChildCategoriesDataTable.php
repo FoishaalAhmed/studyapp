@@ -39,8 +39,8 @@ class ChildCategoriesDataTable extends DataTable
     {
         $subCategory = request()->category_id;
         $query = !empty($subCategory) 
-                    ? ChildCategory::with(['categoryType:id,name', 'subCategory:id,name'])->oldest('name')->where('sub_category_id', $subCategory)
-                    : ChildCategory::with(['categoryType:id,name', 'subCategory:id,name'])->oldest('name');
+                    ? ChildCategory::with(['categoryType:id,name', 'subCategory:id,name'])->where('sub_category_id', $subCategory)
+                    : ChildCategory::with(['categoryType:id,name', 'subCategory:id,name']);
         return $this->applyScopes($query);
     }
 

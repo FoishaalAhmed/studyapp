@@ -30,7 +30,7 @@ class SubjectsDataTable extends DataTable
 
     public function query()
     {
-        $query = Subject::oldest('name');
+        $query = Subject::select('*');
         return $this->applyScopes($query);
     }
 

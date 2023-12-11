@@ -42,7 +42,7 @@ class TestimonialsDataTable extends DataTable
 
     public function query()
     {
-        $query = Testimonial::latest();
+        $query = Testimonial::select('*');
         return $this->applyScopes($query);
     }
 

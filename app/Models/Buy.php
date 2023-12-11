@@ -84,7 +84,6 @@ class Buy extends Model
     public function getUserResourceBuyForAdmin($type)
     {
         $query = $this::join('users', 'buys.user_id', '=', 'users.id')
-                        ->orderBy('buys.id', 'desc')
                         ->where('buys.type', $type);
         if($type == 'ebook') {
             $query->join('ebooks', 'buys.resource_id', '=', 'ebooks.id')

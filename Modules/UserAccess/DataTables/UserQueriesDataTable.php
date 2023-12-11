@@ -37,7 +37,7 @@ class UserQueriesDataTable extends DataTable
 
     public function query()
     {
-        $query = Query::latest();
+        $query = Query::select('*');
         return $this->applyScopes($query);
     }
 

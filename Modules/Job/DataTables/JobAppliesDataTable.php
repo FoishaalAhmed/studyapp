@@ -28,7 +28,7 @@ class JobAppliesDataTable extends DataTable
 
     public function query()
     {
-        $query = JobUser::with(['job:id,title', 'user:id,name'])->latest()->groupBy('user_id', 'job_id');
+        $query = JobUser::with(['job:id,title', 'user:id,name'])->groupBy('user_id', 'job_id');
         return $this->applyScopes($query);
     }
 

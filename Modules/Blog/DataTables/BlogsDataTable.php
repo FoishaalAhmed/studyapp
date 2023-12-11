@@ -36,7 +36,7 @@ class BlogsDataTable extends DataTable
 
     public function query()
     {
-        $query = Blog::latest('date');
+        $query = Blog::select('*');
         return $this->applyScopes($query);
     }
 

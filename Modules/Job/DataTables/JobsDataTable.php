@@ -40,7 +40,7 @@ class JobsDataTable extends DataTable
 
     public function query()
     {
-        $query = request()->has('job_category_id') ? Job::with(['category:id,name'])->where('job_category_id', request()->job_category_id)->latest() : Job::with('category:id,name')->latest();
+        $query = request()->has('job_category_id') ? Job::with(['category:id,name'])->where('job_category_id', request()->job_category_id) : Job::with('category:id,name');
 
         return $this->applyScopes($query);
     }

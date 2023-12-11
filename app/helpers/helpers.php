@@ -5,6 +5,7 @@ if (!function_exists('dataTableOptions')) {
     function dataTableOptions(array $options = [])
     {
         $default = [
+            'order' => [[0, 'desc']],
             'pageLength' => settings('row_per_page')
         ];
 
@@ -138,7 +139,7 @@ if (!function_exists('uploadFile')) {
 
         try {
             $filename = $name. '_'.time() . '.' . strtolower($file->extension());
-            $file->save($location . '/' . $filename);
+            $file->move($location, $filename);
 
             $response['file_name'] = $filename;
         } catch (\Exception $e) {
@@ -257,9 +258,23 @@ if (!function_exists('getFavIcon')) {
     }
 }
 
-if (!function_exists('getSubjectsBByCategory')) {
+if (!function_exists('getSubjectsByCategory')) {
     function getSubjectsByCategory($categoryId)
     {
+        $subjectIds = \Modules\Subject\Entities\CategorySubject::where('category_id', $categoryId)->pluck('subject_id')->toArray();
+
+        return \Modules\Subject\Entities\Subject::whereIn('id', $subjectIds)->get(['id','name']);
+    }
+}
+
+if (!function_exists('getSubjectsByChildCategory')) {
+    function getSubjectsByChildCategory($childCategoryId)
+    {
+        
+        $subCategoryId = \Modules\Category\Entities\ChildCategory::where('id', $childCategoryId)->first('sub_category_id');
+
+        $categoryId = \Modules\Category\Entities\SubCategory::where('id', $subCategoryId)->first('category_id');
+
         $subjectIds = \Modules\Subject\Entities\CategorySubject::where('category_id', $categoryId)->pluck('subject_id')->toArray();
 
         return \Modules\Subject\Entities\Subject::whereIn('id', $subjectIds)->get(['id','name']);

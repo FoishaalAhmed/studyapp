@@ -41,7 +41,7 @@ class WritesDataTable extends DataTable
     {
         $query = User::whereHas("roles", function ($q) {
             $q->where("name", "Writer");
-        })->orderBy('name', 'asc');
+        });
         return $this->applyScopes($query);
     }
 

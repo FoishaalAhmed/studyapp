@@ -27,7 +27,7 @@ class CategoryTypesDataTable extends DataTable
 
     public function query()
     {
-        $query = CategoryType::oldest('name');
+        $query = CategoryType::select('*');
         return $this->applyScopes($query);
     }
 

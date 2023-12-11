@@ -2,15 +2,12 @@
 
 namespace Modules\LectureSheet\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Category\Entities\ChildCategory;
-use Modules\Category\Entities\SubCategory;
 use Modules\LectureSheet\Entities\LectureSheet;
+use Modules\Subject\Entities\{Subject, CategorySubject};
+use Modules\Category\Entities\{SubCategory, ChildCategory};
 use Modules\LectureSheet\DataTables\LectureSheetsDataTable;
-use Modules\Subject\Entities\CategorySubject;
-use Modules\Subject\Entities\Subject;
+use Modules\LectureSheet\Http\Requests\LectureSheetRequest;
 
 class LectureSheetController extends Controller
 {
@@ -52,22 +49,46 @@ class LectureSheetController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * @param LectureSheetRequest $request
+     * @param LectureSheet $sheet
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(LectureSheetRequest $request, LectureSheet $sheet)
     {
-        //
+        $this->lectureSheetModelObject->updateLectureSheet($request, $sheet);
+        return redirect()->route('admin.lecture_sheets.index');
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
+     * @param LectureSheet $sheet
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(LectureSheet $sheet)
     {
-        //
+        $this->lectureSheetModelObject->destroyLectureSheet($sheet);
+        return back();
+    }
+
+    public function status(LectureSheet $sheet, string $status)
+    {
+        $sheet->status = $status;
+        $sheetStatus = $sheet->save();
+
+        $sheetStatus
+            ? session()->flash('success', 'Lecture Sheet Status Changed Successfully!')
+            : session()->flash('error', 'Something Went Wrong!');
+        return back();
+    }
+
+    public function download(LectureSheet $sheet)
+    {
+
+        if (! file_exists($sheet->file)) {
+            session()->flash('error', 'File does not exists!');
+            return back();
+        }
+
+        return response()->download($sheet->file);
     }
 }

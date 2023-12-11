@@ -4,6 +4,7 @@
 
 @section('css')
     <link href="{{ asset('public/assets/backend/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('Modules/LectureSheet/Resources/assets/css/sheet.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -39,7 +40,8 @@
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">{{ __('Subject') }}</label>
                                     <select class="form-control" name="subject_id" id="subject_id" data-toggle="select2" data-width="100%" required="">
-                                        @foreach ($categories as $subject)
+                                        <option value="">{{ __('Select One') }}</option>
+                                        @foreach ($subjects as $subject)
                                             <option value="{{ $subject->id }}" {{ $subject->id == $sheet->subject_id ? 'selected' : '' }}>{{ $subject->name }}</option>
                                         @endforeach
                                     </select>
@@ -83,22 +85,25 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-3">
                                     <div class="card card-border">
-                                        <img class="card-img-top img-fluid" id="thumb-photo" src="{{ file_exists($sheet->thumb) ?  asset($sheet->thumb) : asset('public/images/dummy/about.jpg') }}" alt="{{ __('Thumb') }}">
+                                        <h5 class="card-title text-center mt-2 text-strong">{{ __('Thumb Image') }}</h5>
+                                        <img class="card-img-top sheet-file" id="thumb-photo" src="{{ file_exists($sheet->thumb) ?  asset($sheet->thumb) : asset('public/images/dummy/about.jpg') }}" alt="{{ __('Thumb') }}">
                                         <div class="card-body">
-                                            <input type="file" name="photo" class="form-control" id="thumb-photo-input">
+                                            <input type="file" name="thumb" class="form-control" id="thumb-photo-input">
                                             @error('thumb')
                                                 <div class="invalid-feedback error">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <div class="card card-border">
-                                        <img class="card-img-top img-fluid" id="file-photo" src="{{ file_exists($sheet->file) ?  asset($sheet->file) : asset('public/images/dummy/about.jpg') }}" alt="{{ __('File') }}">
+                                         <h5 class="card-title text-center mt-2 text-strong">{{ __('Lecture Sheet File') }}</h5>
+                                        <img class="card-img-top sheet-file" src="{{ asset('public/images/dummy/about.jpg') }}" alt="{{ __('File') }}">
                                         <div class="card-body">
-                                            <input type="file" name="photo" class="form-control" id="file-photo-input">
+                                            <input type="file" name="file" class="form-control">
                                             @error('file')
                                                 <div class="invalid-feedback error">
                                                     {{ $message }}
@@ -134,7 +139,7 @@
     <script>
         'use strict';
         let csrfToken = "{{ csrf_token() }}";
-        let url = "{{ route('get.get.child-category-subject') }}";
+        let url = "{{ route('get.child-category-subject') }}";
     </script>
 
     <script src="{{ asset('Modules/LectureSheet/Resources/assets/js/sheet.js') }}"></script>

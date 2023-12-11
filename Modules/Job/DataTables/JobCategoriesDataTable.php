@@ -30,7 +30,7 @@ class JobCategoriesDataTable extends DataTable
 
     public function query()
     {
-        $query = JobCategory::oldest('name');
+        $query = JobCategory::select('*');
         return $this->applyScopes($query);
     }
 

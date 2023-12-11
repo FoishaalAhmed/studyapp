@@ -49,7 +49,7 @@ class LectureSheet extends Model
 
             $response = uploadFile($image, 'public/images/sheets/', 'sheets');
 
-            if (! $response['status']) {
+            if (!$response['status']) {
                 session()->flash('error', $response['message']);
                 return;
             }
@@ -63,7 +63,7 @@ class LectureSheet extends Model
 
             $response = uploadImage($thumb, 'public/images/sheets/', 'sheets', '465*260');
 
-            if (! $response['status']) {
+            if (!$response['status']) {
                 session()->flash('error', $response['message']);
                 return;
             }
@@ -83,53 +83,53 @@ class LectureSheet extends Model
             : session()->flash('error', 'Something Went Wrong!');
     }
 
-    public function updateLectureSheet(Object $request, Object $lecture)
+    public function updateLectureSheet(Object $request, Object $sheet)
     {
         $image = $request->file('file');
 
         if ($image) {
 
-            $response = uploadFile($image, 'public/images/sheets/', 'sheets', $lecture->file);
-            
-            if (! $response['status']) {
+            $response = uploadFile($image, 'public/images/sheets/', 'thumb', $sheet->file);
+
+            if (!$response['status']) {
                 session()->flash('error', $response['message']);
                 return;
             }
 
-            $lecture->file = 'public/images/sheets/' . $response['file_name'];
+            $sheet->file = 'public/images/sheets/' . $response['file_name'];
         }
 
         $thumb = $request->file('thumb');
 
         if ($thumb) {
 
-            $response = uploadImage($thumb, 'public/images/sheets/', 'sheets', '465*260', $lecture->thumb);
-            
-            if (! $response['status']) {
+            $response = uploadImage($thumb, 'public/images/sheets/', 'sheet', '465*260', $sheet->thumb);
+
+            if (!$response['status']) {
                 session()->flash('error', $response['message']);
                 return;
             }
 
-            $lecture->thumb = 'public/images/sheets/' . $response['file_name'];
+            $sheet->thumb = 'public/images/sheets/' . $response['file_name'];
         }
 
-        $lecture->child_category_id = $request->child_category_id;
-        $lecture->subject_id        = $request->subject_id;
-        $lecture->chapter           = $request->chapter;
-        $lecture->type              = $request->type;
-        $lecture->price             = $request->price;
-        $updateLectureSheet         = $lecture->save();
+        $sheet->child_category_id = $request->child_category_id;
+        $sheet->subject_id        = $request->subject_id;
+        $sheet->chapter           = $request->chapter;
+        $sheet->type              = $request->type;
+        $sheet->price             = $request->price;
+        $updateLectureSheet         = $sheet->save();
 
         $updateLectureSheet
             ? session()->flash('success', 'Lecture Sheet Updated Successfully!')
             : session()->flash('error', 'Something Went Wrong!');
     }
 
-    public function destroyLectureSheet(Object $lecture)
+    public function destroyLectureSheet(Object $sheet)
     {
-        if (file_exists($lecture->thumb)) unlink($lecture->thumb);
-        if (file_exists($lecture->file)) unlink($lecture->file);
-        $destroyLectureSheet = $lecture->delete();
+        if (file_exists($sheet->thumb)) unlink($sheet->thumb);
+        if (file_exists($sheet->file)) unlink($sheet->file);
+        $destroyLectureSheet = $sheet->delete();
 
         $destroyLectureSheet
             ? session()->flash('success', 'Lecture Sheet Deleted Successfully!')

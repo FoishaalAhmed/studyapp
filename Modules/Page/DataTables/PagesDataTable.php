@@ -37,7 +37,7 @@ class PagesDataTable extends DataTable
 
     public function query()
     {
-        $query = Page::latest();
+        $query = Page::select('*');
         return $this->applyScopes($query);
     }
 
