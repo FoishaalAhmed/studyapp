@@ -1,16 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\Route;
 
-Route::prefix('ebook')->group(function() {
-    Route::get('/', 'EbookController@index');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+    Route::controller(EbookController::class)->prefix('ebooks')->as('ebooks.')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('edit/{ebook}', 'edit')->name('edit');
+            Route::get('status/{ebook}/{status}', 'status')->name('status');
+            Route::put('update/{ebook}', 'update')->name('update');
+            Route::delete('destroy/{ebook}', 'destroy')->name('destroy');
+        });
 });

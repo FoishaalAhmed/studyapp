@@ -15,3 +15,7 @@ ALTER TABLE `exams` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Re
 -- Lecture Sheet
 ALTER TABLE `lecture_sheets` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Premium' COMMENT 'Free,Premium';
 ALTER TABLE `lecture_sheets` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Published, In Review';
+
+-- Ebook
+ALTER TABLE `ebooks` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Premium' COMMENT 'Free,Premium';
+ALTER TABLE `ebooks` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Published, In Review';

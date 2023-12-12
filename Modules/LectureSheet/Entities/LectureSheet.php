@@ -47,7 +47,7 @@ class LectureSheet extends Model
 
         if ($image) {
 
-            $response = uploadFile($image, 'public/images/sheets/', 'sheets');
+            $response = uploadFile($image, 'public/images/sheets/', 'sheet');
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);
@@ -61,7 +61,7 @@ class LectureSheet extends Model
 
         if ($thumb) {
 
-            $response = uploadImage($thumb, 'public/images/sheets/', 'sheets', '465*260');
+            $response = uploadImage($thumb, 'public/images/sheets/', 'thumb', '465*260');
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);
@@ -89,7 +89,7 @@ class LectureSheet extends Model
 
         if ($image) {
 
-            $response = uploadFile($image, 'public/images/sheets/', 'thumb', $sheet->file);
+            $response = uploadFile($image, 'public/images/sheets/', 'sheet', $sheet->file);
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);
@@ -103,7 +103,7 @@ class LectureSheet extends Model
 
         if ($thumb) {
 
-            $response = uploadImage($thumb, 'public/images/sheets/', 'sheet', '465*260', $sheet->thumb);
+            $response = uploadImage($thumb, 'public/images/sheets/', 'thumb', '465*260', $sheet->thumb);
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);
