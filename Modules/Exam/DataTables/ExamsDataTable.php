@@ -19,30 +19,30 @@ class ExamsDataTable extends DataTable
             ->addColumn('exam_type', function ($exam) {
                 return  $exam->examType?->name;
             })
-            ->addColumn('subject_id', function ($exam) {
-                return $exam->subject?->name;
-            })
             ->addColumn('title', function ($exam) {
                 return  $exam->title;
-            })
-            ->addColumn('chapter', function ($exam) {
-                return  $exam->chapter;
             })
             ->addColumn('type', function ($exam) {
                 return  $exam->type;
             })
-            ->addColumn('action', function ($exam) {
-                $status = $exam->status == 'Published' ? '<a href="' . route('admin.exams.status', [$exam->id, 'In Review']) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-thumbs-up "></i></a>' : '<a href="' . route('admin.exams.status', [$exam->id, 'Published']) . '" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-thumbs-down"></i></a>&nbsp;';
-                $delete = '<a href="' . route('admin.exams.destroy', $exam->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $status . $delete;
+            ->addColumn('photo', function ($exam) {
+                return '<img class="d-flex align-items-start rounded me-2" src="' . asset($exam->photo) . '" alt="Exam Photo" height="48">';
             })
-            ->rawColumns(['action'])
+            ->addColumn('action', function ($exam) {
+                $status = $exam->status == 'Published' ? '<a href="' . route('admin.exams.status', [$exam->id, 'In Review']) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-thumbs-up "></i></a>&nbsp;' : '<a href="' . route('admin.exams.status', [$exam->id, 'Published']) . '" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-thumbs-down"></i></a>&nbsp;';
+
+                $edit = '<a href="' . route('admin.exams.edit', $exam->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+
+                $delete = '<a href="' . route('admin.exams.destroy', $exam->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
+                return $status . $edit . $delete;
+            })
+            ->rawColumns(['photo', 'action'])
             ->make(true);
     }
 
     public function query()
     {
-        $query = Exam::with(['category:id,name', 'examType:id,name', 'subject:id,name']);
+        $query = Exam::with(['category:id,name', 'examType:id,name']);
         return $this->applyScopes($query);
     }
 
@@ -73,24 +73,19 @@ class ExamsDataTable extends DataTable
                 'title' => __('Type')
             ])
             ->addColumn([
-                'data' => 'subject_id',
-                'name' => 'subject.name',
-                'title' => __('Subject')
-            ])
-            ->addColumn([
                 'data' => 'title',
                 'name' => 'exams.title',
                 'title' => __('Title')
             ])
             ->addColumn([
-                'data' => 'chapter',
-                'name' => 'exams.chapter',
-                'title' => __('Chapter')
-            ])
-            ->addColumn([
                 'data' => 'type',
                 'name' => 'exams.type',
                 'title' => __('Type')
+            ])
+            ->addColumn([
+                'data' => 'photo',
+                'name' => 'exams.photo',
+                'title' => __('Photo')
             ])
             ->addColumn([
                 'data' => 'action',

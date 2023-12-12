@@ -4,6 +4,11 @@ $(function() {
     CKEDITOR.replace('editor')
 });
 
+// preview exam photo on change
+$(document).on('change','#exam-photo-input', function() {
+    readPicture(this, '#exam-photo')
+});
+
 $('#type').on('change', function() {
     let type = $('#type').val();
     if (type == 'Premium') {

@@ -125,14 +125,15 @@ class Exam extends Model
         $image = $request->file('photo');
 
         if ($image) {
-            if (file_exists($exam->photo)) unlink($exam->photo);
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/exams/';
-            $image_url       = $upload_path . $image_full_name;
-            $success         = $image->move($upload_path, $image_full_name);
-            $exam->photo     = $image_url;
+
+            $response = uploadFile($image, 'public/images/exams/', 'exam', $exam->photo);
+
+            if (! $response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $exam->photo = 'public/images/exams/' . $response['file_name'];
         }
 
         $exam->subject_id = $request->exam_type != 1 ? $request->subject_id : null;;
@@ -146,11 +147,11 @@ class Exam extends Model
         $exam->negative_mark = $request->negative_mark;
         $this->description = $request->description;
         $exam->time = $request->time;
-        $exam->start_date = $request->type == 'Live' ? date('Y-m-d', strtotime($request->start_date)) : null;
-        $exam->start_time = $request->type == 'Live' ? date('H:i', strtotime($request->start_time)) : null;
-        $exam->result_date = $request->type == 'Live' ? date('Y-m-d', strtotime($request->result_date)) : null;
-        $exam->result_time = $request->type == 'Live' ? date('H:i', strtotime($request->result_time)) : null;
-        $exam->note = $request->type == 'Live' ? $request->note : null;
+        $exam->start_date = $request->exam_type == 1 ? date('Y-m-d', strtotime($request->start_date)) : null;
+        $exam->start_time = $request->exam_type == 1 ? date('H:i', strtotime($request->start_time)) : null;
+        $exam->result_date = $request->exam_type == 1 ? date('Y-m-d', strtotime($request->result_date)) : null;
+        $exam->result_time = $request->exam_type == 1 ? date('H:i', strtotime($request->result_time)) : null;
+        $exam->note = $request->exam_type == 1 ? $request->note : null;
         $updateExam = $exam->save();
 
         $updateExam

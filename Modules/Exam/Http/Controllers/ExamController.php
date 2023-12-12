@@ -2,13 +2,12 @@
 
 namespace Modules\Exam\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Exam\DataTables\ExamsDataTable;
-use Illuminate\Routing\Controller;
 use Modules\Exam\Entities\Exam;
-use Illuminate\Http\Request;
-use Modules\Category\Entities\Category;
+use Illuminate\Routing\Controller;
 use Modules\Exam\Entities\ExamType;
+use Modules\Category\Entities\Category;
+use Modules\Exam\DataTables\ExamsDataTable;
+use Modules\Exam\Http\Requests\ExamRequest;
 
 class ExamController extends Controller
 {
@@ -46,22 +45,36 @@ class ExamController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * @param ExamRequest $request
+     * @param Exam $exam
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(ExamRequest $request, Exam $exam)
     {
-        //
+        $this->examModelObject->updateExam($request, $exam);
+        return redirect()->route('admin.exams.index');
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
+     *
+     * @param  \App\Models\Exam  $exam
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Exam $exam)
     {
-        //
+        $this->examModelObject->destroyExam($exam);
+        return redirect()->route('admin.exams.index');
+    }
+
+    public function status(Exam $exam, string $status)
+    {
+        $exam->status = $status;
+        $examStatus = $exam->save();
+
+        $examStatus
+            ? session()->flash('success', 'Exam Status Changed Successfully!')
+            : session()->flash('error', 'Something Went Wrong!');
+        return back();
     }
 }

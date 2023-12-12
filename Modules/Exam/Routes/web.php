@@ -18,7 +18,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
         Route::get('', 'index')->name('index');
         Route::get('edit/{exam}', 'edit')->name('edit');
         Route::get('status/{exam}/{status}', 'status')->name('status');
-        Route::put('update', 'update')->name('update');
+        Route::put('update/{exam}', 'update')->name('update');
         Route::delete('destroy/{exam}', 'destroy')->name('destroy');
     });
 });

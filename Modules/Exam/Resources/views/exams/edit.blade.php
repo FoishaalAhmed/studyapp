@@ -20,8 +20,9 @@
                             <a href="{{ route('admin.exams.index') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Exam') }}</a>
                         </p>
                         
-                        <form action="{{ route('admin.sub-categories.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.exams.update', $exam->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-lg-9">
                                     <div class="row mb-3">
@@ -75,7 +76,7 @@
                                         </div>
                                         <div class="col-lg-4 mb-3" style="display: {{ $exam->exam_type != 3 ? 'none' : '' }}" id="chapter-div">
                                             <label class="form-label">{{ __('Chapter') }}</label>
-                                            <input type="text" name="chapter" id="chapter" class="form-control" placeholder="{{ __('Chapter') }}" required="" value="{{ old('chapter', $exam->chapter) }}">
+                                            <input type="text" name="chapter" id="chapter" class="form-control" placeholder="{{ __('Chapter') }}" value="{{ old('chapter', $exam->chapter) }}">
                                             @error('chapter')
                                                 <div class="invalid-feedback error">
                                                     {{ $message }}
@@ -188,9 +189,9 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="card card-border">
-                                        <img class="card-img-top img-fluid" id="category-photo" src="{{ asset('public/images/dummy/about.jpg') }}" alt="{{ __('Category Image') }}">
+                                        <img class="card-img-top img-fluid" id="exam-photo" src="{{ file_exists($exam->photo) ?  asset($exam->photo) : asset('public/images/dummy/about.jpg') }}" alt="{{ __('Exam Image') }}">
                                         <div class="card-body">
-                                            <input type="file" name="photo" class="form-control" id="category-photo-input">
+                                            <input type="file" name="photo" class="form-control" id="exam-photo-input">
                                             @error('photo')
                                                 <div class="invalid-feedback error">
                                                     {{ $message }}

@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <h4 class="header-title">{{ __('All Exam Type') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="javascript:;" class="btn btn-outline-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#add-modal"><i class="fe-plus-square"></i> {{ __('New Exam Type') }}</a>
+                            {{-- <a href="javascript:;" class="btn btn-outline-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#add-modal"><i class="fe-plus-square"></i> {{ __('New Exam Type') }}</a> --}}
                         </p>
 
                         <div class="table-responsive">
