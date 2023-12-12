@@ -12,5 +12,6 @@
     "Content": true,
     "Subject": true,
     "Exam": true,
-    "LectureSheet": true
+    "LectureSheet": true,
+    "Ebook": true
 }
