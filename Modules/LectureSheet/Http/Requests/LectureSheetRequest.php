@@ -18,16 +18,17 @@ class LectureSheetRequest extends FormRequest
             'subject_id' => ['required', 'numeric', 'min:1'],
             'chapter' => ['required', 'string', 'max: 255'],
             'type' => ['required', 'string', 'in:Premium,Free'],
-            'thumb' => ['nullable', 'mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024],
             'price' => ['required_if:type,Premium'],
         ];
 
         if ($this->getMethod() == 'POST') {
             return $rules + [
+                'thumb' => ['required', 'mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024],
                 'file' => ['mimes:' . implode(',', getFileExtensions(0)), 'max: 5000', 'required'],
             ];
         } else {
             return $rules + [
+                'thumb' => ['nullable', 'mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024],
                 'file' => ['mimes:' . implode(',', getFileExtensions(0)), 'max: 5000', 'nullable'],
             ];
         }

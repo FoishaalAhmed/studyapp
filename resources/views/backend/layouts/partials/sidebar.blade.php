@@ -35,13 +35,13 @@
 
                 @if (auth()->user()->hasRole('Admin'))
 
-                    <li class="menu-item {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'menuitem-active' : '' }}">
+                    <li class="menu-item {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') || request()->is('admin/ebooks/*') || request()->is('admin/ebooks')? 'menuitem-active' : '' }}">
                         <a href="#resource" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="mdi mdi-share-variant"></i></span>
                             <span class="menu-text"> {{ __('Resources') }} </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'show' : '' }}" id="resource">
+                        <div class="collapse {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') || request()->is('admin/ebooks/*') || request()->is('admin/ebooks') ? 'show' : '' }}" id="resource">
                             <ul class="sub-menu">
                                 <li class="menu-item {{ request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') ? 'menuitem-active' : '' }}">
                                     <a href="#exam" data-bs-toggle="collapse" class="menu-link">
@@ -63,11 +63,20 @@
                                         </ul>
                                     </div>
                                 </li>
+                                @if (module('LectureSheet') && isActive('LectureSheet'))
                                 <li class="menu-item {{ request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('admin.lecture_sheets.index') }}" class="menu-link {{ request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') ? 'active' : '' }}">
                                         <span class="menu-text">{{ __('Lecture Sheets') }}</span>
                                     </a>
                                 </li>
+                                @endif
+                                @if (module('Ebook') && isActive('Ebook'))
+                                <li class="menu-item {{ request()->is('admin/ebooks/*') || request()->is('admin/ebooks') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('admin.ebooks.index') }}" class="menu-link {{ request()->is('admin/ebooks/*') || request()->is('admin/ebooks') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Ebooks') }}</span>
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                     </li>

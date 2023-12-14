@@ -204,7 +204,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <a href="{{ route('admin.sub-categories.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
+                                    <a href="{{ route('admin.exams.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
                                     <button type="submit" class="btn btn-outline-success waves-effect waves-light"><i class="fe-plus-circle"></i> {{ __('Submit') }}</button>
                                 </div>
                             </div>

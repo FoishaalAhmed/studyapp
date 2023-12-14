@@ -53,7 +53,7 @@ class Ebook extends Model
                 return;
             }
 
-            $this->file = 'public/images/ebooks/' . $response['file_name'];
+            $this->book = 'public/images/ebooks/' . $response['file_name'];
         }
 
         $thumb = $request->file('thumb');
@@ -95,7 +95,7 @@ class Ebook extends Model
                 return;
             }
 
-            $ebook->file = 'public/images/ebooks/' . $response['file_name'];
+            $ebook->book = 'public/images/ebooks/' . $response['file_name'];
         }
 
         $thumb = $request->file('thumb');
@@ -124,11 +124,11 @@ class Ebook extends Model
             : session()->flash('error', 'Something Went Wrong!');
     }
 
-    public function destroyEbook(Object $lecture)
+    public function destroyEbook(Object $ebook)
     {
-        if (file_exists($lecture->thumb)) unlink($lecture->thumb);
-        if (file_exists($lecture->book)) unlink($lecture->book);
-        $destroyEbook = $lecture->delete();
+        if (file_exists($ebook->thumb)) unlink($ebook->thumb);
+        if (file_exists($ebook->book)) unlink($ebook->book);
+        $destroyEbook = $ebook->delete();
 
         $destroyEbook
             ? session()->flash('success', 'Ebook Deleted Successfully!')

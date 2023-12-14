@@ -36,8 +36,8 @@ class SubCategoryController extends Controller
     public function create()
     {
         $data = [
-            'types' => CategoryType::orderBy('name', 'asc')->get(),
-            'categories' => Category::orderBy('name', 'asc')->get(['id', 'name'])
+            'types' => CategoryType::oldest('name')->get(),
+            'categories' => Category::oldest('name')->get(['id', 'name'])
         ];
         return view('category::sub-categories.create', $data);
     }
@@ -62,8 +62,8 @@ class SubCategoryController extends Controller
     {
         $data = [
             'subCategory' => $subCategory,
-            'categories' => Category::orderBy('name', 'asc')->get(['id', 'name']),
-            'types' => CategoryType::orderBy('name', 'asc')->get(['id', 'name'])
+            'categories' => Category::oldest('name')->get(['id', 'name']),
+            'types' => CategoryType::oldest('name')->get(['id', 'name'])
         ];
         return view('category::sub-categories.edit', $data);
     }

@@ -10,5 +10,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
             Route::get('status/{ebook}/{status}', 'status')->name('status');
             Route::put('update/{ebook}', 'update')->name('update');
             Route::delete('destroy/{ebook}', 'destroy')->name('destroy');
+            Route::get('download/{ebook}', 'download')->name('download');
         });
 });
