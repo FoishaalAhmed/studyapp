@@ -2,6 +2,7 @@
 
 namespace Modules\Mcq\Entities;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,27 +12,6 @@ class Question extends Model
 
     protected $fillable = [
         'model_test_id', 'question', 'answer1', 'answer2', 'answer3', 'answer4', 'answer', 'explanation', 'user_id',
-    ];
-
-    public static $validateRule = [
-        'model_test_id' => ['required', 'numeric', 'min:1'],
-        'question.*' => ['required'],
-        'answer.*' => ['required'],
-        'answer1.*' => ['required'],
-        'answer2.*' => ['required'],
-        'answer3.*' => ['required'],
-        'answer4.*' => ['required'],
-    ];
-
-    public static $validateUpdateRule = [
-        'model_test_id' => ['required', 'numeric', 'min:1'],
-        'question' => ['required', 'string', 'max:255'],
-        'answer' => ['required', 'string', 'max:255'],
-        'answer1' => ['required', 'string', 'max:255'],
-        'answer2' => ['required', 'string', 'max:255'],
-        'answer3' => ['required', 'string', 'max:255'],
-        'answer4' => ['required', 'string', 'max:255'],
-        'explanation' => ['nullable', 'string'],
     ];
 
     public function model()

@@ -10,11 +10,7 @@ class ModelQuestionAnswer extends Model
 {
     use HasFactory;
 
-    public static $validateRule = [
-        'model_test_id' => ['required', 'numeric'],
-        'question_id.*' => ['required', 'numeric'],
-        'given_answer.*' => ['required', 'numeric'],
-    ];
+    protected $fillable = ['model_test_id', 'question_id', 'given_answer', 'user_id'];
 
     public function storeModelQuestionAnswer(Object $request)
     {
@@ -27,6 +23,8 @@ class ModelQuestionAnswer extends Model
                         'user_id' => auth()->id(),
                         'given_answer' =>  $value,
                         'question_id' => $request->question_id[$key],
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
                     ];
                 }
             }

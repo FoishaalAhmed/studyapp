@@ -13,15 +13,15 @@ class ModelTestRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'category_id' => ['required', 'numeric', 'min: 1'],
+        return [
+            'child_category_id' => ['required', 'numeric', 'min: 1'],
             'subject_id' => ['nullable', 'numeric', 'min: 1'],
             'title' => ['required', 'string', 'max: 255'],
             'year' => ['nullable', 'numeric',],
             'time' => ['required', 'numeric',],
-            'type' => ['required', 'numeric', 'min:0', 'max:1'],
+            'type' => ['required', 'string', 'in:Free,Premium'],
             'description' => ['nullable', 'string'],
-            'photo' => ['nullable', 'mimes:jpeg,jpg,png,gif,webp', 'max:1000'],
+            'photo' => ['nullable', 'mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024],
         ];
     }
 

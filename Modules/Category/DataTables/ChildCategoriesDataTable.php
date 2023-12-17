@@ -14,8 +14,7 @@ class ChildCategoriesDataTable extends DataTable
             ->eloquent($this->query())
             ->addIndexColumn(true)
             ->addColumn('name', function ($childCategory) {
-                
-                return $childCategory->name;
+                return '<a href="' . route('admin.mcqs.index', ['category_id' => $childCategory->id]) . '">' . $childCategory->name . '</a>';
             })
             ->addColumn('sub_category_id', function ($childCategory) {
                 return $childCategory?->subCategory?->name;
@@ -31,7 +30,7 @@ class ChildCategoriesDataTable extends DataTable
                 $delete = '<a href="' . route('admin.child-categories.destroy', $childCategory->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $edit . $delete;
             })
-            ->rawColumns(['photo', 'action'])
+            ->rawColumns(['name', 'photo', 'action'])
             ->make(true);
     }
 

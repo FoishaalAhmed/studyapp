@@ -21,12 +21,12 @@ return new class extends Migration
             $table->string('title');
             $table->year('year')->nullable();
             $table->integer('time');
-            $table->string('type', 10)->default('Premium')->comment('Free,Premium');
+            $table->string('type', 10)->default('Premium')->comment('Free,Premium')->index('model_tests_type_idx');
             $table->float('price', 11, 2)->nullable();
-            $table->string('draft', 3)->default('Yes')->comment('Yes,No');
+            $table->string('draft', 3)->default('Yes')->comment('Yes,No')->index('model_tests_draft_idx');
             $table->string('photo')->nullable();
             $table->text('description')->nullable();
-            $table->string('status', 10)->default('In Review')->comment('In Review,Published');
+            $table->string('status', 10)->default('In Review')->comment('In Review,Published')->index('model_tests_status_idx');
             $table->timestamps();
         });
     }
