@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Mcq\DataTables;
+namespace Modules\Mcq\DataTables\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Modules\Mcq\Entities\ModelTest;
@@ -20,7 +20,7 @@ class ModelTestsDataTable extends DataTable
                 return $model->subject?->name;
             })
             ->addColumn('title', function ($model) {
-                return  $model->title;
+                return '<a href="' . route('admin.questions.index', ['model_test_id' => $model->id]) . '">' . $model->title . '</a>';
             })
             ->addColumn('questions_count', function ($model) {
                 return  $model->questions_count;
@@ -43,7 +43,7 @@ class ModelTestsDataTable extends DataTable
                 $delete = '<a href="' . route('admin.mcqs.destroy', $model->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $status . $edit . $delete;
             })
-            ->rawColumns(['photo', 'action'])
+            ->rawColumns(['title', 'action'])
             ->make(true);
     }
 

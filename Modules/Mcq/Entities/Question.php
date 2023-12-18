@@ -2,6 +2,7 @@
 
 namespace Modules\Mcq\Entities;
 
+use DB;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -128,5 +129,14 @@ class Question extends Model
         $question = $query->count();
 
         return $question;
+    }
+
+    public function destroyQuestion(Object $question)
+    {
+        $destroyQuestionTest = $question->delete();
+
+        $destroyQuestionTest
+            ? session()->flash('success', 'Question Deleted Successfully!')
+            : session()->flash('error', 'Something Went Wrong!');
     }
 }

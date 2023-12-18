@@ -44,7 +44,7 @@
                         <div class="collapse {{ request()->is('admin/mcqs') || request()->is('admin/mcqs/*') || request()->is('admin/exam-types') || request()->is('admin/exams/*') || request()->is('admin/exams') || request()->is('admin/lecture-sheets/*') || request()->is('admin/lecture-sheets') || request()->is('admin/ebooks/*') || request()->is('admin/ebooks') ? 'show' : '' }}" id="resource">
                             <ul class="sub-menu">
                                 <li class="menu-item {{ request()->is('admin/mcqs/*') || request()->is('admin/mcqs') ? 'menuitem-active' : '' }}">
-                                    <a href="{{ route('admin.lecture_sheets.index') }}" class="menu-link {{ request()->is('admin/mcqs/*') || request()->is('admin/mcqs') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.mcqs.index') }}" class="menu-link {{ request()->is('admin/mcqs/*') || request()->is('admin/mcqs') ? 'active' : '' }}">
                                         <span class="menu-text">{{ __('Model Test') }}</span>
                                     </a>
                                 </li>

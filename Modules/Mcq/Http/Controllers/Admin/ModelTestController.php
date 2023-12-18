@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Mcq\Http\Controllers;
+namespace Modules\Mcq\Http\Controllers\Admin;
 
 use App\Enums\CategoryType;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Mcq\Entities\ModelTest;
-use Modules\Mcq\DataTables\ModelTestsDataTable;
+use Modules\Mcq\DataTables\Admin\ModelTestsDataTable;
 use Modules\Subject\Entities\{CategorySubject, Subject};
 use Modules\Category\Entities\{ChildCategory, SubCategory};
 use Modules\Mcq\Http\Requests\ModelTestRequest;
@@ -26,7 +26,7 @@ class ModelTestController extends Controller
      */
     public function index(ModelTestsDataTable $dataTable)
     {
-        return $dataTable->render('mcq::admin.index');
+        return $dataTable->render('mcq::admin.mcqs.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class ModelTestController extends Controller
             'categories' => ChildCategory::where('type', CategoryType::ModelTest)->oldest('name')->get(['id', 'name']),
         ];
 
-        return view('mcq::admin.edit', $data);
+        return view('mcq::admin.mcqs.edit', $data);
     }
 
     /**
