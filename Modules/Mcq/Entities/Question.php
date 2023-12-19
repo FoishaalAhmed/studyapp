@@ -5,6 +5,7 @@ namespace Modules\Mcq\Entities;
 use DB;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Modules\UserAccess\Entities\UserLog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model

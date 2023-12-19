@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Exam\DataTables;
+namespace Modules\Exam\DataTables\Admin;
 
 use Yajra\DataTables\Services\DataTable;
 use Modules\Exam\Entities\ExamType;

@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Exam\Http\Controllers;
+namespace Modules\Exam\Http\Controllers\Admin;
 
-use Modules\Exam\DataTables\ExamTypesDataTable;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Exam\Entities\ExamType;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Exam\Entities\ExamType;
+use Modules\Exam\DataTables\Admin\ExamTypesDataTable;
 
 class ExamTypeController extends Controller
 {
@@ -22,7 +21,7 @@ class ExamTypeController extends Controller
      */
     public function index(ExamTypesDataTable $dataTable)
     {
-        return $dataTable->render('exam::exam-type');
+        return $dataTable->render('exam::admin.exam-type');
     }
 
     /**

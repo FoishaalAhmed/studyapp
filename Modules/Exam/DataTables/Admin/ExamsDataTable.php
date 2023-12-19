@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Exam\DataTables;
+namespace Modules\Exam\DataTables\Admin;
 
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;
@@ -20,6 +20,9 @@ class ExamsDataTable extends DataTable
                 return  $exam->examType?->name;
             })
             ->addColumn('title', function ($exam) {
+
+                return '<a href="' . route('admin.exam-questions.index', ['exam_id' => $exam->id]) . '">' . $exam->title . '</a>';
+
                 return  $exam->title;
             })
             ->addColumn('type', function ($exam) {
@@ -36,7 +39,7 @@ class ExamsDataTable extends DataTable
                 $delete = '<a href="' . route('admin.exams.destroy', $exam->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
                 return $status . $edit . $delete;
             })
-            ->rawColumns(['photo', 'action'])
+            ->rawColumns(['title', 'photo', 'action'])
             ->make(true);
     }
 

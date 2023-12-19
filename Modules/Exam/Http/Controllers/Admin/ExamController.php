@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Exam\Http\Controllers;
+namespace Modules\Exam\Http\Controllers\Admin;
 
 use Modules\Exam\Entities\Exam;
 use Illuminate\Routing\Controller;
 use Modules\Exam\Entities\ExamType;
 use Modules\Category\Entities\Category;
-use Modules\Exam\DataTables\ExamsDataTable;
 use Modules\Exam\Http\Requests\ExamRequest;
+use Modules\Exam\DataTables\Admin\ExamsDataTable;
 
 class ExamController extends Controller
 {
@@ -23,7 +23,7 @@ class ExamController extends Controller
      */
     public function index(ExamsDataTable $dataTable)
     {
-        return $dataTable->render('exam::exams.index');
+        return $dataTable->render('exam::admin.exams.index');
     }
 
     /**
@@ -40,7 +40,7 @@ class ExamController extends Controller
             'subjects' => getSubjectsByCategory($exam->category_id)
         ];
         
-        return view('exam::exams.edit', $data);
+        return view('exam::admin.exams.edit', $data);
     }
 
     /**
