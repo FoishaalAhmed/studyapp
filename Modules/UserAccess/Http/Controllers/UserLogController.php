@@ -13,6 +13,10 @@ use Modules\Category\Entities\{
     ChildCategory,
     SubCategory
 };
+use Modules\Exam\Entities\Exam;
+use Modules\Exam\Entities\ExamQuestion;
+use Modules\Mcq\Entities\ModelTest;
+use Modules\Mcq\Entities\Question;
 
 class UserLogController extends Controller
 {
@@ -45,30 +49,36 @@ class UserLogController extends Controller
 
     public function writerDetail(Request $request)
     {
-        $data['user_id']    = $user_id    = $request->user_id;
-        $data['start_date'] = $start_date = $request->start_date;
-        $data['end_date']   = $end_date   = $request->end_date;
+        $userId    = $request->user_id;
+        $startDate = $request->start_date;
+        $endDate   = $request->end_date;
 
-        if ($start_date != null) $start_date = date('Y-m-d', strtotime($start_date));
-        if ($end_date != null) $end_date = date('Y-m-d', strtotime($end_date));
+        if ($startDate != null) $startDate = date('Y-m-d', strtotime($startDate));
+        if ($endDate != null) $endDate = date('Y-m-d', strtotime($endDate));
 
-        $data['users'] = User::whereHas("roles", function ($q) {
-            $q->where("name", "Writer");
-        })->orderBy('name', 'asc')->get(['id', 'name']);
+        $data = [
+            'users' => User::whereHas("roles", function ($query) {
+                $query->where("name", "Writer");
+            })->oldest('name')->get(['id', 'name']),
+            'userId' => $userId,
+            'endDate' => $endDate,
+            'startDate' => $startDate,
+        ];
 
-        if ($user_id != null) {
 
-            $data['examCount'] = (new Exam())->getWriterExamCount($user_id, $start_date, $end_date);
-            $data['examQuestionCount'] = (new ExamQuestion())->getWriterExamQuestionCount($user_id, $start_date, $end_date);
-            $data['mcqCount'] = (new ModelTest())->getWriterMcqCount($user_id, $start_date, $end_date);
-            $data['questionCount'] = (new Question())->getWriterQuestionCount($user_id, $start_date, $end_date);
-            $data['subCategoryCount'] = (new SubCategory())->getWriterSubCategoryCount($user_id, $start_date, $end_date);
-            $data['childCategoryCount'] = (new ChildCategory())->getWriterChildCategoryCount($user_id, $start_date, $end_date);
+        if ($userId != null) {
 
-            return view('backend.admin.writerHistory', $data);
+            $data['examCount'] = (new Exam())->getWriterExamCount($userId, $startDate, $endDate);
+            $data['examQuestionCount'] = (new ExamQuestion())->getWriterExamQuestionCount($userId, $startDate, $endDate);
+            $data['mcqCount'] = (new ModelTest())->getWriterMcqCount($userId, $startDate, $endDate);
+            $data['questionCount'] = (new Question())->getWriterQuestionCount($userId, $startDate, $endDate);
+            $data['subCategoryCount'] = (new SubCategory())->getWriterSubCategoryCount($userId, $startDate, $endDate);
+            $data['childCategoryCount'] = (new ChildCategory())->getWriterChildCategoryCount($userId, $startDate, $endDate);
+
+            return view('useraccess::writer-history', $data);
         }
 
-        return view('backend.admin.writerHistory', $data);
+        return view('useraccess::writer-history', $data);
     }
 
     /**
