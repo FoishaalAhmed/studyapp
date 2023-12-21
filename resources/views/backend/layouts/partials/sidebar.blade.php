@@ -312,6 +312,7 @@
                 @endif
 
                 @if (auth()->user()->hasRole('Writer'))
+
                     <li class="menu-item {{ request()->is('writer/sub-categories') || request()->is('writer/sub-categories/*') || request()->is('writer/child-categories') || request()->is('writer/child-categories/*') ? 'menuitem-active' : '' }}">
                         <a href="#menuCategories" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="fe-book"></i></span>
@@ -333,6 +334,15 @@
                             </ul>
                         </div>
                     </li>
+
+                    @if (module('Faq') && isActive('Faq'))
+                        <li class="menu-item {{ request()->is('writer/faqs') || request()->is('writer/faqs/*') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('writer.faqs.index') }}" class="menu-link {{ request()->is('writer/faqs') || request()->is('writer/faqs/*') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="mdi mdi-account-question"></i></span>
+                                <span class="menu-text"> {{ __('Faq') }} </span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
 

@@ -13,11 +13,6 @@ class Faq extends Model
         'question', 'answer',
     ];
 
-    public static $validateRule = [
-        'question' => ['required', 'string', 'max:255'],
-        'answer' => ['required', 'string'],
-    ];
-
     public function storeFaq(Object $request)
     {
         $this->question = $request->question;
@@ -29,9 +24,8 @@ class Faq extends Model
             : session()->flash('error', 'Something Went Wrong!');
     }
 
-    public function updateFaq(Object $request)
+    public function updateFaq(Object $request, Object $faq)
     {
-        $faq = $this::findOrFail($request->id);
         $faq->question = $request->question;
         $faq->answer = $request->answer;
         $updateFaq = $faq->save();

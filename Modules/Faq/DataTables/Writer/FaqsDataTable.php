@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Faq\DataTables;
+namespace Modules\Faq\DataTables\Writer;
 
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +21,7 @@ class FaqsDataTable extends DataTable
                 return Str::limit($faq->answer, 100);
             })
             ->addColumn('action', function ($faq) {
-                return '<a href="' . route('admin.faqs.destroy', $faq->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
+                return '<a href="' . route('writer.faqs.edit', $faq->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
