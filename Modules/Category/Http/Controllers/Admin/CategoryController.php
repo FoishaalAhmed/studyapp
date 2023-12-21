@@ -1,13 +1,12 @@
 <?php
 
-namespace Modules\Category\Http\Controllers;
+namespace Modules\Category\Http\Controllers\Admin;
 
-use Modules\Category\DataTables\CategoriesDataTable;
-use Modules\Category\Http\Requests\CategoryRequest;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Category\Entities\Category;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Category\Entities\Category;
+use Modules\Category\Http\Requests\CategoryRequest;
+use Modules\Category\DataTables\Admin\CategoriesDataTable;
 
 class CategoryController extends Controller
 {
@@ -24,8 +23,7 @@ class CategoryController extends Controller
      */
     public function index(CategoriesDataTable $dataTable)
     {
-        $categories = Category::oldest('name')->get();
-        return $dataTable->render('category::category', compact('categories'));
+        return $dataTable->render('category::admin.category');
     }
 
     /**

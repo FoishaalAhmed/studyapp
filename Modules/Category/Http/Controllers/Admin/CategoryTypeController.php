@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Category\Http\Controllers;
+namespace Modules\Category\Http\Controllers\Admin;
 
-use Modules\Category\DataTables\CategoryTypesDataTable;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Category\Entities\CategoryType;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Category\Entities\CategoryType;
+use Modules\Category\DataTables\Admin\CategoryTypesDataTable;
 
 class CategoryTypeController extends Controller
 {
@@ -22,7 +21,7 @@ class CategoryTypeController extends Controller
      */
     public function index(CategoryTypesDataTable $dataTable)
     {
-        return $dataTable->render('category::category-type');
+        return $dataTable->render('category::admin.category-type');
     }
 
     /**

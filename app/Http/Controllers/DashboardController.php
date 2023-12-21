@@ -15,7 +15,7 @@ class DashboardController extends Controller
                 break;
 
             case auth()->user()->hasRole('Writer'):
-                return redirect()->route('admin.child-categories.index');
+                return redirect()->route('writer.child-categories.index');
                 break;
 
             default:

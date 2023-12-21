@@ -1,15 +1,12 @@
 <?php
 
-namespace Modules\Category\Http\Controllers;
+namespace Modules\Category\Http\Controllers\Admin;
 
-use Modules\Category\DataTables\ChildCategoriesDataTable;
-use Modules\Category\Http\Requests\ChildCategoryRequest;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Category\Entities\ChildCategory;
-use Modules\Category\Entities\CategoryType;
-use Modules\Category\Entities\SubCategory;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Category\Http\Requests\ChildCategoryRequest;
+use Modules\Category\DataTables\Admin\ChildCategoriesDataTable;
+use Modules\Category\Entities\{ChildCategory, CategoryType, SubCategory};
 
 class ChildCategoryController extends Controller
 {
@@ -26,7 +23,7 @@ class ChildCategoryController extends Controller
      */
     public function index(ChildCategoriesDataTable $dataTable)
     {
-        return $dataTable->render('category::child-categories.index');
+        return $dataTable->render('category::admin.child-categories.index');
     }
 
     /**
@@ -38,7 +35,7 @@ class ChildCategoryController extends Controller
         $data = [
             'types' => CategoryType::oldest('name')->get(['id', 'name'])
         ];
-        return view('category::child-categories.create', $data);
+        return view('category::admin.child-categories.create', $data);
     }
 
     /**
@@ -64,7 +61,7 @@ class ChildCategoryController extends Controller
             'types' => CategoryType::oldest('name')->get(['id', 'name']),
             'categories' => SubCategory::whereType($childCategory->type)->oldest('name')->get(['id', 'name']),
         ];
-        return view('category::child-categories.edit', $data);
+        return view('category::admin.child-categories.edit', $data);
     }
 
     /**

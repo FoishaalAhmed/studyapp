@@ -1,15 +1,12 @@
 <?php
 
-namespace Modules\Category\Http\Controllers;
+namespace Modules\Category\Http\Controllers\Writer;
 
-use Modules\Category\DataTables\SubCategoriesDataTable; 
-use Modules\Category\Http\Requests\SubCategoryRequest;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Category\Entities\CategoryType;
-use Modules\Category\Entities\SubCategory;
-use Modules\Category\Entities\Category;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Category\Http\Requests\SubCategoryRequest;
+use Modules\Category\DataTables\Writer\SubCategoriesDataTable; 
+use Modules\Category\Entities\{CategoryType, SubCategory, Category};
 
 class SubCategoryController extends Controller
 {
@@ -26,7 +23,7 @@ class SubCategoryController extends Controller
      */
     public function index(SubCategoriesDataTable $dataTable)
     {
-        return $dataTable->render('category::sub-categories.index');
+        return $dataTable->render('category::writer.sub-categories.index');
     }
 
     /**
@@ -39,7 +36,7 @@ class SubCategoryController extends Controller
             'types' => CategoryType::oldest('name')->get(),
             'categories' => Category::oldest('name')->get(['id', 'name'])
         ];
-        return view('category::sub-categories.create', $data);
+        return view('category::writer.sub-categories.create', $data);
     }
 
     /**
@@ -65,7 +62,7 @@ class SubCategoryController extends Controller
             'categories' => Category::oldest('name')->get(['id', 'name']),
             'types' => CategoryType::oldest('name')->get(['id', 'name'])
         ];
-        return view('category::sub-categories.edit', $data);
+        return view('category::writer.sub-categories.edit', $data);
     }
 
     /**
@@ -77,7 +74,7 @@ class SubCategoryController extends Controller
     public function update(SubCategoryRequest $request, SubCategory $subCategory)
     {
         $this->subcategoryModelObject->updateCategory($request, $subCategory);
-        return redirect()->route('admin.sub-categories.index');
+        return redirect()->route('writer.sub-categories.index');
     }
 
     /**

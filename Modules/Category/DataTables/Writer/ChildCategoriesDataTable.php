@@ -1,10 +1,11 @@
 <?php
 
-namespace Modules\Category\DataTables;
+namespace Modules\Category\DataTables\Writer;
 
-use Modules\Category\Entities\ChildCategory;
-use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;
+use Yajra\DataTables\Services\DataTable;
+use Modules\Category\Entities\ChildCategory;
+use Modules\UserAccess\Entities\UserAccess;
 
 class ChildCategoriesDataTable extends DataTable
 {
@@ -14,7 +15,9 @@ class ChildCategoriesDataTable extends DataTable
             ->eloquent($this->query())
             ->addIndexColumn(true)
             ->addColumn('name', function ($childCategory) {
-                return '<a href="' . route('admin.mcqs.index', ['category_id' => $childCategory->id]) . '">' . $childCategory->name . '</a>';
+                // return '<a href="' . route('writer.mcqs.index', ['category_id' => $childCategory->id]) . '">' . $childCategory->name . '</a>';
+
+                return $childCategory->name;
             })
             ->addColumn('sub_category_id', function ($childCategory) {
                 return $childCategory?->subCategory?->name;
@@ -26,9 +29,8 @@ class ChildCategoriesDataTable extends DataTable
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($childCategory->photo) . '" alt="Category Photo" height="48">';
             })
             ->addColumn('action', function ($childCategory) {
-                $edit = '<a href="' . route('admin.child-categories.edit', $childCategory->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
-                $delete = '<a href="' . route('admin.child-categories.destroy', $childCategory->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $edit . $delete;
+                $edit = '<a href="' . route('writer.child-categories.edit', $childCategory->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+                return $edit;
             })
             ->rawColumns(['name', 'photo', 'action'])
             ->make(true);
@@ -37,9 +39,13 @@ class ChildCategoriesDataTable extends DataTable
     public function query()
     {
         $subCategory = request()->category_id;
+
+        $childCategoryIds = UserAccess::where('user_id', auth()->id())->pluck('child_category_id')->toArray();
+
         $query = !empty($subCategory) 
-                    ? ChildCategory::with(['categoryType:id,name', 'subCategory:id,name'])->where('sub_category_id', $subCategory)
-                    : ChildCategory::with(['categoryType:id,name', 'subCategory:id,name']);
+                    ? ChildCategory::with(['categoryType:id,name', 'subCategory:id,name'])
+                        ->where('sub_category_id', $subCategory)->whereIn('child_categories.id', $childCategoryIds)
+                    : ChildCategory::with(['categoryType:id,name', 'subCategory:id,name'])->whereIn('child_categories.id', $childCategoryIds);
         return $this->applyScopes($query);
     }
 

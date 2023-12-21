@@ -311,6 +311,30 @@
 
                 @endif
 
+                @if (auth()->user()->hasRole('Writer'))
+                    <li class="menu-item {{ request()->is('writer/sub-categories') || request()->is('writer/sub-categories/*') || request()->is('writer/child-categories') || request()->is('writer/child-categories/*') ? 'menuitem-active' : '' }}">
+                        <a href="#menuCategories" data-bs-toggle="collapse" class="menu-link">
+                            <span class="menu-icon"><i class="fe-book"></i></span>
+                            <span class="menu-text"> {{ __('Categories') }} </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse {{ request()->is('writer/sub-categories/*') || request()->is('writer/sub-categories') || request()->is('writer/child-categories') || request()->is('writer/child-categories/*') ? 'show' : '' }}" id="menuCategories">
+                            <ul class="sub-menu">
+                                <li class="menu-item {{ request()->is('writer/sub-categories') || request()->is('writer/sub-categories/*') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('writer.sub-categories.index') }}" class="menu-link {{ request()->is('writer/sub-categories') || request()->is('writer/sub-categories/*') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Sub Category') }}</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item {{ request()->is('writer/child-categories') || request()->is('writer/child-categories/*') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('writer.child-categories.index') }}" class="menu-link {{ request()->is('writer/child-categories') || request()->is('writer/child-categories/*') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Child Category') }}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+
 
             </ul>
             <!--- End Menu -->

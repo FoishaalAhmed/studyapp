@@ -4,6 +4,7 @@ namespace Modules\Category\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\UserAccess\Entities\UserAccess;
 
 class ChildCategory extends Model
 {
@@ -112,6 +113,13 @@ class ChildCategory extends Model
         $this->user_id = auth()->id();
         $this->sub_category_id = $request->sub_category_id;
         $storeCategory = $this->save();
+
+        if (auth()->user()->hasRole('Writer')) {
+            $userAccess = new UserAccess();
+            $userAccess-> user_id = auth()->id();
+            $userAccess->child_category_id = $this->id;
+            $userAccess->save();
+        }
 
         $storeCategory
             ? session()->flash('success', 'New Child Category Created Successfully!')

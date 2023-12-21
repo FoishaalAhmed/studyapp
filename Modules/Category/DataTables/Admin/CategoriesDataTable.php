@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Category\DataTables;
+namespace Modules\Category\DataTables\Admin;
 
-use Yajra\DataTables\Services\DataTable;
-use Modules\Category\Entities\Category;
 use Illuminate\Http\JsonResponse;
+use Modules\Category\Entities\Category;
+use Yajra\DataTables\Services\DataTable;
 
 class CategoriesDataTable extends DataTable
 {
