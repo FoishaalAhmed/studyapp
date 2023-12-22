@@ -24,3 +24,10 @@ ALTER TABLE `ebooks` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In R
 ALTER TABLE `model_tests` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';
 ALTER TABLE `model_tests` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Published, In Review';
 ALTER TABLE `model_tests` CHANGE `draft` `draft` VARCHAR(10) NOT NULL DEFAULT 'Yes' COMMENT 'Yes, No';
+
+-- Job Category
+ALTER TABLE `job_categories` ADD `user_id` BIGINT NULL DEFAULT NULL AFTER `photo`, ADD INDEX `job_categories_user_id_idx` (`user_id`); 
+
+-- Job
+ALTER TABLE `jobs` CHANGE `file` `photo` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
+ALTER TABLE `jobs` ADD `user_id` BIGINT NULL DEFAULT NULL AFTER `photo`, ADD INDEX `jobs_user_id_idx` (`user_id`);

@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->date('end_date');
             $table->text('description')->nullable();
-            $table->string('file')->nullable();
+            $table->string('photo')->nullable();
+            $table->bigInteger('user_id')->nullable()->index('jobs_user_id_idx');
             $table->timestamps();
         });
     }

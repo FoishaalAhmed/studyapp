@@ -41,6 +41,7 @@ class JobCategory extends Model
         }
 
         $this->name = $request->name;
+        $this->user_id = auth()->id();
         $storeCategory = $this->save();
 
         $storeCategory

@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('job_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('photo')->nullable();
+            $table->bigInteger('user_id')->nullable()->index('job_categories_user_id_idx');
             $table->timestamps();
         });
     }

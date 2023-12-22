@@ -38,7 +38,7 @@
                                 <div class="col-8 col-xl-7">
                                     <select class="form-control select2-multiple" name="category_ids[]" data-toggle="select2" data-width="100%" multiple="multiple" data-placeholder="{{ __('Choose Prefered Categories') }}">
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}" {{ in_array($category->id, old('category_ids')) ? 'selected' : '' }}>{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}" {{ old('category_ids') && in_array($category->id, old('category_ids')) ? 'selected' : '' }}>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_ids')

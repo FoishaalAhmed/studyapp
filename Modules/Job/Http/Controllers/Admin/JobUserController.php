@@ -1,12 +1,10 @@
 <?php
 
-namespace Modules\Job\Http\Controllers;
+namespace Modules\Job\Http\Controllers\Admin;
 
-use Modules\Job\DataTables\ApplyDetailsDataTable;
-use Modules\Job\DataTables\JobAppliesDataTable;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Routing\Controller;
 use Modules\Job\Entities\JobUser;
+use Illuminate\Routing\Controller;
+use Modules\Job\DataTables\Admin\{ApplyDetailsDataTable, JobAppliesDataTable};
 
 class JobUserController extends Controller
 {
@@ -23,7 +21,7 @@ class JobUserController extends Controller
      */
     public function index(JobAppliesDataTable $dataTable)
     {
-        return $dataTable->render('job::apply');
+        return $dataTable->render('job::admin.apply');
     }
 
     /**
@@ -34,16 +32,6 @@ class JobUserController extends Controller
      */
     public function show($jobId, $userId, ApplyDetailsDataTable $dataTable)
     {
-        return $dataTable->render('job::detail');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return $dataTable->render('job::admin.detail');
     }
 }

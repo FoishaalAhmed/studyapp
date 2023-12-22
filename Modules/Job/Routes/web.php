@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Job\Http\Controllers\Admin\{JobCategoryController, JobController, JobUserController};
+use Modules\Job\Http\Controllers\Writer\{
+    JobController as WriterJobController,
+    JobCategoryController as WriterJobCategoryController, 
+};
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
     Route::resource('job-categories', JobCategoryController::class)->except(['show', 'create', 'edit']);
@@ -9,6 +14,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
         Route::get('', 'index')->name('index');
         Route::delete('jobs/destroy/{job}', 'destroy')->name('destroy');
     });
+    
+    Route::controller(JobUserController::class)->as('jobs.users.')->prefix('job-users')->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('show/{jobId}/{userId}', 'show')->name('show');
+    });
+});
+
+Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
+    
+    Route::resource('job-categories', WriterJobCategoryController::class)
+        ->except(['show', 'create', 'edit', 'destroy']);
+    
+    Route::resource('jobs', WriterJobController::class)
+        ->except(['show', 'destroy']);
+    
     Route::controller(JobUserController::class)->as('jobs.users.')->prefix('job-users')->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('show/{jobId}/{userId}', 'show')->name('show');

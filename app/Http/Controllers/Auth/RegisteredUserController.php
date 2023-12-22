@@ -86,6 +86,7 @@ class RegisteredUserController extends Controller
 
             return redirect(RouteServiceProvider::HOME);
         } catch (Exception $e) {
+            DB::rollBack();
             Log::info('registration log');
             Log::info($e->getMessage());
             return back()->withErrors('Something Went Wrong Please try again');

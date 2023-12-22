@@ -1,13 +1,12 @@
 <?php
 
-namespace Modules\Job\Http\Controllers;
+namespace Modules\Job\Http\Controllers\Writer;
 
-use Modules\Job\DataTables\JobCategoriesDataTable;
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Job\Entities\JobCategory;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Modules\Job\Entities\JobCategory;
 use Modules\Job\Http\Requests\JobCategoryRequest;
+use Modules\Job\DataTables\Writer\JobCategoriesDataTable;
 
 class JobCategoryController extends Controller
 {
@@ -24,7 +23,7 @@ class JobCategoryController extends Controller
      */
     public function index(JobCategoriesDataTable $dataTable)
     {
-        return $dataTable->render('job::category');
+        return $dataTable->render('job::writer.category');
     }
 
     /**
@@ -47,17 +46,6 @@ class JobCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->categoryModelObject->updateCategory($request);
-        return back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param JobCategory $jobCategory
-     * @return Renderable
-     */
-    public function destroy(JobCategory $jobCategory)
-    {
-        $this->categoryModelObject->destroyCategory($jobCategory);
         return back();
     }
 }

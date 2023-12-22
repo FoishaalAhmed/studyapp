@@ -42,7 +42,7 @@
                                         <div class="col-lg-12 mb-3">
                                             <label for="content" class="form-label">{{ __('Content') }}</label>
                                             <textarea class="form-control" id="editor" name="content" placeholder="{{ __('Content') }}">{{ old('content') }}</textarea>
-                                            @error('title')
+                                            @error('content')
                                                 <div class="invalid-feedback error">
                                                     {{ $message }}
                                                 </div>

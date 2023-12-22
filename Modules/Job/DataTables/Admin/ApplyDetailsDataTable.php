@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Job\DataTables;
+namespace Modules\Job\DataTables\Admin;
 
-use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;
 use Modules\Job\Entities\JobUser;
+use Yajra\DataTables\Services\DataTable;
 
 class ApplyDetailsDataTable extends DataTable
 {

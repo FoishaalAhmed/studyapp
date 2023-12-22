@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Job\DataTables;
+namespace Modules\Job\DataTables\Admin;
 
-use Yajra\DataTables\Services\DataTable;
 use Modules\Job\Entities\Job;
 use Illuminate\Http\JsonResponse;
+use Yajra\DataTables\Services\DataTable;
 
 class JobsDataTable extends DataTable
 {
@@ -28,13 +28,13 @@ class JobsDataTable extends DataTable
             ->addColumn('end_date', function ($job) {
                 return date('d M, Y', strtotime($job->end_date));
             })
-            ->addColumn('file', function ($job) {
+            ->addColumn('photo', function ($job) {
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($job->photo) . '" alt="Job Photo" height="48">';
             })
             ->addColumn('action', function ($job) {
                 return '<a href="' . route('admin.jobs.destroy', $job->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
             })
-            ->rawColumns(['file', 'action'])
+            ->rawColumns(['photo', 'action'])
             ->make(true);
     }
 
@@ -87,8 +87,8 @@ class JobsDataTable extends DataTable
                 'title' => __('End Date')
             ])
             ->addColumn([
-                'data' => 'file',
-                'name' => 'jobs.file',
+                'data' => 'photo',
+                'name' => 'jobs.photo',
                 'title' => __('Photo')
             ])
             ->addColumn([

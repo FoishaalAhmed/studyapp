@@ -335,6 +335,35 @@
                         </div>
                     </li>
 
+                    @if (module('Job') && isActive('Job'))
+                        <li class="menu-item {{ request()->is('writer/jobs') || request()->is('writer/jobs/*') || request()->is('writer/job-categories') || request()->is('writer/job-users') || request()->is('writer/job-users/*') ? 'menuitem-active' : '' }}">
+                            <a href="#menuJob" data-bs-toggle="collapse" class="menu-link">
+                                <span class="menu-icon"><i class="fe-unlock"></i></span>
+                                <span class="menu-text"> {{ __('Jobs') }} </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse {{ request()->is('writer/jobs') || request()->is('writer/jobs/*') || request()->is('writer/job-categories') || request()->is('writer/job-users') || request()->is('writer/job-users/*') ? 'show' : '' }}" id="menuJob">
+                                <ul class="sub-menu">
+                                    <li class="menu-item {{ request()->is('writer/job-categories') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('writer.job-categories.index') }}" class="menu-link {{ request()->is('writer/job-categories') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Job Category') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('writer/jobs') || request()->is('writer/jobs/*') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('writer.jobs.index') }}" class="menu-link {{ request()->is('writer/jobs') || request()->is('writer/jobs/*') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Jobs') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item {{ request()->is('writer/job-users') || request()->is('writer/job-users/*') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('writer.jobs.users.index') }}" class="menu-link {{ request()->is('writer/job-users') || request()->is('writer/job-users/*') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Job Applied') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    @endif
+
                     @if (module('Faq') && isActive('Faq'))
                         <li class="menu-item {{ request()->is('writer/faqs') || request()->is('writer/faqs/*') ? 'menuitem-active' : '' }}">
                             <a href="{{ route('writer.faqs.index') }}" class="menu-link {{ request()->is('writer/faqs') || request()->is('writer/faqs/*') ? 'active' : '' }}">
