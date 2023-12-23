@@ -1,15 +1,14 @@
 <?php
 
-namespace Modules\Ebook\Http\Controllers;
+namespace Modules\Ebook\Http\Controllers\Admin;
 
 use App\Enums\CategoryType;
-use Illuminate\Http\Request;
 use Modules\Ebook\Entities\Ebook;
 use Illuminate\Routing\Controller;
-use Modules\Ebook\DataTables\EbooksDataTable;
+use Modules\Ebook\Http\Requests\EbookRequest;
+use Modules\Ebook\DataTables\Admin\EbooksDataTable;
 use Modules\Subject\Entities\{CategorySubject, Subject};
 use Modules\Category\Entities\{ChildCategory, SubCategory};
-use Modules\Ebook\Http\Requests\EbookRequest;
 
 class EbookController extends Controller
 {
@@ -26,26 +25,7 @@ class EbookController extends Controller
      */
     public function index(EbooksDataTable $dataTable)
     {
-        return $dataTable->render('ebook::index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('ebook::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+        return $dataTable->render('ebook::admin.index');
     }
 
     /**
@@ -65,7 +45,7 @@ class EbookController extends Controller
             'subjects' => Subject::whereIn('id', $category_ids)->oldest('name')->get(['id', 'name'])
         ];
 
-        return view('ebook::edit', $data);
+        return view('ebook::admin.edit', $data);
     }
 
     /**

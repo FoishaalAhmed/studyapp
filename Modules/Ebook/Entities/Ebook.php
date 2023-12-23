@@ -75,6 +75,7 @@ class Ebook extends Model
         $this->title = $request->title;
         $this->type = $request->type;
         $this->price = $request->price;
+        $this->user_id = auth()->id();
         $storeEbook = $this->save();
 
         $storeEbook

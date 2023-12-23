@@ -19,6 +19,7 @@ ALTER TABLE `lecture_sheets` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAU
 -- Ebook
 ALTER TABLE `ebooks` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';
 ALTER TABLE `ebooks` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Published, In Review';
+ALTER TABLE `ebooks` ADD `user_id` BIGINT NULL DEFAULT NULL AFTER `status`, ADD INDEX `ebooks_user_id_idx` (`user_id`);
 
 -- Model Test
 ALTER TABLE `model_tests` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';

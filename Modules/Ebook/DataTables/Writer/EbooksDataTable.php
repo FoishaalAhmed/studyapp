@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Ebook\DataTables;
+namespace Modules\Ebook\DataTables\Writer;
 
 use Illuminate\Http\JsonResponse;
 use Modules\Ebook\Entities\Ebook;
@@ -26,15 +26,12 @@ class EbooksDataTable extends DataTable
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($ebook->thumb) . '" alt="Category Thumb" height="48">';
             })
             ->addColumn('book', function ($ebook) {
-                return '<a href="' . route('admin.ebooks.download', $ebook->id) . '" class= "btn btn-soft-primary rounded-pill waves-effect waves-light"><i class= "fe-download"></i></a>';
+                return '<a href="' . route('writer.ebooks.show', $ebook->id) . '" class= "btn btn-soft-primary rounded-pill waves-effect waves-light"><i class= "fe-download"></i></a>';
             })
             ->addColumn('action', function ($ebook) {
-                $status = $ebook->status == 'Published' ? '<a href="' . route('admin.ebooks.status', [$ebook->id, 'In Review']) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-thumbs-up "></i></a>&nbsp;' : '<a href="' . route('admin.ebooks.status', [$ebook->id, 'Published']) . '" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-thumbs-down"></i></a>&nbsp;';
 
-                $edit = '<a href="' . route('admin.ebooks.edit', $ebook->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
-
-                $delete = '<a href="' . route('admin.ebooks.destroy', $ebook->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $status . $edit . $delete;
+                return '<a href="' . route('writer.ebooks.edit', $ebook->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+                
             })
             ->rawColumns(['thumb', 'book', 'action'])
             ->make(true);
@@ -42,7 +39,7 @@ class EbooksDataTable extends DataTable
 
     public function query()
     {
-        $query = Ebook::with(['category:id,name', 'subject:id,name']);
+        $query = Ebook::with(['category:id,name', 'subject:id,name'])->where('user_id', auth()->id());
         return $this->applyScopes($query);
     }
 
