@@ -2,8 +2,9 @@
 
 namespace Modules\Category\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Exam\Entities\{Exam, ExamMark};
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {

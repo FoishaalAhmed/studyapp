@@ -345,13 +345,13 @@
                                         </ul>
                                     </div>
                                 </li> --}}
-                                {{-- @if (module('LectureSheet') && isActive('LectureSheet'))
+                                @if (module('LectureSheet') && isActive('LectureSheet'))
                                 <li class="menu-item {{ request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') ? 'menuitem-active' : '' }}">
-                                    <a href="{{ route('writer.lecture_sheets.index') }}" class="menu-link {{ request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') ? 'active' : '' }}">
+                                    <a href="{{ route('writer.lecture-sheets.index') }}" class="menu-link {{ request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') ? 'active' : '' }}">
                                         <span class="menu-text">{{ __('Lecture Sheets') }}</span>
                                     </a>
                                 </li>
-                                @endif --}}
+                                @endif
                                 @if (module('Ebook') && isActive('Ebook'))
                                 <li class="menu-item {{ request()->is('writer/ebooks/*') || request()->is('writer/ebooks') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('writer.ebooks.index') }}" class="menu-link {{ request()->is('writer/ebooks/*') || request()->is('writer/ebooks') ? 'active' : '' }}">

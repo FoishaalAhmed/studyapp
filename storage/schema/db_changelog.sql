@@ -15,6 +15,7 @@ ALTER TABLE `exams` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Re
 -- Lecture Sheet
 ALTER TABLE `lecture_sheets` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';
 ALTER TABLE `lecture_sheets` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Published, In Review';
+ALTER TABLE `lecture_sheets` ADD `user_id` BIGINT NULL DEFAULT NULL AFTER `status`, ADD INDEX `lecture_sheets_user_id_idx` (`user_id`);
 
 -- Ebook
 ALTER TABLE `ebooks` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';

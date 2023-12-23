@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('price', 11, 2)->nullable();
             $table->string('type', 10)->default('Premium')->comment('Free, Premium');
             $table->string('status', 10)->default('In Review')->comment('In Review, Published');
+            $table->bigInteger('user_id')->nullable()->index('ebooks_user_id_idx');
             $table->timestamps();
         });
     }

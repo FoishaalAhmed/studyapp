@@ -15,7 +15,7 @@ class LectureSheetRequest extends FormRequest
     {
         $rules = [
             'child_category_id' => ['required', 'numeric', 'min:1'],
-            'subject_id' => ['required', 'numeric', 'min:1'],
+            'subject_id' => ['nullable', 'numeric', 'min:1'],
             'chapter' => ['required', 'string', 'max: 255'],
             'type' => ['required', 'string', 'in:Premium,Free'],
             'price' => ['required_if:type,Premium'],

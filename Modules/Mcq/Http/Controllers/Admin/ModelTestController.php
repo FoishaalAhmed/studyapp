@@ -62,7 +62,7 @@ class ModelTestController extends Controller
         $data = [
             'model' => $model,
             'subjects' => Subject::whereIn('id', $category_ids)->orderBy('name')->get(['id', 'name']),
-            'categories' => ChildCategory::where('type', CategoryType::ModelTest)->oldest('name')->get(['id', 'name']),
+            'categories' => ChildCategory::whereIn('type', [CategoryType::ModelTest, CategoryType::CommonModelTest])->oldest('name')->get(['id', 'name']),
         ];
 
         return view('mcq::admin.mcqs.edit', $data);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\LectureSheet\DataTables;
+namespace Modules\LectureSheet\DataTables\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\Services\DataTable;

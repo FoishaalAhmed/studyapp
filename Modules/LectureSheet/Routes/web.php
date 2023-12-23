@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\LectureSheet\Http\Controllers\Admin\LectureSheetController;
+use Modules\LectureSheet\Http\Controllers\Writer\LectureSheetController as WriterLectureSheetController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
     Route::controller(LectureSheetController::class)->prefix('lecture-sheets')->as('lecture_sheets.')
@@ -12,4 +14,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
         Route::delete('destroy/{sheet}', 'destroy')->name('destroy');
         Route::get('download/{sheet}', 'download')->name('download');
     });
+});
+
+Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
+    Route::resource('lecture-sheets', WriterLectureSheetController::class)
+        ->except(['destroy']);
 });

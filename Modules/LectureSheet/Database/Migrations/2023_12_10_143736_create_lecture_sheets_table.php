@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('file');
             $table->string('thumb')->nullable();
             $table->string('type', 10)->default('Free')->comment('Free,Premium');
-            $table->string('status', 10)->default('In Review')->comment('Published, In Review');
             $table->float('price', 11, 2)->nullable();
+            $table->string('status', 10)->default('In Review')->comment('Published, In Review');
+            $table->bigInteger('user_id')->nullable()->index('lecture_sheets_user_id_idx');
             $table->timestamps();
         });
     }

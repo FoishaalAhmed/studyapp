@@ -76,6 +76,7 @@ class LectureSheet extends Model
         $this->chapter           = $request->chapter;
         $this->type              = $request->type;
         $this->price             = $request->price;
+        $this->user_id           = auth()->id();
         $storeLectureSheet       = $this->save();
 
         $storeLectureSheet

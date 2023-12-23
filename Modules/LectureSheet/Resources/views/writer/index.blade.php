@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('All Ebooks'))
+@section('title', __('All Lecture Sheets'))
 @section('css')
     <!-- third party css -->
     <link href="{{ asset('public/assets/backend/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -14,9 +14,9 @@
                 <div class="card">
                     @include('alert')
                     <div class="card-body">
-                        <h4 class="header-title mb-4">{{ __('All Ebooks') }}</h4>
+                        <h4 class="header-title mb-4">{{ __('All Lecture Sheets') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="{{ route('writer.ebooks.create') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i> {{ __('New Ebook') }}</a>
+                            <a href="{{ route('writer.lecture-sheets.create') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i> {{ __('New Leature Sheet') }}</a>
                         </p>
                         <div class="table-responsive">
                             {!! $dataTable->table(['class' => 'table dt-responsive nowrap w-100', 'width' => '100%', 'cellspacing' => '0']) !!}

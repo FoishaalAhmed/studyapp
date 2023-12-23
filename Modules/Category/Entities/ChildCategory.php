@@ -2,9 +2,12 @@
 
 namespace Modules\Category\Entities;
 
+use Modules\Ebook\Entities\Ebook;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\UserAccess\Entities\UserAccess;
+use Modules\LectureSheet\Entities\LectureSheet;
+use Modules\Mcq\Entities\{ModelTest, Question};
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ChildCategory extends Model
 {

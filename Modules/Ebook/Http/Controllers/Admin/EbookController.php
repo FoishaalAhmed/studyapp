@@ -35,7 +35,7 @@ class EbookController extends Controller
      */
     public function edit(Ebook $ebook)
     {
-        $ids = SubCategory::where('type', CategoryType::Ebook)->pluck('id')->toArray();
+        $ids = SubCategory::whereIn('type', [CategoryType::Ebook, CategoryType::CommonEbook])->pluck('id')->toArray();
         $category = SubCategory::whereIn('id', $ids)->firstOrFail(['category_id']);
         $category_ids = CategorySubject::where('category_id', $category->category_id)->pluck('subject_id')->toArray();
 

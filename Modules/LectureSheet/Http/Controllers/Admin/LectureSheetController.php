@@ -1,13 +1,14 @@
 <?php
 
-namespace Modules\LectureSheet\Http\Controllers;
+namespace Modules\LectureSheet\Http\Controllers\Admin;
 
+use App\Enums\CategoryType;
 use Illuminate\Routing\Controller;
 use Modules\LectureSheet\Entities\LectureSheet;
 use Modules\Subject\Entities\{Subject, CategorySubject};
 use Modules\Category\Entities\{SubCategory, ChildCategory};
-use Modules\LectureSheet\DataTables\LectureSheetsDataTable;
 use Modules\LectureSheet\Http\Requests\LectureSheetRequest;
+use Modules\LectureSheet\DataTables\Admin\LectureSheetsDataTable;
 
 class LectureSheetController extends Controller
 {
@@ -24,7 +25,7 @@ class LectureSheetController extends Controller
      */
     public function index(LectureSheetsDataTable $dataTable)
     {
-        return $dataTable->render('lecturesheet::index');
+        return $dataTable->render('lecturesheet::admin.index');
     }
 
     /**
@@ -34,7 +35,7 @@ class LectureSheetController extends Controller
      */
     public function edit(LectureSheet $sheet)
     {
-        $ids          = SubCategory::whereIn('type', ['3', '6'])->pluck('id')->toArray();
+        $ids          = SubCategory::whereIn('type', [CategoryType::LectureSheet, CategoryType::CommonLectureSheet])->pluck('id')->toArray();
         $category     = SubCategory::whereIn('id', $ids)->firstOrFail(['category_id']);
         $category_ids = CategorySubject::where('category_id', $category->category_id)->pluck('subject_id')->toArray();
 
@@ -44,7 +45,7 @@ class LectureSheetController extends Controller
             'categories' => ChildCategory::whereIn('sub_category_id', $ids)->oldest('name')->get(['id', 'name'])
         ];
 
-        return view('lecturesheet::edit', $data);
+        return view('lecturesheet::admin.edit', $data);
     }
 
     /**

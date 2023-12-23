@@ -2,8 +2,11 @@
 
 namespace Modules\Category\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; 
+use Modules\Ebook\Entities\Ebook;
+use Modules\Mcq\Entities\ModelTest;
 use Illuminate\Database\Eloquent\Model;
+use Modules\LectureSheet\Entities\LectureSheet;
+use Illuminate\Database\Eloquent\Factories\HasFactory; 
 
 class SubCategory extends Model
 {

@@ -35,7 +35,7 @@ class EbookController extends Controller
      */
     public function create()
     {
-        $subCategoryIds = SubCategory::where('type', CategoryType::Ebook)->pluck('id')->toArray();
+        $subCategoryIds = SubCategory::whereIn('type', [CategoryType::Ebook, CategoryType::CommonEbook])->pluck('id')->toArray();
 
         $data = [
             'categories' => ChildCategory::whereIn('sub_category_id', $subCategoryIds)->oldest('name')->get(['id', 'name'])
@@ -61,7 +61,7 @@ class EbookController extends Controller
      */
     public function edit(Ebook $ebook)
     {
-        $subCategoryIds = SubCategory::where('type', CategoryType::Ebook)->pluck('id')->toArray();
+        $subCategoryIds = SubCategory::whereIn('type', [CategoryType::Ebook, CategoryType::CommonEbook])->pluck('id')->toArray();
         $category = SubCategory::whereIn('id', $subCategoryIds)->firstOrFail(['category_id']);
         $category_ids = CategorySubject::where('category_id', $category->category_id)->pluck('subject_id')->toArray();
 

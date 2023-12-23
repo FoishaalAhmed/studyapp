@@ -15,10 +15,6 @@
                     @include('alert')
                     <div class="card-body">
                         <h4 class="header-title">{{ __('All Category Type') }}</h4>
-                        <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="javascript:;" class="btn btn-outline-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#add-modal"><i class="fe-plus-square"></i> {{ __('New Category Type') }}</a>
-                        </p>
-
                         <div class="table-responsive">
                             {!! $dataTable->table(['class' => 'table dt-responsive nowrap w-100', 'width' => '100%', 'cellspacing' => '0']) !!}
                         </div>
