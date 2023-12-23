@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Job\Http\Controllers\Admin;
+namespace Modules\Job\Http\Controllers\Writer;
 
 use Modules\Job\Entities\JobUser;
 use Illuminate\Routing\Controller;
-use Modules\Job\DataTables\Admin\{ApplyDetailsDataTable, JobAppliesDataTable};
+use Modules\Job\DataTables\Writer\{ApplyDetailsDataTable, JobAppliesDataTable};
 
 class JobUserController extends Controller
 {
@@ -21,7 +21,7 @@ class JobUserController extends Controller
      */
     public function index(JobAppliesDataTable $dataTable)
     {
-        return $dataTable->render('job::admin.apply');
+        return $dataTable->render('job::writer.job-users.apply');
     }
 
     /**
@@ -30,6 +30,6 @@ class JobUserController extends Controller
      */
     public function show(ApplyDetailsDataTable $dataTable)
     {
-        return $dataTable->render('job::admin.detail');
+        return $dataTable->render('job::writer.job-users.detail');
     }
 }
