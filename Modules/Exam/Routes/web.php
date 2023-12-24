@@ -1,7 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Exam\Http\Controllers\Admin\{ExamTypeController, ExamController, ExamQuestionController};
+use Modules\Exam\Http\Controllers\Admin\{
+    ExamController, 
+    ExamTypeController, 
+    ExamQuestionController
+};
+use Modules\Exam\Http\Controllers\Writer\{
+    ExamController as WriterExamController,
+    ExamQuestionController as WriterExamQuestionController
+};
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
     
@@ -29,4 +37,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
         Route::put('update/{question}', 'update')->name('update');
         Route::delete('destroy/{question}', 'destroy')->name('destroy');
     });
+});
+
+Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
+
+    Route::resource('exams', WriterExamController::class)
+        ->except(['destroy']);
+
+    Route::resource('exam-questions', WriterExamQuestionController::class)
+        ->except(['destroy']);
 });

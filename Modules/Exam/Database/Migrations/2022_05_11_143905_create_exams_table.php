@@ -30,6 +30,11 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->string('type')->default('Free')->comment('Free,Premium');
             $table->float('price', 11, 2)->nullable();
+            $table->string('photo')->nullable();
+            $table->string('draft', 10)->default('Yes')->comment('Yes, No');
+            $table->text('description')->nullable();
+            $table->string('status', 10)->default('In Review')->comment('In Review, Published');
+            $table->bigInteger('user_id')->nullable()->index('exams_user_id_idx');
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ ALTER TABLE `buys` CHANGE `status` `status` VARCHAR(15) NOT NULL DEFAULT 'Not Co
 -- Exam table
 ALTER TABLE `exams` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';
 ALTER TABLE `exams` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Published, In Review';
+ALTER TABLE `exams` CHANGE `draft` `draft` VARCHAR(10) NOT NULL DEFAULT 'Yes' COMMENT 'Yes, No';
 
 -- Lecture Sheet
 ALTER TABLE `lecture_sheets` CHANGE `type` `type` VARCHAR(7) NOT NULL DEFAULT 'Free' COMMENT 'Free,Premium';

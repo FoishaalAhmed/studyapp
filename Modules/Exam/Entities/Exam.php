@@ -12,7 +12,8 @@ class Exam extends Model
     use HasFactory;
 
     protected $fillable = [
-        'subject_id', 'type', 'chapter', 'title', 'mark_per_question', 'negative_mark', 'time', 'start_date', 'start_time', 'result_date', 'result_time', 'note', 'exam_type',
+        'category_id', 'subject_id', 'exam_type', 'chapter', 'title', 'mark_per_question', 'negative_mark', 'time', 'start_date', 'start_time', 'result_date', 'result_time', 'note',
+        'type', 'price', 'photo', 'draft', 'description', 'status', 'user_id', 
     ];
 
     public function category()
@@ -85,13 +86,14 @@ class Exam extends Model
 
         if ($image) {
 
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/exams/';
-            $image_url       = $upload_path . $image_full_name;
-            $success         = $image->move($upload_path, $image_full_name);
-            $this->photo     = $image_url;
+            $response = uploadFile($image, 'public/images/exams/', 'exam');
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $this->photo = 'public/images/exams/' . $response['file_name'];
         }
 
         $this->category_id = $request->category_id;
