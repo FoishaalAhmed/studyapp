@@ -312,39 +312,27 @@
 
                 @if (auth()->user()->hasRole('Writer'))
 
-                    <li class="menu-item {{ request()->is('writer/mcqs') || request()->is('writer/mcqs/*') || request()->is('writer/questions') || request()->is('writer/questions/*') || request()->is('writer/exam-types') || request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') || request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') || request()->is('writer/ebooks/*') || request()->is('writer/ebooks')? 'menuitem-active' : '' }}">
+                    <li class="menu-item {{ request()->is('writer/mcqs') || request()->is('writer/mcqs/*') || request()->is('writer/questions') || request()->is('writer/questions/*') || request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') || request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') || request()->is('writer/ebooks/*') || request()->is('writer/ebooks')? 'menuitem-active' : '' }}">
                         <a href="#resource" data-bs-toggle="collapse" class="menu-link">
                             <span class="menu-icon"><i class="mdi mdi-share-variant"></i></span>
                             <span class="menu-text"> {{ __('Resources') }} </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse {{ request()->is('writer/mcqs') || request()->is('writer/mcqs/*') || request()->is('writer/questions') || request()->is('writer/questions/*') || request()->is('writer/exam-types') || request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') || request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') || request()->is('writer/ebooks/*') || request()->is('writer/ebooks') ? 'show' : '' }}" id="resource">
+                        <div class="collapse {{ request()->is('writer/mcqs') || request()->is('writer/mcqs/*') || request()->is('writer/questions') || request()->is('writer/questions/*') || request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') || request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') || request()->is('writer/ebooks/*') || request()->is('writer/ebooks') ? 'show' : '' }}" id="resource">
                             <ul class="sub-menu">
                                 {{-- <li class="menu-item {{ request()->is('writer/mcqs/*') || request()->is('writer/mcqs') || request()->is('writer/questions') || request()->is('writer/questions/*') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('writer.mcqs.index') }}" class="menu-link {{ request()->is('writer/mcqs/*') || request()->is('writer/mcqs') || request()->is('writer/questions') || request()->is('writer/questions/*') ? 'active' : '' }}">
                                         <span class="menu-text">{{ __('Model Test') }}</span>
                                     </a>
-                                </li>
-                                <li class="menu-item {{ request()->is('writer/exam-types') || request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') ? 'menuitem-active' : '' }}">
-                                    <a href="#exam" data-bs-toggle="collapse" class="menu-link">
-                                        <span class="menu-text"> {{ __('Exam') }} </span>
-                                        <span class="menu-arrow"></span>
-                                    </a>
-                                    <div class="collapse {{ request()->is('writer/exam-types') || request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') ? 'show' : '' }}" id="exam">
-                                        <ul class="sub-menu">
-                                            <li class="menu-item {{ request()->is('writer/exam-types') ? 'menuitem-active' : '' }}">
-                                                <a href="{{ route('writer.exam-types.index') }}" class="menu-link">
-                                                    <span class="menu-text">{{ __('Type') }}</span>
-                                                </a>
-                                            </li>
-                                            <li class="menu-item {{ request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') ? 'menuitem-active' : '' }}">
-                                                <a href="{{ route('writer.exams.index') }}" class="menu-link">
-                                                    <span class="menu-text">{{ __('Exam') }}</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </li> --}}
+                                
+
+                                <li class="menu-item {{ request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') ? 'menuitem-active' : '' }}">
+                                    <a href="{{ route('writer.exams.index') }}" class="menu-link {{ request()->is('writer/exams/*') || request()->is('writer/exams') || request()->is('writer/exam-questions/*') || request()->is('writer/exam-questions') ? 'active' : '' }}">
+                                        <span class="menu-text">{{ __('Exams') }}</span>
+                                    </a>
+                                </li>
+
                                 @if (module('LectureSheet') && isActive('LectureSheet'))
                                 <li class="menu-item {{ request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') ? 'menuitem-active' : '' }}">
                                     <a href="{{ route('writer.lecture-sheets.index') }}" class="menu-link {{ request()->is('writer/lecture-sheets/*') || request()->is('writer/lecture-sheets') ? 'active' : '' }}">

@@ -38,8 +38,7 @@ class ExamQuestionsDataTable extends DataTable
 
                 $edit = '<a href="' . route('writer.exam-questions.edit', $question->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
 
-                $delete = '<a href="' . route('writer.exam-questions.destroy', $question->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $edit . $delete;
+                return $edit;
             })
             ->rawColumns(['action'])
             ->make(true);

@@ -3,9 +3,8 @@
 namespace Modules\Exam\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Modules\Exam\Entities\Exam;
 use Illuminate\Routing\Controller;
-use Modules\Exam\Entities\ExamQuestion;
+use Modules\Exam\Entities\{Exam, ExamQuestion};
 use Modules\Exam\Http\Requests\ExamQuestionRequest;
 use Modules\Exam\DataTables\Admin\ExamQuestionsDataTable;
 

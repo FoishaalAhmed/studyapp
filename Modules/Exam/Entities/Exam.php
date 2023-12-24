@@ -183,4 +183,10 @@ class Exam extends Model
 
         return $question;
     }
+
+    public function checkWriterExam($examId)
+    {
+        $exam = $this->where(['id' => $examId, 'user_id' => auth()->id()])->first();
+        return is_null($exam) ? false : true;
+    }
 }

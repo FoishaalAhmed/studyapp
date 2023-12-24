@@ -3,9 +3,8 @@
 namespace Modules\Exam\Http\Controllers\Writer;
 
 use Illuminate\Http\Request;
-use Modules\Exam\Entities\Exam;
 use Illuminate\Routing\Controller;
-use Modules\Exam\Entities\ExamQuestion;
+use Modules\Exam\Entities\{Exam, ExamQuestion};
 use Modules\Exam\Http\Requests\ExamQuestionRequest;
 use Modules\Exam\DataTables\Writer\ExamQuestionsDataTable;
 
@@ -24,6 +23,15 @@ class ExamQuestionController extends Controller
      */
     public function index(ExamQuestionsDataTable $dataTable)
     {
+        $examId = request()->exam_id;
+
+        $writerExam = (new Exam())->checkWriterExam($examId);
+
+        if (! $writerExam) {
+            session()->flash('error', __('This exam does not belongs to you.'));
+            return redirect()->route('writer.exams.index');
+        }
+
         return $dataTable->render('exam::writer.exam-questions.index');
     }
 
@@ -32,10 +40,10 @@ class ExamQuestionController extends Controller
      * @param ExamQuestion $question
      * @return Renderable
      */
-    public function edit(ExamQuestion $question)
+    public function edit(ExamQuestion $ExamQuestion)
     {
         $data = [
-            'question' => $question,
+            'question' => $ExamQuestion,
             'exams' => Exam::oldest('title')->get(['id', 'title'])
         ];
         return view('exam::writer.exam-questions.edit', $data);
@@ -47,20 +55,9 @@ class ExamQuestionController extends Controller
      * @param ExamQuestion $question
      * @return \Illuminate\Http\Response
      */
-    public function update(ExamQuestionRequest $request, ExamQuestion $question)
+    public function update(ExamQuestionRequest $request, ExamQuestion $ExamQuestion)
     {
-        $this->examQuestionModelObject->updateQuestion($request, $question);
+        $this->examQuestionModelObject->updateQuestion($request, $ExamQuestion);
         return redirect()->route('writer.exam-questions.index', ['exam_id' => $request->exam_id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param ExamQuestion $question
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ExamQuestion $question)
-    {
-        $this->examQuestionModelObject->destroyQuestion($question);
-        return back();
     }
 }

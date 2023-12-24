@@ -16,10 +16,10 @@
                     <div class="card-body">
                         <h4 class="header-title">{{ __('Update Exam Question') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="{{ route('admin.exam-questions.index') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Exam Question') }}</a>
+                            <a href="{{ route('writer.exam-questions.index') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Exam Question') }}</a>
                         </p>
                         
-                        <form action="{{ route('admin.exam-questions.update', $question->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('writer.exam-questions.update', $question->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row mb-3">
@@ -96,7 +96,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <a href="{{ route('admin.exam-questions.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
+                                    <a href="{{ route('writer.exam-questions.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
                                     <button type="submit" class="btn btn-outline-success waves-effect waves-light"><i class="fe-plus-circle"></i> {{ __('Submit') }}</button>
                                 </div>
                             </div>
