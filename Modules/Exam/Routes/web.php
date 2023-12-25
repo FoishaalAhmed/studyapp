@@ -41,6 +41,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
 
 Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
 
+    Route::post('exam-questions/ajax-save', [WriterExamQuestionController::class, 'ajaxSave'])
+    ->name('exam-questions.ajax.save');
+    Route::post('exam-questions/bulk-update', [WriterExamQuestionController::class, 'bulkUpdate'])
+    ->name('exam-questions.bulk.update');
+
     Route::resource('exams', WriterExamController::class)
         ->except(['destroy']);
 

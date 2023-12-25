@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <h4 class="header-title">{{ __('Update Exam Question') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="{{ route('admin.exam-questions.index') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Exam Question') }}</a>
+                            <a href="{{ route('admin.exam-questions.index', ['exam_id' => $question->exam_id]) }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Exam Question') }}</a>
                         </p>
                         
                         <form action="{{ route('admin.exam-questions.update', $question->id) }}" method="post" enctype="multipart/form-data">
@@ -27,7 +27,7 @@
                                     <label class="form-label">{{ __('Exam') }}</label>
                                     <select class="form-control" name="exam_id" id="exam_id" data-toggle="select2" data-width="100%" required="">
                                         @foreach ($exams as $exam)
-                                            <option value="{{ $exam->id }}" {{ $exam->id == $exam->exam_test_id ? 'selected' : '' }}>{{ $exam->title }}</option>
+                                            <option value="{{ $exam->id }}" {{ $exam->id == $question->exam_id ? 'selected' : '' }}>{{ $exam->title }}</option>
                                         @endforeach
                                     </select>
                                     @error('exam_id')
@@ -112,7 +112,6 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.ckeditor.com/4.5.7/full/ckeditor.js"></script>
     <script src="{{ asset('public/assets/backend/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('public/assets/backend/js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ asset('public/assets/backend/js/pages/form-pickers.init.js') }}"></script>

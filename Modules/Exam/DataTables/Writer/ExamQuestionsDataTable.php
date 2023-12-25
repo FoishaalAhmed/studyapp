@@ -31,9 +31,6 @@ class ExamQuestionsDataTable extends DataTable
             ->addColumn('correct_answer', function ($question) {
                 return  $question->correct_answer;
             })
-            ->addColumn('user_id', function ($question) {
-                return  $question->user?->name;
-            })
             ->addColumn('action', function ($question) {
 
                 $edit = '<a href="' . route('writer.exam-questions.edit', $question->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
@@ -49,9 +46,9 @@ class ExamQuestionsDataTable extends DataTable
         $examId = request()->exam_id;
 
         if ($examId) {
-            $query = ExamQuestion::where('exam_id', $examId)->with('user:id,name');
+            $query = ExamQuestion::where('exam_id', $examId);
         } else {
-            $query = ExamQuestion::with('user:id,name');
+            $query = ExamQuestion::select('*');
         }
 
         return $this->applyScopes($query);
@@ -103,11 +100,6 @@ class ExamQuestionsDataTable extends DataTable
                 'name' => 'exam_questions.correct_answer',
                 'title' => __('Right Answer'),
                 'searchable' => false,
-            ])
-            ->addColumn([
-                'data' => 'user_id',
-                'name' => 'user.name',
-                'title' => __('Writer')
             ])
             ->addColumn([
                 'data' => 'action',

@@ -33,9 +33,9 @@ class ExamsDataTable extends DataTable
             })
             ->addColumn('action', function ($exam) {
 
-                $status = $exam->draft == 'Yes' ? '<a href="' . route('writer.exams.show', $exam->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-help-circle"></i></a>&nbsp;' : '';
+                $status = $exam->draft == 'Yes' ? '<a href="' . route('writer.exam-questions.show', $exam->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-help-circle"></i></a>&nbsp;' : '';
 
-                $create = '<a href="' . route('writer.exam-questions.create', $exam->id) . '" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i></a>&nbsp;';
+                $create = '<a href="' . route('writer.exam-questions.create', ['exam_id' => $exam->id]) . '" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i></a>&nbsp;';
 
                 $edit = '<a href="' . route('writer.exams.edit', $exam->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
 

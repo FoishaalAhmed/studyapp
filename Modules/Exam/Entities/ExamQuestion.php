@@ -46,7 +46,7 @@ class ExamQuestion extends Model
         try {
 
             if ($request->button == 'draft') {
-                Exam::where('id', $request->exam_id)->update(['draft' => 1]);
+                Exam::where('id', $request->exam_id)->update(['draft' => 'Yes']);
             }
 
             $totalQuestion = ExamQuestion::where('exam_id', $request->exam_id)->count();
@@ -88,7 +88,7 @@ class ExamQuestion extends Model
     {
         try {
             if ($request->button != 'draft') {
-                Exam::where('id', $request->exam_id)->update(['draft' => 0]);
+                Exam::where('id', $request->exam_id)->update(['draft' => 'No']);
             }
 
             $totalQuestion = ExamQuestion::where('exam_id', $request->exam_id)->count();
