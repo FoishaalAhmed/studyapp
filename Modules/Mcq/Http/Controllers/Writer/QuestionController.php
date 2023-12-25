@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Mcq\Http\Controllers\Admin;
+namespace Modules\Mcq\Http\Controllers\Writer;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Mcq\Entities\Question;
 use Modules\Mcq\Entities\ModelTest;
 use Modules\Mcq\Http\Requests\QuestionRequest;
-use Modules\Mcq\DataTables\Admin\QuestionsDataTable;
+use Modules\Mcq\DataTables\Writer\QuestionsDataTable;
 
 class QuestionController extends Controller
 {

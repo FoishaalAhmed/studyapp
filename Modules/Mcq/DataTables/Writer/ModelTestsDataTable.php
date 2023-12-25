@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Mcq\DataTables\Admin;
+namespace Modules\Mcq\DataTables\Writer;
 
 use Illuminate\Http\JsonResponse;
 use Modules\Mcq\Entities\ModelTest;
@@ -14,13 +14,13 @@ class ModelTestsDataTable extends DataTable
             ->eloquent($this->query())
             ->addIndexColumn(true)
             ->addColumn('child_category_id', function ($model) {
-                return  $model->category?->name;
+                return '<a href="' . route('writer.mcqs.create', ['child_category_id' => $model->category?->id]) . '">' . $model->category?->name . '</a>';
             })
             ->addColumn('subject_id', function ($model) {
                 return $model->subject?->name;
             })
             ->addColumn('title', function ($model) {
-                return '<a href="' . route('admin.questions.index', ['model_test_id' => $model->id]) . '">' . $model->title . '</a>';
+                return '<a href="' . route('writer.mcq-questions.index', ['model_test_id' => $model->id]) . '">' . $model->title . '</a>';
             })
             ->addColumn('questions_count', function ($model) {
                 return  $model->questions_count;
@@ -36,14 +36,15 @@ class ModelTestsDataTable extends DataTable
             })
             
             ->addColumn('action', function ($model) {
-                $status = $model->status == 'Published' ? '<a href="' . route('admin.mcqs.status', [$model->id, 'In Review']) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-thumbs-up "></i></a>&nbsp;' : '<a href="' . route('admin.mcqs.status', [$model->id, 'Published']) . '" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-thumbs-down"></i></a>&nbsp;';
-                
-                $edit = '<a href="' . route('admin.mcqs.edit', $model->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+                $status = $model->draft == 'Yes' ? '<a href="' . route('writer.mcq-questions.show', $model->id) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-help-circle"></i></a>&nbsp;' : '';
 
-                $delete = '<a href="' . route('admin.mcqs.destroy', $model->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $status . $edit . $delete;
+                $create = '<a href="' . route('writer.mcq-questions.create', ['model_test_id' => $model->id]) . '" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i></a>&nbsp;';
+
+                $edit = '<a href="' . route('writer.mcqs.edit', $model->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
+
+                return $status . $create . $edit;
             })
-            ->rawColumns(['photo', 'title', 'action'])
+            ->rawColumns(['child_category_id', 'photo', 'title', 'action'])
             ->make(true);
     }
 
@@ -53,11 +54,14 @@ class ModelTestsDataTable extends DataTable
         $subjectId = request()->subject_id;
 
         if ($categoryId) {
-            $query = ModelTest::where('child_category_id', $categoryId)->with(['category:id,name', 'subject:id,name'])->withCount('questions');
+            $query = ModelTest::where('child_category_id', $categoryId)->with(['category:id,name', 'subject:id,name'])
+            ->withCount('questions')->where('user_id', auth()->id());
         } elseif ($subjectId) {
-            $query = ModelTest::where('subject_id', $subjectId)->with(['category:id,name', 'subject:id,name'])->withCount('questions');
+            $query = ModelTest::where('subject_id', $subjectId)->with(['category:id,name', 'subject:id,name'])
+            ->withCount('questions')->where('user_id', auth()->id());
         } else {
-            $query = ModelTest::with(['category:id,name', 'subject:id,name'])->withCount('questions');
+            $query = ModelTest::with(['category:id,name', 'subject:id,name'])
+            ->withCount('questions')->where('user_id', auth()->id());
         }
         
         return $this->applyScopes($query);

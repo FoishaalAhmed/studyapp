@@ -1,7 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Mcq\Http\Controllers\Admin\{ModelTestController, QuestionController};
+use Modules\Mcq\Http\Controllers\Admin\{
+    QuestionController,
+    ModelTestController
+};
+use Modules\Mcq\Http\Controllers\Writer\{
+    QuestionController as WriterQuestionController,
+    ModelTestController as WriterModelTestController
+};
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
     Route::controller(ModelTestController::class)->prefix('mcqs')->as('mcqs.')
@@ -20,4 +27,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
             Route::put('update/{question}', 'update')->name('update');
             Route::delete('destroy/{question}', 'destroy')->name('destroy');
     });
+});
+
+Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
+
+    Route::resource('mcqs', WriterModelTestController::class)
+        ->except(['destroy']);
+
+    Route::resource('mcq-questions', WriterQuestionController::class)
+        ->except(['destroy']);
 });

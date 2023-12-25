@@ -15,9 +15,7 @@ class ChildCategoriesDataTable extends DataTable
             ->eloquent($this->query())
             ->addIndexColumn(true)
             ->addColumn('name', function ($childCategory) {
-                // return '<a href="' . route('writer.mcqs.index', ['category_id' => $childCategory->id]) . '">' . $childCategory->name . '</a>';
-
-                return $childCategory->name;
+                return '<a href="' . route('writer.mcqs.index', ['category_id' => $childCategory->id]) . '">' . $childCategory->name . '</a>';
             })
             ->addColumn('sub_category_id', function ($childCategory) {
                 return $childCategory?->subCategory?->name;

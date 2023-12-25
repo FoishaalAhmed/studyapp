@@ -6,10 +6,10 @@ use App\Enums\CategoryType;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Mcq\Entities\ModelTest;
+use Modules\Mcq\Http\Requests\ModelTestRequest;
 use Modules\Mcq\DataTables\Admin\ModelTestsDataTable;
 use Modules\Subject\Entities\{CategorySubject, Subject};
 use Modules\Category\Entities\{ChildCategory, SubCategory};
-use Modules\Mcq\Http\Requests\ModelTestRequest;
 
 class ModelTestController extends Controller
 {
@@ -30,25 +30,6 @@ class ModelTestController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('mcq::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      * @param ModelTest $model
      * @return Renderable
@@ -57,11 +38,11 @@ class ModelTestController extends Controller
     {
         $child        = ChildCategory::where('id', $model->child_category_id)->firstOrFail(['id', 'sub_category_id', 'name']);
         $category     = SubCategory::where('id', $child->sub_category_id)->firstOrFail(['category_id']);
-        $category_ids = CategorySubject::where('category_id', $category->category_id)->pluck('subject_id')->toArray();
+        $categoryIds = CategorySubject::where('category_id', $category->category_id)->pluck('subject_id')->toArray();
 
         $data = [
             'model' => $model,
-            'subjects' => Subject::whereIn('id', $category_ids)->orderBy('name')->get(['id', 'name']),
+            'subjects' => Subject::whereIn('id', $categoryIds)->orderBy('name')->get(['id', 'name']),
             'categories' => ChildCategory::whereIn('type', [CategoryType::ModelTest, CategoryType::CommonModelTest])->oldest('name')->get(['id', 'name']),
         ];
 
