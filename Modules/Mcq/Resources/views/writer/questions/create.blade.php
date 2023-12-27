@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('New Exam Question'))
+@section('title', __('New Mcq Question'))
 
 @section('css')
     <link href="{{ asset('public/assets/backend/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -14,9 +14,9 @@
                 <div class="card">
                     @include('alert')
                     <div class="card-body">
-                        <h4 class="header-title">{{ __('New Exam Question') }}</h4>
+                        <h4 class="header-title">{{ __('New Mcq Question') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="{{ route('writer.exam-questions.index', ['exam_id' => $examId]) }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Exam Question') }}</a>
+                            <a href="{{ route('writer.mcq-questions.index', ['model_test_id' => $modelTestId]) }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Mcq Question') }}</a>
                         </p>
 
                         @if ($errors->any())
@@ -31,17 +31,17 @@
                         @endif
 
 
-                        <form action="{{ route('writer.exam-questions.store') }}" method="post" id="exam-question-form">
+                        <form action="{{ route('writer.mcq-questions.store') }}" method="post" id="mcq-question-form">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12 mb-3">
-                                    <label class="form-label">{{ __('Exam') }}</label>
-                                    <select class="form-control" name="exam_id" id="exam_id" data-toggle="select2" data-width="100%" required="">
-                                        @foreach ($exams as $exam)
-                                            <option value="{{ $exam->id }}" {{ $exam->id == old('exam_id') || $exam->id == $examId ? 'selected' : '' }}>{{ $exam->title }}</option>
+                                    <label class="form-label">{{ __('Model Test') }}</label>
+                                    <select class="form-control" name="model_test_id" id="model_test_id" data-toggle="select2" data-width="100%" required="">
+                                        @foreach ($models as $model)
+                                            <option value="{{ $model->id }}" {{ $model->id == old('model_test_id') || $model->id == $modelTestId ? 'selected' : '' }}>{{ $model->title }}</option>
                                         @endforeach
                                     </select>
-                                    @error('exam_id')
+                                    @error('model_test_id')
                                         <div class="invalid-feedback error">
                                             {{ $message }}
                                         </div>
@@ -53,27 +53,31 @@
                                 <span><b>1.</b></span>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">{{ __('Question') }}</label>
-                                    <input type="text" name="question[]" id="question1" class="form-control" placeholder="{{ __('Question') }}" required="">
+                                    <input type="text" name="question[]" id="question1" class="form-control fs-4" placeholder="{{ __('Question') }}" required="">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">{{ __('Answer1') }}</label>
-                                    <input type="text" name="answer1[]" id="answer11" class="form-control" placeholder="{{ __('Answer1') }}" required="">
+                                    <input type="text" name="answer1[]" id="answer11" class="form-control fs-4" placeholder="{{ __('Answer1') }}" required="">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">{{ __('Answer2') }}</label>
-                                    <input type="text" name="answer2[]" id="answer21" class="form-control" placeholder="{{ __('Answer2') }}" required="">
+                                    <input type="text" name="answer2[]" id="answer21" class="form-control fs-4" placeholder="{{ __('Answer2') }}" required="">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">{{ __('Answer3') }}</label>
-                                    <input type="text" name="answer3[]" id="answer31" class="form-control" placeholder="{{ __('Answer3') }}" required="">
+                                    <input type="text" name="answer3[]" id="answer31" class="form-control fs-4" placeholder="{{ __('Answer3') }}" required="">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label">{{ __('Answer4') }}</label>
-                                    <input type="text" name="answer4[]" id="answer41" class="form-control" placeholder="{{ __('Answer4') }}" required="">
+                                    <input type="text" name="answer4[]" id="answer41" class="form-control fs-4" placeholder="{{ __('Answer4') }}" required="">
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label class="form-label text-success">{{ __('Correct Answer') }}</label>
-                                    <input type="number" name="correct_answer[]" id="correct_answer1" class="form-control" placeholder="{{ __('Correct Answer') }}" required="">
+                                    <input type="number" name="answer[]" id="answer1" class="form-control fs-4" placeholder="{{ __('Correct Answer') }}" required="">
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label class="form-label">{{ __('Explanation') }}</label>
+                                    <textarea name="explanation[]" id="explanation1" placeholder="{{ __('Correct Answer Explanation') }}" rows="5" class="form-control fs-4"></textarea>
                                 </div>
                             </div>
 
@@ -84,7 +88,7 @@
 
                                     <input type="hidden" name="button" id="button">
 
-                                    <a href="{{ route('writer.exams.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
+                                    <a href="{{ route('writer.mcqs.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
 
                                     <button type="button" id="draft" class="btn btn-outline-info waves-effect waves-light"><i class="fe-info"></i> {{ __('Draft') }}</button>
 
@@ -117,9 +121,11 @@
         let answerThreeText = "{{ __('Answer3') }}";
         let answerFourText = "{{ __('Answer4') }}";
         let correctAnswerText = "{{ __('Correct Answer') }}";
+        let explanationTextOne = "{{ __('Explanation') }}";
+        let explanationTextTwo = "{{ __('Correct Answer Explanation') }}";
         let csrfToken = "{{ csrf_token() }}";
-        let ajaxQuestionSaveUrl = "{{ route('writer.exam-questions.ajax.save') }}"
+        let ajaxQuestionSaveUrl = "{{ route('writer.mcq-questions.ajax.save') }}"
     </script>
 
-    <script src="{{ asset('Modules/Exam/Resources/assets/js/exam-question-add.js') }}"></script>
+    <script src="{{ asset('Modules/Mcq/Resources/assets/js/mcq-question-add.js') }}"></script>
 @endsection

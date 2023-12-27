@@ -95,7 +95,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <a href="{{ route('writer.exam-questions.index') }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
+                                    <a href="{{ route('writer.exam-questions.index', ['exam_id' => $question->exam_id]) }}" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
                                     <button type="submit" class="btn btn-outline-success waves-effect waves-light"><i class="fe-plus-circle"></i> {{ __('Submit') }}</button>
                                 </div>
                             </div>

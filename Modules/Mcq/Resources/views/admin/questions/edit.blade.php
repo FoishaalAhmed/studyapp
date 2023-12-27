@@ -27,7 +27,7 @@
                                     <label class="form-label">{{ __('Model Test') }}</label>
                                     <select class="form-control" name="model_test_id" id="model_test_id" data-toggle="select2" data-width="100%" required="">
                                         @foreach ($models as $model)
-                                            <option value="{{ $model->id }}" {{ $model->id == $model->model_test_id ? 'selected' : '' }}>{{ $model->title }}</option>
+                                            <option value="{{ $model->id }}" {{ $model->id == $question->model_test_id ? 'selected' : '' }}>{{ $model->title }}</option>
                                         @endforeach
                                     </select>
                                     @error('model_test_id')

@@ -31,6 +31,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
 
 Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
 
+    Route::post('mcq-questions/ajax-save', [WriterQuestionController::class, 'ajaxSave'])
+    ->name('mcq-questions.ajax.save');
+    Route::post('mcq-questions/bulk-update', [WriterQuestionController::class, 'bulkUpdate'])
+    ->name('mcq-questions.bulk.update');
+
     Route::resource('mcqs', WriterModelTestController::class)
         ->except(['destroy']);
 

@@ -76,7 +76,7 @@ class ExamQuestionController extends Controller
 
         $data = [
             'examId' => $exam->id,
-            'exams' => Exam::oldest('title')->get(['id', 'title']),
+            'exams' => Exam::where('user_id', auth()->id())->oldest('title')->get(['id', 'title']),
             'questions' => ExamQuestion::where('exam_id', $exam->id)->get(),
         ];
         return view('exam::writer.exam-questions.draft-edit', $data);

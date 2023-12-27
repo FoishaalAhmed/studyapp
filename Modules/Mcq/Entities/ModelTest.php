@@ -160,4 +160,10 @@ class ModelTest extends Model
 
         return $question;
     }
+
+    public function checkWriterMcq($ModelTestId)
+    {
+        $mcq = $this->where(['id' => $ModelTestId, 'user_id' => auth()->id()])->first();
+        return is_null($mcq) ? false : true;
+    }
 }

@@ -45,61 +45,74 @@ class Question extends Model
 
     public function storeQuestion(Object $request)
     {
-        DB::transaction(function () use ($request) {
-            ModelTest::where('id', $request->model_test_id)->update(['draft' => 1]);
+        try {
+            DB::transaction(function () use ($request) {
+                ModelTest::where('id', $request->model_test_id)->update(['draft' => 'Yes']);
 
-            $totalQuestion = Question::where('model_test_id', $request->model_test_id)->count();
-            foreach ($request->question as $key => $value) {
-                if ($key < $totalQuestion) continue;
-                $question = new Question();
-                $question->question = $value;
-                $question->model_test_id = $request->model_test_id;
-                $question->answer1 = $request->answer1[$key];
-                $question->answer2 = $request->answer2[$key];
-                $question->answer3 = $request->answer3[$key];
-                $question->answer4 = $request->answer4[$key];
-                $question->answer = $request->answer[$key];
-                $question->explanation = $request->explanation[$key];
-                $question->user_id = auth()->id();
-                $question->save();
-            }
+                $totalQuestion = Question::where('model_test_id', $request->model_test_id)->count();
+                foreach ($request->question as $key => $value) {
+                    if ($key < $totalQuestion) continue;
+                    $question = new Question();
+                    $question->question = $value;
+                    $question->model_test_id = $request->model_test_id;
+                    $question->answer1 = $request->answer1[$key];
+                    $question->answer2 = $request->answer2[$key];
+                    $question->answer3 = $request->answer3[$key];
+                    $question->answer4 = $request->answer4[$key];
+                    $question->answer = $request->answer[$key];
+                    $question->explanation = $request->explanation[$key];
+                    $question->user_id = auth()->id();
+                    $question->save();
+                }
 
-            $userLog = new UserLog();
-            $userLog->user_id = auth()->id();
-            $userLog->module = 'inserted ' . count($request->question) . ' mcq question on ' . date('d M, Y');
-            $userLog->save();
+                $userLog = new UserLog();
+                $userLog->user_id = auth()->id();
+                $userLog->module = 'inserted ' . count($request->question) . ' mcq question on ' . date('d M, Y');
+                $userLog->save();
 
-            session()->flash('success', 'Question Added Successfully!');
-        });
+                session()->flash('success', 'Question Added Successfully!');
+            });
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Something Went Wrong!');
+        }
     }
 
     public function updateModelQuestion(Object $request)
     {
-        //dd($request);
-        DB::transaction(function () use ($request) {
-            $totalQuestion = Question::where('model_test_id', $request->model_test_id)->count();
-            foreach ($request->question as $key => $value) {
-                if ($key < $totalQuestion) continue;
-                $question = new Question();
-                $question->question = $value;
-                $question->model_test_id = $request->model_test_id;
-                $question->answer1 = $request->answer1[$key];
-                $question->answer2 = $request->answer2[$key];
-                $question->answer3 = $request->answer3[$key];
-                $question->answer4 = $request->answer4[$key];
-                $question->answer = $request->answer[$key];
-                $question->explanation = $request->explanation[$key];
-                $question->user_id = auth()->id();
-                $question->save();
-            }
+        try {
+            DB::transaction(function () use ($request) {
 
-            $userLog = new UserLog();
-            $userLog->user_id = auth()->id();
-            $userLog->module = 'updated ' . count($request->question) . ' mcq question on ' . date('d M, Y');
-            $userLog->save();
+                if ($request->button != 'draft') {
+                    ModelTest::where('id', $request->model_test_id)->update(['draft' => 'No']);
+                }
 
-            session()->flash('success', 'Question Updated Successfully!');
-        });
+                $totalQuestion = Question::where('model_test_id', $request->model_test_id)->count();
+                foreach ($request->question as $key => $value) {
+                    if ($key < $totalQuestion) continue;
+                    $question = new Question();
+                    $question->question = $value;
+                    $question->model_test_id = $request->model_test_id;
+                    $question->answer1 = $request->answer1[$key];
+                    $question->answer2 = $request->answer2[$key];
+                    $question->answer3 = $request->answer3[$key];
+                    $question->answer4 = $request->answer4[$key];
+                    $question->answer = $request->answer[$key];
+                    $question->explanation = $request->explanation[$key];
+                    $question->user_id = auth()->id();
+                    $question->save();
+                }
+
+                $userLog = new UserLog();
+                $userLog->user_id = auth()->id();
+                $userLog->module = 'updated ' . count($request->question) . ' mcq question on ' . date('d M, Y');
+                $userLog->save();
+
+                session()->flash('success', 'Question Updated Successfully!');
+            });
+
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Something Went Wrong!');
+        }
     }
 
     public function updateQuestion(Object $request, Object $question)
