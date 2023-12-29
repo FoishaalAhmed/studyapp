@@ -38,5 +38,8 @@
     <!-- Datatables init -->
     <script src="{{ asset('public/assets/backend/js/pages/datatables.init.js') }}"></script>
 
+    <!-- Tippy js-->
+    <script src="{{ asset('public/assets/backend/libs/tippy.js/tippy.all.min.js') }}"></script>
+
     {!! $dataTable->scripts() !!}
 @endsection

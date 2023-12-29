@@ -12,7 +12,10 @@ use Modules\Exam\Http\Controllers\Writer\{
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
-    
+
+    Route::get('exams/status/{exam}/{status}', [ExamController::class, 'status'])
+    ->name('exams.status');
+
     Route::controller(ExamTypeController::class)->prefix('exam-types')->as('exam-types.')
     ->group(function () {
         Route::get('', 'index')->name('index');
@@ -21,14 +24,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', '
         Route::delete('destroy/{examType}', 'destroy')->name('destroy');
     });
 
-    Route::controller(ExamController::class)->prefix('exams')->as('exams.')
-    ->group(function () {
-        Route::get('', 'index')->name('index');
-        Route::get('edit/{exam}', 'edit')->name('edit');
-        Route::get('status/{exam}/{status}', 'status')->name('status');
-        Route::put('update/{exam}', 'update')->name('update');
-        Route::delete('destroy/{exam}', 'destroy')->name('destroy');
-    });
+    Route::resource('exams', ExamController::class)
+        ->except(['show']);
 
     Route::controller(ExamQuestionController::class)->prefix('exam-questions')->as('exam-questions.')
     ->group(function () {
