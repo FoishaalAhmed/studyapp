@@ -14,5 +14,6 @@
     "Exam": true,
     "LectureSheet": true,
     "Ebook": true,
-    "Mcq": true
+    "Mcq": true,
+    "Quiz": true
 }
