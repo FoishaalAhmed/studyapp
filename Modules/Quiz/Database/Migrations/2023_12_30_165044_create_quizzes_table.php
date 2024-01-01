@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title', 255);
             $table->string('type', 10)->index('quizzes_type_idx')->default('Free')->comment('Free, Premium');
             $table->float('price', 11, 2);
-            $table->string('status')->index('quizzes_status_idx')->comment('Published, Unpublished');
+            $table->string('status')->index('quizzes_status_idx')->default('In Review')->comment('Published, In Review');
             $table->bigInteger('user_id')->index('quizzes_user_id_idx');
             $table->string('photo')->nullable();
             $table->text('description')->nullable();
