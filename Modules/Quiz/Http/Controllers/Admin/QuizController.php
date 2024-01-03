@@ -25,7 +25,7 @@ class QuizController extends Controller
      */
     public function index(QuizzesDataTable $dataTable)
     {
-        return $dataTable->render('quiz::admin.index');
+        return $dataTable->render('quiz::admin.quiz.index');
     }
 
     /**
@@ -52,7 +52,7 @@ class QuizController extends Controller
             'categories' => Category::oldest('name')->get(['id', 'name'])
         ];
 
-        return view('quiz::admin.create', $data);
+        return view('quiz::admin.quiz.create', $data);
     }
 
     /**
@@ -87,7 +87,7 @@ class QuizController extends Controller
             'quiz' => $quiz,
             'categories' => Category::oldest('name')->get(['id', 'name'])
         ];
-        return view('quiz::admin.edit', $data);
+        return view('quiz::admin.quiz.edit', $data);
     }
 
     /**

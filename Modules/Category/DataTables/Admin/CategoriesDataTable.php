@@ -20,9 +20,15 @@ class CategoriesDataTable extends DataTable
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($category->photo) . '" alt="Category Photo" height="48">';
             })
             ->addColumn('action', function ($category) {
-                $edit = '<a href="javascript:;" class="btn btn-outline-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#edit-modal" data-id="'.$category->id.'" data-name="'.$category->name.'" data-photo="'.$category->photo.'"><i class="fe-edit"></i></a>&nbsp;';
+                $quiz = '';
+                if (module('Quiz') && isActive('Quiz')) {
+                    $quiz = '<a href="' . route('admin.quizzes.index', ['category_id' => $category->id]) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-help-circle "></i></a>&nbsp;';
+                }
+
+                $edit = '<a href="javascript:;" class="btn btn-outline-info waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#edit-modal" data-id="'.$category->id.'" data-name="'.$category->name.'" data-photo="'.$category->photo.'"><i class="fe-edit"></i></a>&nbsp;';
+
                 $delete = '<a href="' . route('admin.categories.destroy', $category->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $edit . $delete;
+                return $quiz . $edit . $delete;
             })
             ->rawColumns(['name', 'photo', 'action'])
             ->make(true);

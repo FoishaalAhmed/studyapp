@@ -17,7 +17,9 @@ class QuizzesDataTable extends DataTable
                 return optional($quiz->category)->name;
             })
             ->addColumn('title', function ($quiz) {
-                return $quiz->title;
+
+                return '<a href="' . route('admin.quiz-questions.index', ['quiz_id' => $quiz->id]) . '">' . $quiz->title . '</a>';
+            
             })
             ->addColumn('type', function ($quiz) {
                 return $quiz->type;
@@ -38,7 +40,7 @@ class QuizzesDataTable extends DataTable
 
                 return $status . $edit . $delete;
             })
-            ->rawColumns(['photo', 'action'])
+            ->rawColumns(['title', 'photo', 'action'])
             ->make(true);
     }
 

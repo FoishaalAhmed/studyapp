@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Mcq\DataTables\Admin;
+namespace Modules\Quiz\DataTables\Admin;
 
 use Illuminate\Http\JsonResponse;
-use Modules\Mcq\Entities\Question;
+use Modules\Quiz\Entities\QuizQuestion;
 use Yajra\DataTables\Services\DataTable;
 
-class QuestionsDataTable extends DataTable
+class QuizQuestionsDataTable extends DataTable
 {
     public function ajax(): JsonResponse
     {
@@ -34,26 +34,17 @@ class QuestionsDataTable extends DataTable
             ->addColumn('user_id', function ($question) {
                 return  $question->user?->name;
             })
-            ->addColumn('action', function ($question) {
-
-                $edit = '<a href="' . route('admin.questions.edit', $question->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
-
-                $delete = '<a href="' . route('admin.questions.destroy', $question->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $edit . $delete;
-            })
-            ->rawColumns(['action'])
+            ->rawColumns(['photo', 'action'])
             ->make(true);
     }
 
     public function query()
     {
-        $modelTestId = request()->model_test_id;
+        $quizId = request()->quiz_id;
 
-        if ($modelTestId) {
-            $query = Question::where('model_test_id', $modelTestId)->with('user:id,name');
-        } else {
-            $query = Question::with('user:id,name');
-        }
+        $query = $quizId 
+            ? QuizQuestion::where('quiz_id', $quizId)->with('user:id,name')->latest() 
+            : QuizQuestion::with('user:id,name')->latest();
 
         return $this->applyScopes($query);
     }
@@ -69,39 +60,39 @@ class QuestionsDataTable extends DataTable
             ])
             ->addColumn([
                 'data' => 'id',
-                'name' => 'questions.id',
+                'name' => 'quiz_questions.id',
                 'title' => __('ID'),
                 'searchable' => false,
                 'visible' => false
             ])
             ->addColumn([
                 'data' => 'question',
-                'name' => 'questions.question',
+                'name' => 'quiz_questions.question',
                 'title' => __('Question')
             ])
             ->addColumn([
                 'data' => 'answer1',
-                'name' => 'questions.answer1',
+                'name' => 'quiz_questions.answer1',
                 'title' => __('Answer1')
             ])
             ->addColumn([
                 'data' => 'answer2',
-                'name' => 'questions.answer2',
+                'name' => 'quiz_questions.answer2',
                 'title' => __('Answer2')
             ])
             ->addColumn([
                 'data' => 'answer3',
-                'name' => 'questions.answer3',
+                'name' => 'quiz_questions.answer3',
                 'title' => __('Answer3')
             ])
             ->addColumn([
                 'data' => 'answer4',
-                'name' => 'questions.answer4',
+                'name' => 'quiz_questions.answer4',
                 'title' => __('Answer4')
             ])
             ->addColumn([
                 'data' => 'answer',
-                'name' => 'questions.answer',
+                'name' => 'quiz_questions.answer',
                 'title' => __('Right Answer'),
                 'searchable' => false,
             ])
@@ -109,13 +100,6 @@ class QuestionsDataTable extends DataTable
                 'data' => 'user_id',
                 'name' => 'user.name',
                 'title' => __('Writer')
-            ])
-            ->addColumn([
-                'data' => 'action',
-                'name' => 'action',
-                'title' => __('Action'),
-                'orderable' => false,
-                'searchable' => false
             ])
             ->parameters(dataTableOptions());
     }
