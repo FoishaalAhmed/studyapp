@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Ebook'
+    'name' => 'Ebook',
+    'thumbnail' => 'thumbnail.png'
 ];

@@ -6,11 +6,6 @@
     <div class="container-fluid">
         <div class="row mt-4">
             <div class="col-lg-12 order-lg-1 order-2">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <h4 class="header-title">{{ __('All Addon') }}</h4>
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
                 @foreach ($addons as $addon)
                     @if($addon->get('core')) @continue @endif
                     <div class="card mb-2">
@@ -18,7 +13,7 @@
                             <div class="row align-items-center">
                                 <div class="col-sm-4">
                                     <div class="d-flex align-items-start">
-                                        <img class="d-flex align-self-center me-3 rounded" src="{{ addonThumbnail($addon->getName()) }}" alt="{{ $addon->getName() }}" height="64">
+                                        <img class="d-flex align-self-center me-3 rounded" src="{{ asset('Modules/'. $addon->getName(). '/Resources/assets/'.config($addon->get('alias') . '.' . 'thumbnail') ) }}" alt="{{ $addon->getName() }}" height="64" width="94">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">

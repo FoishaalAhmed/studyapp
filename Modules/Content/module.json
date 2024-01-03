@@ -2,7 +2,7 @@
     "name": "Content",
     "alias": "content",
     "core": true,
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "",
     "keywords": [],
     "priority": 0,

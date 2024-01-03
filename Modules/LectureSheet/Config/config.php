@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'LectureSheet'
+    'name' => 'LectureSheet',
+    'thumbnail' => 'thumbnail.png'
 ];

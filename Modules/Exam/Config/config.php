@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Exam'
+    'name' => 'Exam',
+    'thumbnail' => 'thumbnail.webp'
 ];

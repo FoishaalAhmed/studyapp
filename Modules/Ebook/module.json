@@ -2,6 +2,7 @@
     "name": "Ebook",
     "alias": "ebook",
     "description": "",
+    "version": "1.0.0",
     "keywords": [],
     "priority": 0,
     "providers": [

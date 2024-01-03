@@ -2,6 +2,7 @@
     "name": "Faq",
     "alias": "faq",
     "description": "",
+    "version": "1.0.0",
     "keywords": [],
     "priority": 0,
     "providers": [

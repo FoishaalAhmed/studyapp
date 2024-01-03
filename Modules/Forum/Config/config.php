@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Forum'
+    'name' => 'Forum',
+    'thumbnail' => 'thumbnail.png'
 ];

@@ -1,8 +1,9 @@
 {
     "name": "UserAccess",
     "alias": "useraccess",
-    "description": "You can deactivate this module by clicking deactivate link",
-    "version": "1.0",
+    "description": "",
+    "core": true,
+    "version": "1.0.0",
     "keywords": [],
     "priority": 0,
     "providers": [

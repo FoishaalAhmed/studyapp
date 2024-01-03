@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'Content'
+    'name' => 'Content',
+    'thumbnail' => 'thumbnail.jpg'
 ];

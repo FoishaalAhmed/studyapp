@@ -1,8 +1,8 @@
 {
     "name": "Forum",
     "alias": "forum",
-    "description": "You can deactivate this module by clicking deactivate link",
-    "version": "1.0",
+    "description": "",
+    "version": "1.0.0",
     "keywords": [],
     "priority": 0,
     "providers": [

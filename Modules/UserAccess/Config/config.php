@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'UserAccess'
+    'name' => 'UserAccess',
+    'thumbnail' => 'thumbnail.png'
 ];
