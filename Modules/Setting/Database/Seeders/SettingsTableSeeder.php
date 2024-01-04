@@ -18,7 +18,17 @@ class SettingsTableSeeder extends Seeder
 
         $settingData = [
             [
-                'name' => 'large_logo',
+                'name' => 'name',
+                'value' => 'Study App',
+                'type' => 'General',
+            ],
+            [
+                'name' => 'dark_logo',
+                'value' => null,
+                'type' => 'General',
+            ],
+            [
+                'name' => 'light_logo',
                 'value' => null,
                 'type' => 'General',
             ],
@@ -39,6 +49,16 @@ class SettingsTableSeeder extends Seeder
             ],
             [
                 'name' => 'max_file_size',
+                'value' => null,
+                'type' => 'General',
+            ],
+            [
+                'name' => 'admin_security',
+                'value' => 'Off',
+                'type' => 'General',
+            ],
+            [
+                'name' => 'ip_address',
                 'value' => null,
                 'type' => 'General',
             ],

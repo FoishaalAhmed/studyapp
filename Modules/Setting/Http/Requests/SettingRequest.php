@@ -17,8 +17,10 @@ class SettingRequest extends FormRequest
             'large_logo' => ['nullable', 'mimes:'. implode(',' ,getFileExtensions(3)), 'max:'. settings('max_file_size') * 1024],
             'small_logo' => ['nullable', 'mimes:'. implode(',' ,getFileExtensions(3)), 'max:'. settings('max_file_size') * 1024],
             'favicon' => ['nullable', 'mimes:'. implode(',' ,getFileExtensions(3)), 'max:'. settings('max_file_size') * 1024],
+            'name' => ['required', 'string', 'max:100'],
             'row_per_page' => ['required', 'numeric', 'min:10', 'max:100'],
-            'max_file_size' => ['required', 'numeric', 'min:1', 'max:20']
+            'max_file_size' => ['required', 'numeric', 'min:1', 'max:20'],
+            'admin_security' => ['required', 'string', 'in:On,Off'],
         ];
     }
 

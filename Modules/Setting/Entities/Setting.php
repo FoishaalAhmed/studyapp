@@ -19,11 +19,11 @@ class Setting extends Model
         try {
             DB::beginTransaction();
 
-            $largeLogoOld = Setting::where(['name' => 'large_logo', 'type' => 'General'])->first()->value;
-            $largeLogo = $request->file('large_logo');
+            $darkLogoOld = Setting::where(['name' => 'dark_logo', 'type' => 'General'])->first()->value;
+            $darkLogo = $request->file('dark_logo');
 
-            if ($largeLogo) {
-                $response = uploadImage($largeLogo, 'public/images/settings/', 'large_logo', '98*20', $largeLogoOld);
+            if ($darkLogo) {
+                $response = uploadImage($darkLogo, 'public/images/settings/', 'dark_logo', $darkLogoOld);
 
                 if (!$response['status']) {
                     DB::rollBack();
@@ -33,7 +33,24 @@ class Setting extends Model
                     ];
                 }
 
-                Setting::where(['name' => 'large_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
+                Setting::where(['name' => 'dark_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
+            }
+
+            $lightLogoOld = Setting::where(['name' => 'light_logo', 'type' => 'General'])->first()->value;
+            $lightLogo = $request->file('light_logo');
+
+            if ($lightLogo) {
+                $response = uploadImage($lightLogo, 'public/images/settings/', 'light_logo', $lightLogoOld);
+
+                if (!$response['status']) {
+                    DB::rollBack();
+                    return [
+                        'alert' => 'error',
+                        'message' => $response['message']
+                    ];
+                }
+
+                Setting::where(['name' => 'light_logo', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
             }
 
             $smallLogoOld = Setting::where(['name' => 'small_logo', 'type' => 'General'])->first()->value;
@@ -68,8 +85,13 @@ class Setting extends Model
                 Setting::where(['name' => 'favicon', 'type' => 'General'])->update(['value' => 'public/images/settings/' . $response['file_name']]);
             }
 
+            Setting::where(['name' => 'name', 'type' => 'General'])->update(['value' => $request->name]);
             Setting::where(['name' => 'row_per_page', 'type' => 'General'])->update(['value' => $request->row_per_page]);
             Setting::where(['name' => 'max_file_size', 'type' => 'General'])->update(['value' => $request->max_file_size]);
+            Setting::where(['name' => 'admin_security', 'type' => 'General'])->update(['value' => $request->admin_security]);
+            Setting::where(['name' => 'ip_address', 'type' => 'General'])->update([
+                'value' => $request->ip_address != null ? implode(',', array_column(json_decode($request->ip_address), 'value')) : null
+            ]);
 
             DB::commit();
 

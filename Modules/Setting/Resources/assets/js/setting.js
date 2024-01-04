@@ -14,3 +14,6 @@ $(document).on('change','#small-logo-input', function() {
 $(document).on('change','#favicon-input', function() {
     readPicture(this, '#favicon-photo')
 });
+
+let ipAddress = document.querySelector('input[name=ip_address]');
+new Tagify(ipAddress);

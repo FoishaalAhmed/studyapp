@@ -5,13 +5,13 @@
         <div class="logo-box">
             <!-- Brand Logo Light -->
             <a href="{{ url('/') }}" class="logo-light">
-                <img src="{{ asset(largeLogo()) }}" alt="logo" class="logo-lg">
+                <img src="{{ asset(lightLogo()) }}" alt="logo" class="logo-lg">
                 <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
             </a>
 
             <!-- Brand Logo Dark -->
             <a href="{{ url('/') }}" class="logo-dark">
-                <img src="{{ asset(largeLogo()) }}" alt="dark logo" class="logo-lg">
+                <img src="{{ asset(darkLogo()) }}" alt="dark logo" class="logo-lg">
                 <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
             </a>
         </div>

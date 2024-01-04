@@ -2,6 +2,10 @@
 
 @section('title', __('System Settings'))
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('public/assets/backend/css/tagify.css') }}">
+@endsection
+
 @section('content')
     <!-- Start Content-->
     <div class="container-fluid">
@@ -14,12 +18,42 @@
                         <form action="{{ route('admin.settings.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
-                                <label for="large-logo" class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('Large Logo') }}</label>
+                                <label for="app-name" class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('App Name') }}</label>
                                 <div class="col-8 col-xl-4">
-                                    <input type="file" id="large-logo-input" class="form-control" name="large_logo">
-                                    <p class="font-13 text-muted mb-2 fw-bolder">{{ __('*Recommended Dimension: 98 px * 20 px') }}</p>
-                                    <img src="{{ asset(largeLogo()) }}" alt="{{ __('Large Logo') }}" class="large-logo" id="large-logo-photo">
-                                    @error('large_logo')
+                                    <input type="text" name="name" id="app-name" class="form-control" placeholder="{{ __('App Name') }}" required="" value="{{ settings('name') }}">
+                                    @error('name')
+                                        <div class="invalid-feedback error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="dark-logo"
+                                    class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('Dark Logo') }}</label>
+                                <div class="col-8 col-xl-4">
+                                    <input type="file" id="dark-logo-input" class="form-control" name="dark_logo">
+                                    <p class="font-13 text-muted mb-2 fw-bolder">
+                                        {{ __('*Recommended Dimension: 98 px * 20 px') }}</p>
+                                    <img src="{{ asset(darkLogo()) }}" alt="{{ __('Dark Logo') }}" class="large-logo"
+                                        id="dark-logo-photo">
+                                    @error('dark_logo')
+                                        <div class="invalid-feedback error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="light-logo"
+                                    class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('Light Logo') }}</label>
+                                <div class="col-8 col-xl-4">
+                                    <input type="file" id="light-logo-input" class="form-control" name="light_logo">
+                                    <p class="font-13 text-muted mb-2 fw-bolder">
+                                        {{ __('*Recommended Dimension: 98 px * 20 px') }}</p>
+                                    <img src="{{ asset(lightLogo()) }}" alt="{{ __('Light Logo') }}" class="large-logo"
+                                        id="light-logo-photo">
+                                    @error('light_logo')
                                         <div class="invalid-feedback error">
                                             {{ $message }}
                                         </div>
@@ -82,6 +116,32 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label for="admin-security" class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('Admin Security') }}</label>
+                                <div class="col-8 col-xl-4">
+                                    <select id="admin-security" class="form-select" name="admin_security" required="">
+                                        <option value="Off" {{ settings('admin_security') == 'Off' ? 'selected' : '' }} >{{ __('Off') }}</option>
+                                        <option value="On" {{ settings('admin_security') == 'On' ? 'selected' : '' }} >{{ __('On') }}</option>
+                                    </select>
+                                    @error('admin_security')
+                                        <div class="invalid-feedback error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="ip-address" class="col-4 col-xl-2 offset-lg-3 col-form-label text-end">{{ __('Ip Address') }}</label>
+                                <div class="col-8 col-xl-4">
+                                    <input type="text" name="ip_address" id="ip-address" class="form-control" required="" value="{{ settings('ip_address') }}">
+                                    @error('ip_address')
+                                        <div class="invalid-feedback error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-12 text-center">
@@ -100,5 +160,7 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('public/assets/backend/libs/tagify/jQuery.tagify.min.js') }}"></script>
+    <script src="{{ asset('public/assets/backend/libs/tagify/tagify.min.js') }}"></script>
     <script src="{{ asset('Modules/Setting/Resources/assets/js/setting.js') }}"></script>
 @endsection

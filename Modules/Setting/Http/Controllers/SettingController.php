@@ -33,6 +33,25 @@ class SettingController extends Controller
      */
     public function store(SettingRequest $request)
     {
+        if (! empty($request->ip_address) && $request->admin_security == 'On') {
+
+            if (
+                !in_array($request->ip(), ['::1', '127.0.0.1', 'localhost']) 
+                && !in_array($request->ip(), array_column((json_decode($request->ip_address)), 'value'))
+            ) {
+                session()->flash('error', __('The ip addresses you have added doesn\'t belongs to you.'));
+                return back();
+
+            } elseif (
+                in_array($request->ip(), ['::1', '127.0.0.1', 'localhost']) 
+                && !in_array($request->ip(), array_column((json_decode($request->ip_address)), 'value'))
+            ) {
+                session()->flash('error', __('Please add a local ip address.'));
+                return back();
+            }
+        }
+
+
         $response = $this->settingModelObject->storeSetting($request);
         session()->flash($response['alert'], $response['message']);
         return back();
