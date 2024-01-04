@@ -56,17 +56,16 @@ class Profile extends Model
     {
         $user = $this::findOrFail(auth()->id());
 
-        if (Hash::check($request->old_password, $user->password)) {
-            $user->fill([
-
-                'password' => Hash::make($request->password)
-
-            ])->save();
-
-            session()->flash('success', 'User Password Updated Successfully!');
-        } else {
-            session()->flash('error', 'Something Went Wrong!');
+        if (! Hash::check($request->old_password, $user->password)) {
+            session()->flash('error', 'Old Password Does Not Matched');
+            return;
         }
+
+        $user->fill([
+            'password' => Hash::make($request->password)
+        ])->save();
+
+        session()->flash('success', 'User Password Updated Successfully!');
     }
 
     public function updateUserInfo($request)
