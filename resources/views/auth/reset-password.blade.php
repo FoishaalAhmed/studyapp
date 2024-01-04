@@ -1,39 +1,59 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+@extends('auth.layouts.app')
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+@section('title', __('Reset Password'))
+@section('content')
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+<div class="col-md-8 col-lg-6 col-xl-4">
+    <div class="card bg-pattern">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        <div class="card-body p-4">
+            
+            <div class="text-center w-75 m-auto">
+                @include('auth.layouts.logo')
+            </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <form method="POST" action="{{ route('password.store') }}">
+                @csrf
+                <!-- Password Reset Token -->
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
+                <div class="mb-3">
+                    <label for="emailaddress" class="form-label">{{ __('Email') }}</label>
+                    <input class="form-control" type="email" id="emailaddress" required="" placeholder="{{ __('Enter your email') }}" name="email" value="{{ old('email', $request->email) }}">
+                    @error('email')
+                        <div class="invalid-feedback error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">{{ __('Password') }}</label>
+                    <input class="form-control" type="password" id="password" required="" placeholder="{{ __('Enter new password') }}" name="password">
+                    @error('password')
+                        <div class="invalid-feedback error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
+                    <input class="form-control" type="password" id="password_confirmation" required="" placeholder="{{ __('Retype new password') }}" name="password_confirmation">
+                    @error('password_confirmation')
+                        <div class="invalid-feedback error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                <div class="text-center d-grid">
+                    <button class="btn btn-primary" type="submit"> {{ __('Reset Password') }} </button>
+                </div>
+            </form>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+        </div> <!-- end card-body -->
+    </div>
+    <!-- end card -->
+</div> <!-- end col -->
+
+@endsection
+
