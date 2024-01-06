@@ -10,7 +10,7 @@ use Modules\Mcq\Http\Controllers\Writer\{
     ModelTestController as WriterModelTestController
 };
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
     Route::controller(ModelTestController::class)->prefix('mcqs')->as('mcqs.')
         ->group(function () {
             Route::get('', 'index')->name('index');

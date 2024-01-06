@@ -60,7 +60,7 @@ class SettingsTableSeeder extends Seeder
             [
                 'name' => 'ip_address',
                 'value' => null,
-                'type' => 'General',
+                'type' => '::1,127.0.0.1',
             ],
         ];
 

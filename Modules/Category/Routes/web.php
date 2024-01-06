@@ -13,7 +13,7 @@ use Modules\Category\Http\Controllers\Writer\{
     ChildCategoryController as WriterChildCategoryController
 };
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin', 'ip_middleware']], function () {
     Route::resource('category-types', CategoryTypeController::class)->except(['show', 'create', 'edit']);
     Route::resource('categories', CategoryController::class)->except(['show', 'create', 'edit']);
     Route::resource('sub-categories', SubCategoryController::class)->except(['show']);

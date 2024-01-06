@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Ebook\Http\Controllers\Admin\EbookController;
 use Modules\Ebook\Http\Controllers\Writer\EbookController as WriterEbookController;
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
     Route::controller(EbookController::class)->prefix('ebooks')->as('ebooks.')
     ->group(function () {
         Route::get('', 'index')->name('index');

@@ -8,7 +8,7 @@ use Modules\Job\Http\Controllers\Writer\{
     JobUserController as WriterJobUserController,
 };
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
     Route::resource('job-categories', JobCategoryController::class)->except(['show', 'create', 'edit']);
 
     Route::controller(JobController::class)->as('jobs.')->prefix('jobs')->group(function () {

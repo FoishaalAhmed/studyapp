@@ -11,7 +11,7 @@ use Modules\Exam\Http\Controllers\Writer\{
     ExamQuestionController as WriterExamQuestionController
 };
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin', 'auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
 
     Route::get('exams/status/{exam}/{status}', [ExamController::class, 'status'])
     ->name('exams.status');
