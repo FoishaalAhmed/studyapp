@@ -44,3 +44,14 @@ CREATE TABLE
         `created_at` timestamp NULL DEFAULT NULL,
         PRIMARY KEY (`email`)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS `db_backups`;
+
+CREATE TABLE
+    IF NOT EXISTS `db_backups` (
+        `id` bigint(20) NOT NULL AUTO_INCREMENT,
+        `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+        `created_at` timestamp NULL DEFAULT NULL,
+        `updated_at` timestamp NULL DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;

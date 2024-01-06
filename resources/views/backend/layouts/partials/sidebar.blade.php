@@ -300,6 +300,7 @@
                             <span class="menu-text"> {{ __('Content') }} </span>
                         </a>
                     </li>
+                    
 
                     <li class="menu-item {{ request()->is('admin/contacts') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
@@ -312,6 +313,13 @@
                         <a href="{{ route('admin.buys.index') }}" class="menu-link {{ request()->is('admin/resource-buys') ? 'active' : '' }}">
                             <span class="menu-icon"><i class="fe-dollar-sign"></i></span>
                             <span class="menu-text"> {{ __('Resource Sell') }} </span>
+                        </a>
+                    </li>
+
+                    <li class="menu-item {{ request()->is('admin/db-backups') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.backups.index') }}" class="menu-link {{ request()->is('admin/db-backups') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-download"></i></span>
+                            <span class="menu-text"> {{ __('DB Backup') }} </span>
                         </a>
                     </li>
 

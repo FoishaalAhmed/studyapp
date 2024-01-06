@@ -6,14 +6,14 @@
             <div class="logo-box">
                 <!-- Brand Logo Light -->
                 <a href="index.html" class="logo-light">
-                    <img src="{{ asset('public/assets/backend/images/logo-light.png') }}" alt="logo" class="logo-lg">
-                    <img src="{{ asset('public/assets/backend/images/logo-sm.png') }}" alt="small logo" class="logo-sm">
+                    <img src="{{ asset(lightLogo()) }}" alt="logo" class="logo-lg">
+                    <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
                 </a>
 
                 <!-- Brand Logo Dark -->
                 <a href="index.html" class="logo-dark">
-                    <img src="{{ asset('public/assets/backend/images/logo-dark.png') }}" alt="dark logo" class="logo-lg">
-                    <img src="{{ asset('public/assets/backend/images/logo-sm.png') }}" alt="small logo" class="logo-sm">
+                    <img src="{{ asset(darkLogo()) }}" alt="dark logo" class="logo-lg">
+                    <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
                 </a>
             </div>
 

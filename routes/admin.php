@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
     DashboardController,
+    DbBackupController,
     ContactController,
     WriterController,
     AdminController,
@@ -22,6 +23,13 @@ Route::controller(ContactController::class)->as('contacts.')->prefix('contacts')
 Route::controller(BuyController::class)->as('buys.')->prefix('resource-buys')->group(function () {
     Route::get('', 'index')->name('index');
     Route::get('/{buy}/{status}', 'status')->name('status');
+});
+
+/** db backup route **/
+Route::controller(DbBackupController::class)->as('backups.')->prefix('db-backups')->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('/store', 'store')->name('store');
+    Route::get('/{backup}', 'download')->name('download');
 });
 
 Route::resource('users', UserController::class)->except(['show']);
