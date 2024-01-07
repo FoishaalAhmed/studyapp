@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Testimonial\DataTables;
+namespace Modules\Testimonial\DataTables\Writer;
 
 use Modules\Testimonial\Entities\Testimonial;
 use Yajra\DataTables\Services\DataTable;
@@ -30,19 +30,16 @@ class TestimonialsDataTable extends DataTable
                 return '<img class="d-flex align-items-start rounded me-2" src="' . asset($testimonial->photo) . '" alt="Category Photo" height="48">';
             })
             ->addColumn('action', function ($testimonial) {
-                $status = $testimonial->status == 'Published' ? '<a href="' . route('admin.testimonials.status', [$testimonial->id, 'In Review']) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-thumbs-up "></i></a>&nbsp;' : '<a href="' . route('admin.testimonials.status', [$testimonial->id, 'Published']) . '" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-thumbs-down"></i></a>&nbsp;';
-
-                $delete = '<a href="' . route('admin.testimonials.destroy', $testimonial->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-
-                return $status . $delete;
+                return
+            '<a href="' . route('writer.testimonials.edit', $testimonial->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>';
             })
-            ->rawColumns(['name', 'photo', 'action'])
+            ->rawColumns(['photo', 'action'])
             ->make(true);
     }
 
     public function query()
     {
-        $query = Testimonial::select('*');
+        $query = Testimonial::where('user_id', auth()->id())->select('*');
         return $this->applyScopes($query);
     }
 

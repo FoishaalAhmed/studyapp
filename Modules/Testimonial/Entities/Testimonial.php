@@ -2,8 +2,8 @@
 
 namespace Modules\Testimonial\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Testimonial extends Model
 {
@@ -13,33 +13,27 @@ class Testimonial extends Model
         'name', 'position', 'star', 'message', 'photo',
     ];
 
-    public static $validateRule = [
-        'name' => ['string', 'max: 255', 'required'],
-        'position' => ['string', 'max: 255', 'required'],
-        'message' => ['string', 'required', 'max: 250',],
-        'star' => ['numeric', 'max: 5', 'min:1', 'required'],
-        'photo'  => ['mimes:jpeg,jpg,png,gif,webp', 'max:500', 'nullable'],
-    ];
-
     public function storeTestimonial(Object $request)
     {
         $image = $request->file('photo');
 
         if ($image) {
 
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/testimonials/';
-            $image_url       = $upload_path . $image_full_name;
-            $success         = $image->move($upload_path, $image_full_name);
-            $this->photo     = $image_url;
+            $response = uploadFile($image, 'public/images/testimonials/', 'testimonial');
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $this->photo = 'public/images/testimonials/' . $response['file_name'];
         }
 
         $this->name       = $request->name;
-        $this->position   = $request->position;
         $this->star       = $request->star;
         $this->message    = $request->message;
+        $this->position   = $request->position;
+        $this->user_id    = auth()->id();
         $storeTestimonial = $this->save();
 
         $storeTestimonial
@@ -52,20 +46,22 @@ class Testimonial extends Model
         $image = $request->file('photo');
 
         if ($image) {
-            if (file_exists($testimonial->photo)) unlink($testimonial->photo);
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/testimonials/';
-            $image_url       = $upload_path . $image_full_name;
-            $success         = $image->move($upload_path, $image_full_name);
-            $testimonial->photo     = $image_url;
+
+            $response = uploadFile($image, 'public/images/testimonials/', 'testimonial', $testimonial->photo);
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $testimonial->photo = 'public/images/testimonials/' . $response['file_name'];
         }
 
         $testimonial->name     = $request->name;
-        $testimonial->position = $request->position;
         $testimonial->star     = $request->star;
         $testimonial->message  = $request->message;
+        $testimonial->position = $request->position;
+        $testimonial->user_id  = auth()->id();
         $updateTestimonial     = $testimonial->save();
 
         $updateTestimonial

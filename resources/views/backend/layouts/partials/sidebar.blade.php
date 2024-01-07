@@ -428,6 +428,14 @@
                             </a>
                         </li>
                     @endif
+                    @if (module('Testimonial') && isActive('Testimonial'))
+                        <li class="menu-item {{ request()->is('writer/testimonials') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('writer.testimonials.index') }}" class="menu-link {{ request()->is('writer/testimonials') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="fe-user-check"></i></span>
+                                <span class="menu-text"> {{ __('Testimonial') }} </span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
 

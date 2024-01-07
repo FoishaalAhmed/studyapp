@@ -58,7 +58,7 @@
                                         <div class="col-lg-12">
                                             <label for="content" class="form-label">{{ __('Content') }}</label>
                                             <textarea class="form-control" id="editor" name="content" placeholder="{{ __('Content') }}">{{ old('content', $blog->content) }}</textarea>
-                                            @error('title')
+                                            @error('content')
                                                 <div class="invalid-feedback error">
                                                     {{ $message }}
                                                 </div>
