@@ -1,12 +1,13 @@
 <?php
 
-namespace Modules\Blog\Http\Controllers;
+namespace Modules\Blog\Http\Controllers\Writer;
 
-use Illuminate\Contracts\Support\Renderable;
-use Modules\Blog\DataTables\BlogsDataTable;
-use Illuminate\Routing\Controller;
-use Modules\Blog\Entities\Blog;
 use Illuminate\Http\Request;
+use Modules\Blog\Entities\Blog;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Redirect;
+use Modules\Blog\Http\Requests\BlogRequest;
+use Modules\Blog\DataTables\Writer\BlogsDataTable;
 
 class BlogController extends Controller
 {
@@ -23,7 +24,7 @@ class BlogController extends Controller
      */
     public function index(BlogsDataTable $dataTable)
     {
-        return $dataTable->render('blog::index');
+        return $dataTable->render('blog::writer.index');
     }
 
     /**
@@ -32,7 +33,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blog::create');
+        return view('blog::writer.create');
     }
 
     /**
@@ -40,19 +41,10 @@ class BlogController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(BlogRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('blog::show');
+        $this->blogObject->storeBlog($request);
+        return redirect()->route('writer.blogs.index');
     }
 
     /**
@@ -60,20 +52,21 @@ class BlogController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        return view('blog::edit');
+        return view('blog::writer.edit', compact('blog'));
     }
 
     /**
      * Update the specified resource in storage.
      * @param Request $request
-     * @param int $id
+     * @param Blog $blog
      * @return Renderable
      */
-    public function update(Request $request, $id)
+    public function update(BlogRequest $request, Blog $blog)
     {
-        //
+        $this->blogObject->updateBlog($request, $blog);
+        return redirect()->route('writer.blogs.index');
     }
 
     /**

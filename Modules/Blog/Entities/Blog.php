@@ -2,9 +2,9 @@
 
 namespace Modules\Blog\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Str;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Blog extends Model
 {
@@ -14,35 +14,31 @@ class Blog extends Model
         'title', 'slug', 'photo', 'content', 'view', 'status', 'user_id', 'date', 'tag'
     ];
 
-    public static $validateRule = [
-        'title' => ['required', 'string', 'max:255'],
-        'date' => ['required', 'date'],
-        'content' => ['required', 'string'],
-        'photo' => ['nullable', 'max:1000', 'mimes:jpeg,jpg,png,gif,webp'],
-    ];
 
     public function storeBlog(Object $request)
     {
         $image = $request->file('photo');
 
         if ($image) {
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/users/';
-            $image_url       = $upload_path . $image_full_name;
-            $image->move($upload_path, $image_full_name);
-            $this->photo     = $image_url;
+
+            $response = uploadFile($image, 'public/images/blogs/', 'blog');
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $this->photo = 'public/images/blogs/' . $response['file_name'];
         }
 
         $this->title   = $request->title;
         $this->slug    = Str::slug($request->title);
         $this->content = $request->content;
-        $this->tag     = $request->tag != null
-            ? implode(',', array_column(json_decode($request->tag), 'value'))
-            : null;
         $this->user_id = auth()->id();
         $this->date    = date('Y-m-d', strtotime($request->date));
+        $this->tag     = $request->tag != null
+                            ? implode(',', array_column(json_decode($request->tag), 'value'))
+                            : null;
         $storeBlog     = $this->save();
 
         $storeBlog
@@ -55,23 +51,24 @@ class Blog extends Model
         $image = $request->file('photo');
 
         if ($image) {
-            if (file_exists($blog->photo)) unlink($blog->photo);
-            $image_name      = date('YmdHis');
-            $ext             = strtolower($image->extension());
-            $image_full_name = $image_name . '.' . $ext;
-            $upload_path     = 'public/images/users/';
-            $image_url       = $upload_path . $image_full_name;
-            $image->move($upload_path, $image_full_name);
-            $blog->photo     = $image_url;
+
+            $response = uploadFile($image, 'public/images/blogs/', 'blog', $blog->photo);
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $blog->photo = 'public/images/blogs/' . $response['file_name'];
         }
 
         $blog->title   = $request->title;
         $blog->slug    = Str::slug($request->title);
         $blog->content = $request->content;
-        $blog->tag     = $request->tag != null
-            ? implode(',', array_column(json_decode($request->tag), 'value'))
-            : null;
         $blog->date    = date('Y-m-d', strtotime($request->date));
+        $blog->tag     = $request->tag != null
+                            ? implode(',', array_column(json_decode($request->tag), 'value'))
+                            : null;
         $updateBlog    = $blog->save();
 
         $updateBlog

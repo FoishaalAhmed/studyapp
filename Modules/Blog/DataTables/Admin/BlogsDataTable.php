@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Blog\DataTables;
+namespace Modules\Blog\DataTables\Admin;
 
 use Yajra\DataTables\Services\DataTable;
 use Illuminate\Http\JsonResponse;

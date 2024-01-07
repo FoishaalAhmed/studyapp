@@ -419,6 +419,15 @@
                             </a>
                         </li>
                     @endif
+
+                    @if (module('Blog') && isActive('Blog'))
+                        <li class="menu-item {{ request()->is('writer/blogs') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('writer.blogs.index') }}" class="menu-link {{ request()->is('writer/blogs') ? 'active' : '' }}">
+                                <span class="menu-icon"><i class="fe-book"></i></span>
+                                <span class="menu-text"> {{ __('Blog') }} </span>
+                            </a>
+                        </li>
+                    @endif
                 @endif
 
 
