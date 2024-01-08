@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('App Home Page'))
+@section('title', __('App Home Page Category'))
 @section('css')
     <!-- third party css -->
     <link href="{{ asset('public/assets/backend/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -14,9 +14,9 @@
                 <div class="card">
                     @include('alert')
                     <div class="card-body">
-                        <h4 class="header-title">{{ __('App Home Page') }}</h4>
+                        <h4 class="header-title">{{ __('App Home Page Category') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
-                            <a href="{{ route('admin.app-home.create') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i> {{ __('New Data') }}</a>
+                            <a href="{{ route('admin.app-home-category.create') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-plus-square"></i> {{ __('New Data') }}</a>
                         </p>
 
                         <div class="table-responsive">
@@ -24,10 +24,10 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 5%">{{ __('SL') }}</th>
-                                        <th style="width: 15%">{{ __('Title') }}</th>
+                                        <th style="width: 15%">{{ __('Category') }}</th>
+                                        <th style="width: 20%">{{ __('Title') }}</th>
                                         <th style="width: 10%">{{ __('Type') }}</th>
-                                        <th style="width: 30%">{{ __('Common For') }}</th>
-                                        <th style="width: 30%">{{ __('Common Categories') }}</th>
+                                        <th style="width: 40%">{{ __('Categories') }}</th>
                                         <th style="width: 10%">{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
@@ -36,28 +36,25 @@
                                     @foreach ($result as $item)
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
+
+                                            <td>{{ $item['category'] }}</td>
+
                                             <td>{{ $item['title'] }}</td>
+
                                             <td>{{ $item['type'] }}</td>
+
                                             <td>
                                                 @foreach ($item['categories'] as $key => $category)
 
                                                     @if ($key != 0) &nbsp @endif
                                                     @if ($key != 0 && $key % 2 == 0) <br/> @endif
+
                                                     {{ $key + 1 }}.  {{ $category->name }}
 
                                                 @endforeach
                                             </td>
                                             <td>
-                                                @foreach ($item['subcategories'] as $key => $subcategory)
-
-                                                    @if ($key != 0) &nbsp @endif
-                                                     @if ($key != 0 && $key % 2 == 0) <br/> @endif
-                                                    {{ $key + 1 }}.  {{ $subcategory->name }}
-
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.app-home.edit', $item['id']) }}" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>
+                                                <a href="{{ route('admin.app-home-category.edit', $item['id']) }}" class="btn btn-outline-success waves-effect waves-light"><i class="fe-edit"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -26,4 +26,12 @@ class HelperController extends Controller
         $categories = getSubjectsByCategory($categoryId);
         echo json_encode($categories);
     }
+
+    public function getChildCategoryByTypeAndSubCategory()
+    {
+        $subCategoryId = request()->subCategory;
+        $type = request()->type;
+        $categories = getChildCategoryByTypeAndSubCategory($subCategoryId, $type);
+        echo json_encode($categories);
+    }
 }

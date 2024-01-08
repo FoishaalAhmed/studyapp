@@ -300,3 +300,26 @@ if (!function_exists('getSubjectsByChildCategory')) {
         return \Modules\Subject\Entities\Subject::whereIn('id', $subjectIds)->get(['id','name']);
     }
 }
+
+
+if (!function_exists('getChildCategoryByTypeAndSubCategory')) {
+    function getChildCategoryByTypeAndSubCategory($subCategoryId, $type)
+    {
+
+        switch ($type) {
+            case 'MCQ':
+                $types = [\App\Enums\CategoryType::ModelTest, \App\Enums\CategoryType::CommonModelTest];
+                break;
+            case 'Ebook':
+                $types = [\App\Enums\CategoryType::Ebook, \App\Enums\CategoryType::CommonEbook];
+                break;
+            default:
+                $types = [\App\Enums\CategoryType::LectureSheet, \App\Enums\CategoryType::CommonLectureSheet];
+                break;
+        }
+
+        return \Modules\Category\Entities\ChildCategory::whereIn('type', $types)->where('sub_category_id', $subCategoryId)->oldest('name')->get(['id', 'name']);
+    }
+}
+
+

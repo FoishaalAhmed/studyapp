@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\AppHomePageCategoryService;
-use App\Http\Controllers\Controller;
-use App\Models\AppHomePageCategory;
 use Illuminate\Http\Request;
+use App\Models\AppHomePageCategory;
+use App\Http\Controllers\Controller;
+use App\Services\AppHomePageCategoryService;
 
 class AppHomePageCategoryController extends Controller
 {
@@ -26,7 +26,7 @@ class AppHomePageCategoryController extends Controller
     {
         $result = $appHomePageCategoryService->getAppHomePageCategories();
 
-        return view('backend.super-admin.home-page-category.index', compact('result'));
+        return view('backend.admin.home-page-category.index', compact('result'));
     }
 
     /**
@@ -37,8 +37,7 @@ class AppHomePageCategoryController extends Controller
     public function create(AppHomePageCategoryService $appHomePageCategoryService)
     {
         $data = $appHomePageCategoryService->getAppHomePageSubCategories();
-
-        return view('backend.super-admin.home-page-category.create', $data);
+        return view('backend.admin.home-page-category.create', $data);
     }
 
     /**
@@ -50,7 +49,7 @@ class AppHomePageCategoryController extends Controller
     public function store(Request $request)
     {
         $this->homePageCategory->storeAppHomePageCategory($request);
-        return back();
+        return redirect()->route('admin.app-home-category.index');
     }
 
     /**
@@ -62,8 +61,7 @@ class AppHomePageCategoryController extends Controller
     public function edit(AppHomePageCategory $appHomeCategory, AppHomePageCategoryService $appHomePageCategoryService)
     {
         $data = $appHomePageCategoryService->getAppHomePageEditData($appHomeCategory);
-
-        return view('backend.super-admin.home-page-category.edit', $data);
+        return view('backend.admin.home-page-category.edit', $data);
     }
 
     /**
@@ -77,6 +75,6 @@ class AppHomePageCategoryController extends Controller
     {
         $request->validate($this->homePageCategory::$validatedRules);
         $this->homePageCategory->updateAppHomePageCategory($request, $appHomeCategory);
-        return back();
+        return redirect()->route('admin.app-home-category.index');
     }
 }

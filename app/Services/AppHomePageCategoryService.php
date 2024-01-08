@@ -2,17 +2,9 @@
 
 namespace App\Services;
 
-use App\Enums\{
-    CategoryType,
-    AppType
-};
-
-use App\Models\{
-    AppHomePageCategory,
-    ChildCategory,
-    SubCategory,
-    AppHomePage
-};
+use App\Enums\{CategoryType, AppType};
+use App\Models\{AppHomePage, AppHomePageCategory};
+use Modules\Category\Entities\{ChildCategory, SubCategory};
 
 class AppHomePageCategoryService
 {
@@ -27,17 +19,11 @@ class AppHomePageCategoryService
             $subcategories = ChildCategory::whereIn('id', $categoryIds)->get(['id', 'name']);
 
             $result[$item->id] = [
-
                 'id'         => $item->id,
-
                 'title'      => $item->title,
-
-                'category'   => optional($item->subCategory)->name,
-
                 'type'       => $item->type,
-
                 'categories' => $subcategories,
-
+                'category'   => optional($item->subCategory)->name,
             ];
         });
 
@@ -48,11 +34,13 @@ class AppHomePageCategoryService
     {
         $mcqCategory = $ebookCategory = $lectureSheetCategory = [];
 
-        AppHomePage::get(['type', 'common_categories'])->map(function ($item) use (&$mcqCategory, &$ebookCategory, &$lectureSheetCategory) {
+        AppHomePage::get(['type', 'common_categories'])
+            ->map(function ($item) use (&$mcqCategory, &$ebookCategory, &$lectureSheetCategory) {
 
             switch ($item->type) {
                 case 'Sheet':
                     $sheet = explode(',', $item->common_categories);
+                    
                     foreach ($sheet as $key => $sheetValue) {
                         $lectureSheetCategory[] = $sheetValue;
                     }
@@ -60,6 +48,7 @@ class AppHomePageCategoryService
 
                 case 'MCQ':
                     $mcq = explode(',', $item->common_categories);
+                    
                     foreach ($mcq as $key => $mcqValue) {
                         $mcqCategory[] = $mcqValue;
                     }
@@ -67,6 +56,7 @@ class AppHomePageCategoryService
 
                 default:
                     $ebook = explode(',', $item->common_categories);
+                    
                     foreach ($ebook as $key => $ebookValue) {
                         $ebookCategory[] = $ebookValue;
                     }
@@ -76,11 +66,11 @@ class AppHomePageCategoryService
 
         $data = [
 
-            'mcqCategories' => SubCategory::whereIn('type', [CategoryType::ModelTest, CategoryType::CommonModelTest])->whereIn('id', $mcqCategory)->orderBy('name', 'asc')->get(['id', 'name']),
+            'mcqCategories' => SubCategory::whereIn('type', [CategoryType::ModelTest, CategoryType::CommonModelTest])->whereIn('id', $mcqCategory)->oldest('name')->get(['id', 'name']),
 
-            'ebookCategories' => SubCategory::whereIn('type', [CategoryType::Ebook, CategoryType::CommonEbook])->whereIn('id', $ebookCategory)->orderBy('name', 'asc')->get(['id', 'name']),
+            'ebookCategories' => SubCategory::whereIn('type', [CategoryType::Ebook, CategoryType::CommonEbook])->whereIn('id', $ebookCategory)->oldest('name')->get(['id', 'name']),
 
-            'sheetCategories' => SubCategory::whereIn('type', [CategoryType::LectureSheet, CategoryType::CommonLectureSheet])->whereIn('id', $lectureSheetCategory)->orderBy('name', 'asc')->get(['id', 'name']),
+            'sheetCategories' => SubCategory::whereIn('type', [CategoryType::LectureSheet, CategoryType::CommonLectureSheet])->whereIn('id', $lectureSheetCategory)->oldest('name')->get(['id', 'name']),
         ];
 
         return $data;
@@ -108,8 +98,8 @@ class AppHomePageCategoryService
 
         $category = [];
 
-        AppHomePage::where('type', $appType)->get(['common_categories'])->map(
-            function ($item) use (&$category) {
+        AppHomePage::where('type', $appType)->get(['common_categories'])
+            ->map(function ($item) use (&$category) {
 
                 $array = explode(',', $item->common_categories);
 
@@ -119,14 +109,10 @@ class AppHomePageCategoryService
 
         });
 
-
         $data = [
-
-            'categories' => SubCategory::whereIn('type', $types)->whereIn('id', $category)->orderBy('name', 'asc')->get(['id', 'name']),
-
-            'subCategories' => ChildCategory::whereIn('type', $types)->where('sub_category_id', $appHomeCategory->sub_category_id)->orderBy('name', 'asc')->get(['id', 'name']),
-
             'appHomeCategory' => $appHomeCategory,
+            'categories'      => SubCategory::whereIn('type', $types)->whereIn('id', $category)->oldest('name')->get(['id', 'name']),
+            'subCategories'  => ChildCategory::whereIn('type', $types)->where('sub_category_id', $appHomeCategory->sub_category_id)->oldest('name')->get(['id', 'name']),
         ];
 
         return $data;
@@ -175,7 +161,7 @@ class AppHomePageCategoryService
             }
         });
 
-        $response['subcategories'] = SubCategory::whereIn('type', $types)->whereIn('id', $commonCategory)->orderBy('name', 'asc')->get(['id', 'name', 'photo']);
+        $response['subcategories'] = SubCategory::whereIn('type', $types)->whereIn('id', $commonCategory)->oldest('name')->get(['id', 'name', 'photo']);
 
         return $response;
     }
@@ -191,13 +177,9 @@ class AppHomePageCategoryService
             $subcategories = ChildCategory::whereIn('id', $categoryIds)->get(['id', 'name', 'photo']);
 
             $result[] = [
-
                 'title'      => $item->title,
-
                 'type'       => $item->type,
-
                 'subcategories' => $subcategories,
-
             ];
         });
 
