@@ -323,6 +323,15 @@
                         </a>
                     </li>
 
+                    <li class="menu-title">{{ __('App') }}</li>
+
+                    <li class="menu-item {{ request()->is('admin/app-home') || request()->is('admin/app-home/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.app-home.index') }}" class="menu-link {{ request()->is('admin/app-home') || request()->is('admin/app-home/*') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-download"></i></span>
+                            <span class="menu-text"> {{ __('DB Backup') }} </span>
+                        </a>
+                    </li>
+
                 @endif
 
                 @if (auth()->user()->hasRole('Writer'))

@@ -2,13 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{
-    DashboardController,
-    DbBackupController,
-    ContactController,
-    WriterController,
-    AdminController,
-    UserController,
     BuyController,
+    UserController,
+    AdminController,
+    WriterController,
+    ContactController,
+    DbBackupController,
+    DashboardController,
+    AppHomePageController,
+    AppUserCategoryController,
+    AppHomePageCategoryController,
+    AppUserChildCategoryController,
 };
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -35,3 +39,7 @@ Route::controller(DbBackupController::class)->as('backups.')->prefix('db-backups
 Route::resource('users', UserController::class)->except(['show']);
 Route::resource('admins', AdminController::class)->except(['show']);
 Route::resource('writers', WriterController::class)->except(['show']);
+Route::resource('app-home', AppHomePageController::class)->except(['show', 'destroy']);
+Route::resource('app-user-category', AppUserCategoryController::class)->except(['show', 'destroy']);
+Route::resource('app-home-category', AppHomePageCategoryController::class)->except(['show', 'destroy']);
+Route::resource('app-user-child-category', AppUserChildCategoryController::class)->except(['show', 'destroy']);
