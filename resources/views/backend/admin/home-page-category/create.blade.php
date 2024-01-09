@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('New App Home Data'))
+@section('title', __('New App Home Page Category'))
 
 @section('css')
     <!-- Plugins css -->
@@ -15,7 +15,7 @@
                 <div class="card">
                     @include('alert')
                     <div class="card-body">
-                        <h4 class="header-title">{{ __('New App Home Data') }}</h4>
+                        <h4 class="header-title">{{ __('New App Home Page Category') }}</h4>
                         <p class="text-muted font-13 mb-4 text-end mt-n4">
                             <a href="{{ route('admin.app-home-category.index') }}" class="btn btn-outline-primary waves-effect waves-light"><i class="fe-list"></i> {{ __('All Data') }}</a>
                         </p>
@@ -118,7 +118,7 @@
         var csrf = "{{ csrf_token() }}";
         var url = "{{ route('get.child-category-by-type-and-subcategory') }}";
     </script>
-    <script src="{{ asset('public/assets/backend/js/custom/app-home-page-category.js') }}"></script>
+    <script src="{{ asset('public/assets/backend/js/custom/app-home-page-category-create.js') }}"></script>
     
     
 @endsection

@@ -332,6 +332,13 @@
                         </a>
                     </li>
 
+                    <li class="menu-item {{ request()->is('admin/app-home-category') || request()->is('admin/app-home-category/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.app-home-category.index') }}" class="menu-link {{ request()->is('admin/app-home-category') || request()->is('admin/app-home-category/*') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-compass"></i></span>
+                            <span class="menu-text"> {{ __('Home Next Category') }} </span>
+                        </a>
+                    </li>
+
                 @endif
 
                 @if (auth()->user()->hasRole('Writer'))
