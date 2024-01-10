@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\AppUserChildCategoryService;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AppUserChildCategory;
-use Illuminate\Http\Request;
+use App\Services\AppUserChildCategoryService;
 
 class AppUserChildCategoryController extends Controller
 {
@@ -23,8 +23,7 @@ class AppUserChildCategoryController extends Controller
     public function index(AppUserChildCategoryService $appUserChildCategoryService)
     {
         $result = $appUserChildCategoryService->getAppUserChildCategories();
-
-        return view('backend.super-admin.user-child-category.index', compact('result'));
+        return view('backend.admin.user-child-category.index', compact('result'));
     }
 
     /**
@@ -35,8 +34,7 @@ class AppUserChildCategoryController extends Controller
     public function create(AppUserChildCategoryService $appUserChildCategoryService)
     {
         $data = $appUserChildCategoryService->getAppUserCategories();
-
-        return view('backend.super-admin.user-child-category.create', $data);
+        return view('backend.admin.user-child-category.create', $data);
     }
 
     /**
@@ -48,7 +46,7 @@ class AppUserChildCategoryController extends Controller
     public function store(Request $request)
     {
         $this->userChildCategory->storeAppUserChildCategory($request);
-        return back();
+        return redirect()->route('admin.app-user-child-categories.index');
     }
 
     /**
@@ -60,8 +58,7 @@ class AppUserChildCategoryController extends Controller
     public function edit(AppUserChildCategory $appUserChildCategory, AppUserChildCategoryService $appUserChildCategoryService)
     {
         $data = $appUserChildCategoryService->getAppUserChildCategoryEditData($appUserChildCategory);
-
-        return view('backend.super-admin.user-child-category.edit', $data);
+        return view('backend.admin.user-child-category.edit', $data);
     }
 
     /**
@@ -75,6 +72,6 @@ class AppUserChildCategoryController extends Controller
     {
         $request->validate($this->userChildCategory::$validatedRules);
         $this->userChildCategory->updateAppHomePageCategory($request, $appUserChildCategory);
-        return back();
+        return redirect()->route('admin.app-user-child-categories.index');
     }
 }

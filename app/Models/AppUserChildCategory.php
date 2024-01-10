@@ -2,21 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
 use DB;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Category\Entities\SubCategory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AppUserChildCategory extends Model
 {
     use HasFactory;
 
     public static $validatedRules = [
-
         'sub_category_id' => ['required', 'numeric'],
-
         'title'           => ['required', 'string', 'max:255'],
-
         'categories'      => ['required'],
     ];
 
@@ -36,17 +33,11 @@ class AppUserChildCategory extends Model
                 if ($value == null) continue;
 
                 $data[] = [
-
                     'sub_category_id' => $request->sub_category_id[$key],
-
                     'title'           => $value,
-
                     'type'            => $request->type[$key],
-
                     'categories'      => implode(',', $request->{$request->type[$key]}),
-
                     'created_at'      => date('Y-m-d H:i:s'),
-
                     'updated_at'      => date('Y-m-d H:i:s'),
                 ];
             }
@@ -62,7 +53,6 @@ class AppUserChildCategory extends Model
         } catch (\Exception $e) {
 
             DB::rollBack();
-
             session()->flash('error', json_encode($e->getMessage()));
         }
     }
@@ -70,11 +60,8 @@ class AppUserChildCategory extends Model
     public function updateAppHomePageCategory(Object $request, Object $appUserChildCategory):void
     {
         $appUserChildCategory->sub_category_id = $request->sub_category_id;
-
         $appUserChildCategory->title           = $request->title;
-
         $appUserChildCategory->categories      = implode(',', $request->categories);
-
         $updateAppUserChildCategory            = $appUserChildCategory->save();
 
         $updateAppUserChildCategory
