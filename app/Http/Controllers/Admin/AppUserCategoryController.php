@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\AppUserCategoryService;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{
-    AppUserCategory,
-    Category
-};
+use App\Models\AppUserCategory;
+use App\Http\Controllers\Controller;
+use Modules\Category\Entities\Category;
+use App\Services\AppUserCategoryService;
 
 class AppUserCategoryController extends Controller
 {
@@ -27,8 +25,7 @@ class AppUserCategoryController extends Controller
     public function index(AppUserCategoryService $appUserCategoryService)
     {
         $result = $appUserCategoryService->getAppUserCategories();
-
-        return view('backend.super-admin.user-category.index', compact('result'));
+        return view('backend.admin.user-category.index', compact('result'));
     }
 
     /**
@@ -39,11 +36,10 @@ class AppUserCategoryController extends Controller
     public function create()
     {
         $data = [
-
-            'categories' => Category::orderBy('name', 'asc')->get(['id', 'name']),
+            'categories' => Category::oldest('name')->get(['id', 'name']),
         ];
 
-        return view('backend.super-admin.user-category.create', $data);
+        return view('backend.admin.user-category.create', $data);
     }
 
     /**
@@ -55,7 +51,7 @@ class AppUserCategoryController extends Controller
     public function store(Request $request)
     {
         $this->userCategory->storeAppUserCategory($request);
-        return back();
+        return redirect()->route('admin.app-user-categories.index');
     }
 
     /**
@@ -67,8 +63,7 @@ class AppUserCategoryController extends Controller
     public function edit(AppUserCategory $appUserCategory, AppUserCategoryService $appUserCategoryService)
     {
         $data = $appUserCategoryService->getAppUserCategoryEditData($appUserCategory);
-
-        return view('backend.super-admin.user-category.edit', $data);
+        return view('backend.admin.user-category.edit', $data);
     }
 
     /**
@@ -81,9 +76,7 @@ class AppUserCategoryController extends Controller
     public function update(Request $request, AppUserCategory $appUserCategory)
     {
         $request->validate($this->userCategory::$validatedRules);
-
         $this->userCategory->updateUserCategory($request, $appUserCategory);
-
-        return back();
+        return redirect()->route('admin.app-user-categories.index');
     }
 }

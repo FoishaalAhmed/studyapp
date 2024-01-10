@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Category\Entities\Category;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class AppUserCategory extends Model
 {
@@ -15,11 +16,8 @@ class AppUserCategory extends Model
     ];
 
     public static $validatedRules = [
-
         'category_id' => ['required', 'numeric'],
-
         'title'       => ['required', 'string', 'max:255'],
-
         'categories'  => ['required'],
     ];
 
@@ -42,17 +40,11 @@ class AppUserCategory extends Model
 
                 if (is_null($category)) {
                     $data[] = [
-
                         'category_id' => $request->category_id,
-
                         'title'       => $value,
-
                         'type'        => $request->type[$key],
-
                         'categories'  => implode(',', $request->{$request->type[$key]}),
-
                         'created_at'  => date('Y-m-d H:i:s'),
-
                         'updated_at'  => date('Y-m-d H:i:s'),
                     ];
 
@@ -73,7 +65,6 @@ class AppUserCategory extends Model
         } catch (\Exception $e) {
 
             DB::rollBack();
-
             session()->flash('error', json_encode($e->getMessage()));
         }
     }
@@ -81,11 +72,8 @@ class AppUserCategory extends Model
     public function updateUserCategory(Object $request, Object $appUserCategory): void
     {
         $appUserCategory->category_id = $request->category_id;
-        
         $appUserCategory->title       = $request->title;
-        
         $appUserCategory->categories  = implode(',', $request->categories);
-
         $updateAppUserCategory        = $appUserCategory->save();
 
         $updateAppUserCategory

@@ -339,6 +339,13 @@
                         </a>
                     </li>
 
+                    <li class="menu-item {{ request()->is('admin/app-user-categories') || request()->is('admin/app-user-categories/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.app-user-categories.index') }}" class="menu-link {{ request()->is('admin/app-user-categories') || request()->is('admin/app-user-categories/*') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-compass"></i></span>
+                            <span class="menu-text"> {{ __('App User Category') }} </span>
+                        </a>
+                    </li>
+
                 @endif
 
                 @if (auth()->user()->hasRole('Writer'))

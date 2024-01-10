@@ -40,6 +40,6 @@ Route::resource('users', UserController::class)->except(['show']);
 Route::resource('admins', AdminController::class)->except(['show']);
 Route::resource('writers', WriterController::class)->except(['show']);
 Route::resource('app-home', AppHomePageController::class)->except(['show', 'destroy']);
-Route::resource('app-user-category', AppUserCategoryController::class)->except(['show', 'destroy']);
 Route::resource('app-home-category', AppHomePageCategoryController::class)->except(['show', 'destroy']);
-Route::resource('app-user-child-category', AppUserChildCategoryController::class)->except(['show', 'destroy']);
+Route::resource('app-user-categories', AppUserCategoryController::class)->except(['show', 'destroy']);
+Route::resource('app-user-child-categories', AppUserChildCategoryController::class)->except(['show', 'destroy']);

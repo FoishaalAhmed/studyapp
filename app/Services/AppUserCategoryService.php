@@ -3,11 +3,8 @@
 namespace App\Services;
 
 use App\Enums\CategoryType;
-use App\Models\{
-    AppUserCategory,
-    SubCategory,
-    Category
-};
+use App\Models\AppUserCategory;
+use Modules\Category\Entities\{Category, SubCategory};
 
 class AppUserCategoryService
 {
@@ -22,17 +19,11 @@ class AppUserCategoryService
             $subcategories = SubCategory::whereIn('id', $categoryIds)->get(['id', 'name']);
 
             $result[$item->id] = [
-
                 'id'         => $item->id,
-
                 'title'      => $item->title,
-
                 'category'      => optional($item->category)->name,
-
                 'type'       => $item->type,
-
                 'categories' => $subcategories,
-
             ];
         });
 
@@ -57,11 +48,8 @@ class AppUserCategoryService
         }
 
         $data = [
-
-            'categories' => Category::orderBy('name', 'asc')->get(['id', 'name']),
-
-            'subCategories' => SubCategory::whereIn('type', $types)->where('category_id', $appUserCategory->category_id)->orderBy('name', 'asc')->get(['id', 'name']),
-
+            'categories' => Category::oldest('name')->get(['id', 'name']),
+            'subCategories' => SubCategory::whereIn('type', $types)->where('category_id', $appUserCategory->category_id)->oldest('name')->get(['id', 'name']),
             'appUserCategory' => $appUserCategory,
         ];
 
@@ -92,7 +80,6 @@ class AppUserCategoryService
             ];
 
             $categoriesIds = [];
-            
         }
 
         return $categories;
