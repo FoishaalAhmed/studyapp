@@ -1,6 +1,7 @@
 {
     "name": "Testimonial",
     "alias": "testimonial",
+    "core": true,
     "description": "",
     "version": "1.0.0",
     "keywords": [],

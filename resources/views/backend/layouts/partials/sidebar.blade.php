@@ -258,50 +258,59 @@
                         </li>
                     @endif
 
-                    @if (module('Page') && isActive('Page'))
-                        <li class="menu-item {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'menuitem-active' : '' }}">
-                            <a href="{{ route('admin.pages.index') }}" class="menu-link {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'active' : '' }}">
+                    @if (
+                        (module('Page') && isActive('Page')) || 
+                        (module('Content') && isActive('Content')) ||
+                        (module('Blog') && isActive('Blog')) ||
+                        (module('Testimonial') && isActive('Testimonial')) ||
+                        (module('Faq') && isActive('Faq'))
+
+                    )
+                        <li class="menu-item {{ request()->is('admin/pages/*') || request()->is('admin/pages') || request()->is('admin/contents') || request()->is('admin/blogs') || request()->is('admin/testimonials') || request()->is('admin/faqs') ? 'menuitem-active' : '' }}">
+                            <a href="#menuContents" data-bs-toggle="collapse" class="menu-link">
                                 <span class="menu-icon"><i class="mdi mdi-text-box-multiple-outline"></i></span>
-                                <span class="menu-text"> {{ __('Pages') }} </span>
+                                <span class="menu-text"> {{ __('Site Contents') }} </span>
+                                <span class="menu-arrow"></span>
                             </a>
+                            <div class="collapse {{ request()->is('admin/pages/*') || request()->is('admin/pages') || request()->is('admin/contents') || request()->is('admin/blogs') || request()->is('admin/testimonials') || request()->is('admin/faqs') ? 'show' : '' }}" id="menuContents">
+                                <ul class="sub-menu">
+                                    @if (module('Page') && isActive('Page'))
+                                        <li class="menu-item {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'menuitem-active' : '' }}">
+                                            <a href="{{ route('admin.pages.index') }}" class="menu-link {{ request()->is('admin/pages/*') || request()->is('admin/pages') ? 'active' : '' }}">
+                                                <span class="menu-text">{{ __('Pages') }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    <li class="menu-item {{ request()->is('admin/contents') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.contents.index') }}" class="menu-link {{ request()->is('admin/contents') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Contents') }}</span>
+                                        </a>
+                                    </li>
+
+                                    @if (module('Blog') && isActive('Blog'))
+                                        <li class="menu-item {{ request()->is('admin/blogs') ? 'menuitem-active' : '' }}">
+                                            <a href="{{ route('admin.blogs.index') }}" class="menu-link {{ request()->is('admin/blogs') ? 'active' : '' }}">
+                                                <span class="menu-text">{{ __('Blogs') }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    <li class="menu-item {{ request()->is('admin/testimonials') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.testimonials.index') }}" class="menu-link {{ request()->is('admin/testimonials') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Testimonials') }}</span>
+                                        </a>
+                                    </li>
+                                    
+                                    <li class="menu-item {{ request()->is('admin/faqs') ? 'menuitem-active' : '' }}">
+                                        <a href="{{ route('admin.faqs.index') }}" class="menu-link {{ request()->is('admin/faqs') ? 'active' : '' }}">
+                                            <span class="menu-text">{{ __('Faqs') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                     @endif
-
-                    @if (module('Blog') && isActive('Blog'))
-                        <li class="menu-item {{ request()->is('admin/blogs') ? 'menuitem-active' : '' }}">
-                            <a href="{{ route('admin.blogs.index') }}" class="menu-link {{ request()->is('admin/blogs') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="fe-book"></i></span>
-                                <span class="menu-text"> {{ __('Blog') }} </span>
-                            </a>
-                        </li>
-                    @endif
-
-                    @if (module('Testimonial') && isActive('Testimonial'))
-                        <li class="menu-item {{ request()->is('admin/testimonials') ? 'menuitem-active' : '' }}">
-                            <a href="{{ route('admin.testimonials.index') }}" class="menu-link {{ request()->is('admin/testimonials') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="fe-user-check"></i></span>
-                                <span class="menu-text"> {{ __('Testimonial') }} </span>
-                            </a>
-                        </li>
-                    @endif
-
-                    @if (module('Faq') && isActive('Faq'))
-                        <li class="menu-item {{ request()->is('admin/faqs') ? 'menuitem-active' : '' }}">
-                            <a href="{{ route('admin.faqs.index') }}" class="menu-link {{ request()->is('admin/faqs') ? 'active' : '' }}">
-                                <span class="menu-icon"><i class="mdi mdi-account-question"></i></span>
-                                <span class="menu-text"> {{ __('Faq') }} </span>
-                            </a>
-                        </li>
-                    @endif
-
-                    <li class="menu-item {{ request()->is('admin/contents') ? 'menuitem-active' : '' }}">
-                        <a href="{{ route('admin.contents.index') }}" class="menu-link {{ request()->is('admin/contents') ? 'active' : '' }}">
-                            <span class="menu-icon"><i class="mdi mdi-text-box-multiple-outline"></i></span>
-                            <span class="menu-text"> {{ __('Content') }} </span>
-                        </a>
-                    </li>
                     
-
                     <li class="menu-item {{ request()->is('admin/contacts') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('admin.contacts.index') }}" class="menu-link {{ request()->is('admin/contacts') ? 'active' : '' }}">
                             <span class="menu-icon"><i class="fe-map"></i></span>

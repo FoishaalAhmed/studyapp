@@ -1,6 +1,7 @@
 {
     "name": "Faq",
     "alias": "faq",
+    "core": true,
     "description": "",
     "version": "1.0.0",
     "keywords": [],
