@@ -345,6 +345,12 @@
                             <span class="menu-text"> {{ __('App User Category') }} </span>
                         </a>
                     </li>
+                    <li class="menu-item {{ request()->is('admin/app-user-child-categories') || request()->is('admin/app-user-child-categories/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('admin.app-user-child-categories.index') }}" class="menu-link {{ request()->is('admin/app-user-child-categories') || request()->is('admin/app-user-child-categories/*') ? 'active' : '' }}">
+                            <span class="menu-icon"><i class="fe-compass"></i></span>
+                            <span class="menu-text"> {{ __('App User Category') }} </span>
+                        </a>
+                    </li>
 
                 @endif
 
