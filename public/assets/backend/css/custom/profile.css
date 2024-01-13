@@ -1,0 +1,24 @@
+.h-200{
+    height: 200px;
+}
+
+.card-user-image {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    margin-left: -45px;
+}
+
+.user-image {
+    width: 90px;
+    height: auto;
+    border: 3px solid #ffffff;
+}
+
+.v-none {
+    visibility: hidden;
+}
+
+hr {
+    margin: 1rem 0 !important;
+}

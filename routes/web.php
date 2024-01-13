@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::view('profile', 'backend.profile')->name('profile');
+    Route::get('user/profile', [ProfileController::class, 'userProfile'])->name('user.profile');
     Route::post('photo-update', [ProfileController::class, 'photo'])->name('profile.photo');
     Route::post('password-update', [ProfileController::class, 'password'])->name('profile.password');
     Route::post('info-update', [ProfileController::class, 'info'])->name('profile.info');

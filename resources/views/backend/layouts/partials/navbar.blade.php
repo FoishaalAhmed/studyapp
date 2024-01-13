@@ -75,7 +75,7 @@
                     @if (file_exists(auth()->user()->photo))
                         <img src="{{ asset(auth()->user()->photo) }}" alt="user-image" class="rounded-circle">
                     @else
-                        <img src="{{ asset('public/assets/backend/images/users/user-1.jpg') }}" alt="user-image" class="rounded-circle">
+                        <img src="{{ asset('public/images/dummy/user.png') }}" alt="user-image" class="rounded-circle">
                     @endif
                     <span class="ms-1 d-none d-md-inline-block">
                         {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
@@ -83,11 +83,17 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
                     <!-- item-->
-                    <a href="{{ route('profile') }}" class="dropdown-item notify-item">
-                        <i class="fe-settings"></i>
-                        <span>{{ __('Settings') }}</span>
-                    </a>
-
+                    @if (auth()->user()->hasRole('User'))
+                        <a href="{{ route('user.profile') }}" class="dropdown-item notify-item">
+                            <i class="fe-settings"></i>
+                            <span>{{ __('Settings') }}</span>
+                        </a>
+                    @else
+                        <a href="{{ route('profile') }}" class="dropdown-item notify-item">
+                            <i class="fe-settings"></i>
+                            <span>{{ __('Settings') }}</span>
+                        </a>
+                    @endif
                     <div class="dropdown-divider"></div>
 
                     <!-- item-->
