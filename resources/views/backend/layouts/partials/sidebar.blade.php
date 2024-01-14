@@ -476,6 +476,17 @@
                     @endif
                 @endif
 
+                @if (auth()->user()->hasRole('User'))
+                    <li class="menu-item {{ request()->is('user/ranks') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('user.ranks') }}" class="menu-link {{ request()->is('user/ranks') ? 'active' : '' }}">
+                            <span class="menu-icon fs-3">
+                                <i class="mdi mdi-crown-outline"></i>
+                            </span>
+                            <span class="menu-text"> {{ __('Top Ranking') }} </span>
+                        </a>
+                    </li>
+                @endif
+
 
             </ul>
             <!--- End Menu -->
