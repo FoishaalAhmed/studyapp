@@ -477,6 +477,14 @@
                 @endif
 
                 @if (auth()->user()->hasRole('User'))
+                    <li class="menu-item {{ request()->is('user/jobs') || request()->is('user/jobs/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('user.jobs.index') }}" class="menu-link {{ request()->is('user/jobs') || request()->is('user/jobs/*') ? 'active' : '' }}">
+                            <span class="menu-icon">
+                                <i class="fe-briefcase"></i>
+                            </span>
+                            <span class="menu-text"> {{ __('Jobs') }} </span>
+                        </a>
+                    </li>
                     <li class="menu-item {{ request()->is('user/resource-buys') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('user.resource-buys') }}" class="menu-link {{ request()->is('user/resource-buys') ? 'active' : '' }}">
                             <span class="menu-icon">

@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">{{ __('Top 100 Ranking') }}</h4>
+                        <h4 class="header-title mb-4">{{ __('Top 100 Ranking') }}</h4>
                         <div class="table-responsive">
                             <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                                 <thead>

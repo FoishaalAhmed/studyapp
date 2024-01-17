@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Job\Http\Controllers\Admin\{JobCategoryController, JobController, JobUserController};
-use Modules\Job\Http\Controllers\Writer\{
-    JobController as WriterJobController,
-    JobCategoryController as WriterJobCategoryController,
-    JobUserController as WriterJobUserController,
+use Modules\Job\Http\Controllers\{
+    Admin\JobController,
+    Admin\JobUserController,
+    Admin\JobCategoryController,
+    User\JobController as UserJobController,
+    Writer\JobController as WriterJobController,
+    Writer\JobCategoryController as WriterJobCategoryController,
+    Writer\JobUserController as WriterJobUserController,
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -33,5 +36,14 @@ Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer'
     Route::controller(WriterJobUserController::class)->as('jobs.users.')->prefix('job-users')->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('show', 'show')->name('show');
+    });
+});
+
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function () {
+    Route::controller(UserJobController::class)->as('jobs.')->prefix('jobs')->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('detail/{job}/{title}', 'detail')->name('detail');
+        Route::get('apply/{job}', 'apply')->name('apply');
+        Route::post('apply/{job}', 'store')->name('store');
     });
 });
