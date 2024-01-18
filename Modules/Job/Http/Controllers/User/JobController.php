@@ -28,7 +28,7 @@ class JobController extends Controller
             default => Job::with('category:id,name')->latest()->paginate(30)
         };
         
-        return view('job::user.jobs.index', compact('jobs', 'type'));
+        return view('job::user.index', compact('jobs', 'type'));
     }
 
     public function detail(Job $job, $title)
@@ -38,6 +38,12 @@ class JobController extends Controller
             'jobs' => Job::with('category:id,name')->where('id', '!=', $job->id)->latest()->take(5)->get()
         ];
 
-        return view('job::user.jobs.detail', $data);
+        return view('job::user.detail', $data);
+    }
+
+    public function apply(Job $job) {
+
+        return view('job::user.apply', compact('job'));
+
     }
 }

@@ -66,7 +66,7 @@
                                             <div class="col-sm-4">
                                                 <div class="align-items-center">
                                                     <p class="mb-1 mt-sm-0"><i class="fe-dollar-sign me-1"></i> {{ $job->salary != 0 ? '৳ ' . $job->salary . ' ' . __('BDT') : __('Negotiable') }}</p>
-                                                    <p class="mb-0"><i class="fe-watch me-1"></i> 
+                                                    <p class="mb-0 text-danger"><i class="fe-watch me-1"></i> 
                                                         <?php
                                                             $date = date('Y-m-d');
                                                             $diff = date_diff(date_create($date), date_create($job->end_date));
