@@ -43,7 +43,5 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
     Route::controller(UserJobController::class)->as('jobs.')->prefix('jobs')->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('detail/{job}/{title}', 'detail')->name('detail');
-        Route::get('apply/{job}', 'apply')->name('apply');
-        Route::post('apply/{job}', 'store')->name('store');
     });
 });

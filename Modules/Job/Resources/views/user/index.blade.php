@@ -49,10 +49,10 @@
                                     <div class="card-body border-info">
                                         <div class="row">
                                             <div class="col-sm-11">
-                                                <h4 class="mt-0 mb-2 font-16">{{ str()->limit($job->title, 50) }}</h4>
+                                                <h4 class="mt-0 mb-2 font-16"><a href="{{ route('user.jobs.detail', [$job->id, strtolower(str_replace([' ', '_', '/'], '-', $job->title))]) }}">{{ str()->limit($job->title, 50) }}</a></h4>
                                             </div>
                                             <div class="col-sm-1">
-                                                <a href="{{ route('user.jobs.detail', [$job->id, strtolower(str_replace([' ', '_', '/'], '-', $job->title))]) }}" class="badge font-14 bg-soft-info text-info p-1"><i class="fe-list"></i></a>
+                                                <a href="{{ route('user.jobs.detail', [$job->id, strtolower(str_replace([' ', '_', '/'], '-', $job->title))]) }}" class="badge font-14 bg-soft-info text-info p-1"><i class="fe-eye"></i></a>
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="d-flex align-items-start">

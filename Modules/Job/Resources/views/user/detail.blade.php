@@ -85,12 +85,6 @@
                                 <div class="card-body">
                                     <p>{!! $job->description !!}</p>
                                 </div>
-                                @if ($retVal != 'Already Expaired')
-                                    <hr>
-                                    <a href="{{ route('user.jobs.apply', $job->id) }}" class="btn btn-outline-primary waves-effect waves-light float-end mb-2"> {{ __('Apply') }}</a>
-                                    
-                                @endif
-                                
                             </div>
                         </div>
                         <div class="col-xl-4">

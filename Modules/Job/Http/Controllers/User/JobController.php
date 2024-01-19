@@ -40,10 +40,4 @@ class JobController extends Controller
 
         return view('job::user.detail', $data);
     }
-
-    public function apply(Job $job) {
-
-        return view('job::user.apply', compact('job'));
-
-    }
 }
