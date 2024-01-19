@@ -42,47 +42,44 @@
                             </div> <!-- end row -->
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
+                    
                     <div class="row">
                         @foreach ($jobs as $job)
-                            <div class="col-xl-4">
-                                <div class="card mb-2">
-                                    <div class="card-body border-info">
-                                        <div class="row">
-                                            <div class="col-sm-11">
-                                                <h4 class="mt-0 mb-2 font-16"><a href="{{ route('user.jobs.detail', [$job->id, strtolower(str_replace([' ', '_', '/'], '-', $job->title))]) }}">{{ str()->limit($job->title, 50) }}</a></h4>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <a href="{{ route('user.jobs.detail', [$job->id, strtolower(str_replace([' ', '_', '/'], '-', $job->title))]) }}" class="badge font-14 bg-soft-info text-info p-1"><i class="fe-eye"></i></a>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <div class="d-flex align-items-start">
-                                                    <img class="d-flex align-self-center me-3 rounded-circle" src="{{ file_exists($job->photo) ? asset($job->photo) : asset('public/images/dummy/job.jpg') }}" alt="Generic placeholder image" height="40">
-                                                    <div class="w-100">
-                                                        <p class="mb-1"><i class="mdi mdi-domain me-1"></i> {{ str()->limit($job->company, 25) }}</p>
-                                                        <p class="mb-0"><i class=" fe-map-pin  me-1"></i> {{ $job->location }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="align-items-center">
-                                                    <p class="mb-1 mt-sm-0"><i class="fe-dollar-sign me-1"></i> {{ $job->salary != 0 ? '৳ ' . $job->salary . ' ' . __('BDT') : __('Negotiable') }}</p>
-                                                    <p class="mb-0 text-danger"><i class="fe-watch me-1"></i> 
-                                                        <?php
-                                                            $date = date('Y-m-d');
-                                                            $diff = date_diff(date_create($date), date_create($job->end_date));
-                                                            
-                                                            $retVal = $job->end_date > $date ? $diff->format('%a days left') : 'Already Expaired' ;
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <img src="{{ file_exists($job->photo) ? asset($job->photo) : asset('public/images/dummy/job.jpg') }}" alt="logo" class="avatar-xl rounded-circle mb-1">
+                                            <h4 class="mb-1 font-18">{{ $job->title }}</h4>
+                                            <h5 class="mb-1 font-16">{{ $job->company }}</h5>
+                                            <p class="text-muted  font-14">{{ $job->location }}</p>
+                                        </div>
 
-                                                            echo $retVal;
-                                                        ?>
-                                                    </p>
-                                                </div>
+                                        <div class="text-center">
+                                            <a href="{{ route('user.jobs.detail', [$job->id, strtolower(str_replace([' ', '_', '/'], '-', $job->title))]) }}" class="btn btn-sm btn-light">{{ __('View more info') }}</a>
+                                        </div>
+
+                                        <div class="row mt-2 text-center">
+                                            <div class="col-6">
+                                                <h5 class="fw-normal text-muted">{{ __('Salary') }} (BDT)</h5>
+                                                <h4>{{ $job->salary != 0 ? $job->salary : __('Negotiable') }}</h4>
                                             </div>
-                                            
-                                        </div> <!-- end row -->
+                                            <div class="col-6">
+                                                <h5 class="fw-normal text-muted">{{ __('Time left') }}</h5>
+                                                <?php
+                                                    $date = date('Y-m-d');
+                                                    $diff = date_diff(date_create($date), date_create($job->end_date));
+                                                    
+                                                    $timeLeft = $job->end_date > $date ? $diff->format('%a days') : 'Already Expaired' ;
+                                                ?>
+                                                <h4 class="{{ $job->end_date > $date ? 'text-success' : 'text-danger' }}">
+                                                    {{ $timeLeft }}
+                                                </h4>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div> <!-- end card-->
-                            </div>
+                                </div> <!-- end card -->
+                            </div><!-- end col -->
                         @endforeach
                     </div>
                     {{ $jobs->links('backend.pagination') }}
