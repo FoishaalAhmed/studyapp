@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\LectureSheet\Http\Controllers\Admin\LectureSheetController;
+use Modules\LectureSheet\Http\Controllers\User\LectureSheetController as UserLectureSheetController;
 use Modules\LectureSheet\Http\Controllers\Writer\LectureSheetController as WriterLectureSheetController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -19,4 +20,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','a
 Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer', 'auth']], function () {
     Route::resource('lecture-sheets', WriterLectureSheetController::class)
         ->except(['destroy']);
+});
+
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function () {
+    Route::controller(UserLectureSheetController::class)->prefix('sheets')->as('sheets.')
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('all-categories', 'allCategory')->name('all.categories');
+        Route::get('sheet-categories/{category}/{title}', 'category')->name('categories');
+        Route::get('download/{sheet}', 'download')->name('download');
+        Route::get('read/{sheet}/{chapter}', 'read')->name('read');
+    });
 });
