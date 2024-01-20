@@ -1,13 +1,9 @@
 <?php
 
-namespace Modules\Forum\Http\Controllers;
+namespace Modules\Forum\Http\Controllers\User;
 
 use Illuminate\Routing\Controller;
-use Modules\Forum\DataTables\{
-    ForumCommentRepliesDataTable,
-    ForumCommentsDataTable,
-    ForumsDataTable
-};
+
 use Modules\Forum\Entities\{
     ForumCommentReply,
     ForumComment,
@@ -23,9 +19,9 @@ class ForumController extends Controller
         $this->forumModelObject = new Forum();
     }
 
-    public function index(ForumsDataTable $dataTable)
+    public function index()
     {
-        return $dataTable->render('forum::index');
+        return view('forum::index');
     }
 
     public function forumStatus(Forum $forum, string $status)

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Forum\Http\Controllers\Admin\ForumController;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
     Route::controller(ForumController::class)->prefix('forums')->as('forums.')
