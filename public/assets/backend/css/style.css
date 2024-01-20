@@ -14,3 +14,13 @@
     width: 22px;
     height: 22px;
 }
+.span {
+    font-weight: bolder;
+    background: #7875FC;
+    width: 15px;
+    display: inline-block;
+    color: #7875FC;
+    border-radius: 4px;
+    margin-right: 10px;
+    line-height: 25px;
+}

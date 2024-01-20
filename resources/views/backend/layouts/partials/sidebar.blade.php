@@ -477,22 +477,38 @@
                 @endif
 
                 @if (auth()->user()->hasRole('User'))
-                    <li class="menu-item {{ request()->is('user/sheets') || request()->is('user/sheets/*') ? 'menuitem-active' : '' }}">
-                        <a href="{{ route('user.sheets.all.categories') }}" class="menu-link {{ request()->is('user/sheets') || request()->is('user/sheets/*') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="fe-clipboard "></i>
-                            </span>
-                            <span class="menu-text"> {{ __('Sheets') }} </span>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ request()->is('user/jobs') || request()->is('user/jobs/*') ? 'menuitem-active' : '' }}">
-                        <a href="{{ route('user.jobs.index') }}" class="menu-link {{ request()->is('user/jobs') || request()->is('user/jobs/*') ? 'active' : '' }}">
-                            <span class="menu-icon">
-                                <i class="fe-briefcase"></i>
-                            </span>
-                            <span class="menu-text"> {{ __('Jobs') }} </span>
-                        </a>
-                    </li>
+                    @if (module('Ebook') && isActive('Ebook'))
+                        <li class="menu-item {{ request()->is('user/ebooks') || request()->is('user/ebooks/*') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('user.ebooks.all.categories') }}" class="menu-link {{ request()->is('user/ebooks') || request()->is('user/ebooks/*') ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="fe-book"></i>
+                                </span>
+                                <span class="menu-text"> {{ __('Ebooks') }} </span>
+                            </a>
+                        </li>
+                    @endif
+                    
+                    @if (module('LectureSheet') && isActive('LectureSheet'))
+                        <li class="menu-item {{ request()->is('user/sheets') || request()->is('user/sheets/*') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('user.sheets.all.categories') }}" class="menu-link {{ request()->is('user/sheets') || request()->is('user/sheets/*') ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="fe-clipboard"></i>
+                                </span>
+                                <span class="menu-text"> {{ __('Sheets') }} </span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if (module('Job') && isActive('Job'))
+                        <li class="menu-item {{ request()->is('user/jobs') || request()->is('user/jobs/*') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('user.jobs.index') }}" class="menu-link {{ request()->is('user/jobs') || request()->is('user/jobs/*') ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="fe-briefcase"></i>
+                                </span>
+                                <span class="menu-text"> {{ __('Jobs') }} </span>
+                            </a>
+                        </li>
+                    @endif
                     <li class="menu-item {{ request()->is('user/resource-buys') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('user.resource-buys') }}" class="menu-link {{ request()->is('user/resource-buys') ? 'active' : '' }}">
                             <span class="menu-icon">

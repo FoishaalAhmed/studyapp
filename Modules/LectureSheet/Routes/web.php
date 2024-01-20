@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\LectureSheet\Http\Controllers\Admin\LectureSheetController;
-use Modules\LectureSheet\Http\Controllers\User\LectureSheetController as UserLectureSheetController;
-use Modules\LectureSheet\Http\Controllers\Writer\LectureSheetController as WriterLectureSheetController;
+use Modules\LectureSheet\Http\Controllers\{
+    Admin\LectureSheetController,
+    User\LectureSheetController as UserLectureSheetController,
+    Writer\LectureSheetController as WriterLectureSheetController
+};
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
     Route::controller(LectureSheetController::class)->prefix('lecture-sheets')->as('lecture_sheets.')

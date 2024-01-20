@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <h4 class="page-title"> <span style="font-weight: bolder; background: #7875FC; width: 15px; display: inline-block; color: #7875FC; border-radius: 4px; margin-right: 10px; line-height: 25px;">|</span> {{ __('Lecture Sheet Category') }}</h4>
+                        <h4 class="page-title"> <span class="span">|</span> {{ __('Lecture Sheet Category') }}</h4>
                     </div>
                 </div>
             </div>
