@@ -480,7 +480,7 @@
                     <li class="menu-item {{ request()->is('user/sheets') || request()->is('user/sheets/*') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('user.sheets.all.categories') }}" class="menu-link {{ request()->is('user/sheets') || request()->is('user/sheets/*') ? 'active' : '' }}">
                             <span class="menu-icon">
-                                <i class="fe-briefcase"></i>
+                                <i class="fe-clipboard "></i>
                             </span>
                             <span class="menu-text"> {{ __('Sheets') }} </span>
                         </a>
