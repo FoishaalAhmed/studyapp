@@ -26,6 +26,11 @@ class Forum extends Model
         return $this->hasMany(ForumComment::class);
     }
 
+    public function comment()
+    {
+        return $this->hasOne(ForumComment::class)->latest();
+    }
+
     public function replies()
     {
         return $this->hasManyThrough(ForumCommentReply::class, ForumComment::class);

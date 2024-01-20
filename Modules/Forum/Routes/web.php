@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Forum\Http\Controllers\Admin\ForumController;
+use Modules\Forum\Http\Controllers\{
+    Admin\ForumController,
+    User\ForumController as UserForumController
+};
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
     Route::controller(ForumController::class)->prefix('forums')->as('forums.')
@@ -15,3 +18,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','a
     });
 });
 
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function () {
+    Route::controller(UserForumController::class)->as('forums.')->prefix('forums')->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('detail/{forum}/{title}', 'detail')->name('detail');
+        Route::get('load-more-forum-post', 'loadMore')->name('load.post');
+    });
+});
