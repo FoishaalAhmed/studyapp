@@ -2,6 +2,12 @@
 
 @section('title', __('Forum'))
 
+@section('css')
+    <!-- Plugins css -->
+    <link href="{{ asset('public/assets/backend/libs/dropzone/min/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('public/assets/backend/libs/dropify/css/dropify.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('content')
     <div class="content">
 
@@ -100,12 +106,38 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">{{ __('New Post') }}</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">{{ __('New Forum Post') }}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="post" enctype="multipart/form-data">
-
+                    <span id="form-message"></span>
+                    <form action="" method="post" enctype="multipart/form-data" id="forum-form">
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="title" class="form-label">{{ __('Title') }}</label>
+                                <input type="text" name="title" id="title" class="form-control" placeholder="{{ __('Title') }}" required="" value="{{ old('title') }}">
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="tags" class="form-label">{{ __('Tags') }}</label>
+                                <input type="text" name="tags" id="tags" class="form-control" placeholder="{{ __('Tags') }}" required="" value="{{ old('tags') }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mb-3">
+                                <label for="description" class="form-label">{{ __('Description') }}</label>
+                                <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+                                
+                            </div>
+                            <div class="col-lg-12 mb-3">
+                                <input type="file" data-plugins="dropify" data-height="200" name="photo"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <a href="javascript:;" class="btn btn-outline-danger waves-effect waves-light" data-bs-dismiss="modal" aria-label="Close"><i class="fe-delete"></i> {{ __('Cancel') }}</a>
+                                <button type="submit" class="btn btn-outline-success waves-effect waves-light"><i class="fe-plus-circle"></i> {{ __('Submit') }}</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div><!-- /.modal-content -->
@@ -114,12 +146,19 @@
 @endsection
 
 @section('js')
+    <!-- Plugins js -->
+    <script src="{{ asset('public/assets/backend/libs/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('public/assets/backend/libs/dropify/js/dropify.min.js') }}"></script>
 
+    <!-- Init js-->
+    <script src="{{ asset('public/assets/backend/js/pages/form-fileuploads.init.js') }}"></script>
     <script>
         'use strict';
+        var csrf = '{{ csrf_token() }}';
+        var loadingText = "{{ __('Loading...') }}";
+        var loadMoreText = "{{ __('Load More') }}";
         var url = '{{ route("user.forums.load.post") }}';
-        var loadingText = "{{ __('Loading...') }}"
-        var loadMoreText = "{{ __('Load More') }}"
+        var forumStoreUrl = "{{ route('user.forums.store') }}";
     </script>
     <script src="{{ asset('Modules\Forum\Resources\assets\js\forum.js') }}"></script>
 @endsection

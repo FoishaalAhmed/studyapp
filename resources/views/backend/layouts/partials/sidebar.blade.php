@@ -509,6 +509,18 @@
                             </a>
                         </li>
                     @endif
+
+                    @if (module('Forum') && isActive('Forum'))
+                        <li class="menu-item {{ request()->is('user/forums') || request()->is('user/forums/*') ? 'menuitem-active' : '' }}">
+                            <a href="{{ route('user.forums.index') }}" class="menu-link {{ request()->is('user/forums') || request()->is('user/forums/*') ? 'active' : '' }}">
+                                <span class="menu-icon">
+                                    <i class="mdi mdi-bookmark-multiple-outline"></i>
+                                </span>
+                                <span class="menu-text"> {{ __('Forums') }} </span>
+                            </a>
+                        </li>
+                    @endif
+
                     <li class="menu-item {{ request()->is('user/resource-buys') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('user.resource-buys') }}" class="menu-link {{ request()->is('user/resource-buys') ? 'active' : '' }}">
                             <span class="menu-icon">

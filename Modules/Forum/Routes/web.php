@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','a
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function () {
     Route::controller(UserForumController::class)->as('forums.')->prefix('forums')->group(function () {
         Route::get('', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
         Route::get('detail/{forum}/{title}', 'detail')->name('detail');
         Route::get('load-more-forum-post', 'loadMore')->name('load.post');
     });

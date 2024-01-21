@@ -24,3 +24,8 @@
     margin-right: 10px;
     line-height: 25px;
 }
+
+.dropify-font-upload::before,
+.dropify-wrapper .dropify-message span.file-icon::before {
+    content: '';
+}

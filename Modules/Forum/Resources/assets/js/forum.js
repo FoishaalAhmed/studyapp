@@ -30,3 +30,43 @@ function loadMoreData(paginate) {
         }
     })
 }
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-Token': csrf
+    }
+});
+
+$('#forum-form').on('submit', function(event) {
+
+    event.preventDefault();
+    $.ajax({
+        url: forumStoreUrl,
+        method: 'POST',
+        data: new FormData(this),
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            $('#bs-example-modal-lg').modal('show');
+            if (data.error.length > 0) {
+                var error_html = '';
+                for (var count = 0; count < data.error.length; count++) {
+                    error_html += '<div class="alert alert-danger">' + data.error[
+                        count] + '</div>';
+                }
+                $('#form-message').html(error_html);
+            } else {
+                $('#form-message').html(data.success);
+
+                setTimeout(function() {
+                    $('#forum-form')[0].reset();
+                    window.location.reload();
+                },2000);
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
