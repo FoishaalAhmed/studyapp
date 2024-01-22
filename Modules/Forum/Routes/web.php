@@ -22,7 +22,10 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
     Route::controller(UserForumController::class)->as('forums.')->prefix('forums')->group(function () {
         Route::get('', 'index')->name('index');
         Route::post('store', 'store')->name('store');
+        Route::post('comment-store', 'storeComment')->name('store.comment');
+        Route::post('reply-store', 'storeReply')->name('store.reply');
         Route::get('detail/{forum}/{title}', 'detail')->name('detail');
         Route::get('load-more-forum-post', 'loadMore')->name('load.post');
+        Route::get('load-more-forum-comment', 'loadMoreComment')->name('load.comment');
     });
 });

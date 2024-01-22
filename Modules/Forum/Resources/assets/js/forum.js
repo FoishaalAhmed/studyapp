@@ -70,3 +70,82 @@ $('#forum-form').on('submit', function(event) {
         }
     });
 });
+
+$('#comment-form').on('submit', function(event) {
+
+    event.preventDefault();
+    $.ajax({
+        url: commentStoreUrl,
+        method: 'POST',
+        data: new FormData(this),
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            $('#comment-modal').modal('show');
+            if (data.error.length > 0) {
+                var error_html = '';
+                for (var count = 0; count < data.error.length; count++) {
+                    error_html += '<div class="alert alert-danger">' + data.error[
+                        count] + '</div>';
+                }
+                $('#comment-message').html(error_html);
+            } else {
+                $('#comment-message').html(data.success);
+
+                setTimeout(function() {
+                    $('#comment-form')[0].reset();
+                    window.location.reload();
+                },2000);
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+$('#reply-form').on('submit', function(event) {
+
+    event.preventDefault();
+    $.ajax({
+        url: replyStoreUrl,
+        method: 'POST',
+        data: new FormData(this),
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            $('#reply-modal').modal('show');
+            if (data.error.length > 0) {
+                var error_html = '';
+                for (var count = 0; count < data.error.length; count++) {
+                    error_html += '<div class="alert alert-danger">' + data.error[
+                        count] + '</div>';
+                }
+                $('#reply-message').html(error_html);
+            } else {
+                $('#reply-message').html(data.success);
+
+                setTimeout(function() {
+                    $('#reply-form')[0].reset();
+                    window.location.reload();
+                },2000);
+            }
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+$('#comment-modal').on("show.bs.modal", function(event) {
+    var e = $(event.relatedTarget);
+    var id = e.data('id');
+    $("#forum-id").val(id);
+});
+$('#reply-modal').on("show.bs.modal", function(event) {
+    var e = $(event.relatedTarget);
+    var id = e.data('id');
+    $("#forum-comment-id").val(id);
+});

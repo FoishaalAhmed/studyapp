@@ -21,7 +21,7 @@ class ForumCommentReply extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function storeReply(Object $request)
@@ -29,13 +29,15 @@ class ForumCommentReply extends Model
         $photo = $request->file('photo');
 
         if ($photo) {
-            $photo_name        = time();
-            $ext               = strtolower($photo->extension());
-            $photo_full_name   = $photo_name . '.' . $ext;
-            $photo_upload_path = 'public/images/forumComments/';
-            $photo_url         = $photo_upload_path . $photo_full_name;
-            $photo_success     = $photo->move($photo_upload_path, $photo_full_name);
-            $this->photo       = $photo_url;
+
+            $response = uploadImage($photo, 'public/images/forum-reply/', 'reply', '465*260');
+
+            if (!$response['status']) {
+                session()->flash('error', $response['message']);
+                return;
+            }
+
+            $this->photo = 'public/images/forum-reply/' . $response['file_name'];
         }
 
         $this->forum_comment_id = $request->forum_comment_id;

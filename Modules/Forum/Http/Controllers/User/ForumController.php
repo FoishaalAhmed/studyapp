@@ -32,6 +32,20 @@ class ForumController extends Controller
         return view('forum::user.load-more', compact('forums'));
     }
 
+    public function detail(Forum $forum)
+    {
+        $data = [
+            'forum' => $forum->load(['user:id,name,photo']),
+            'comments' => ForumComment::with([
+                'replies:id,forum_comment_id,reply,photo,created_at,user_id',
+                'replies.user:id,name,photo',
+                'user:id,name,photo',
+            ])->where('forum_id', $forum->id)->latest()->paginate(20)
+        ];
+
+        return view('forum::user.detail', $data);
+    }
+
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
@@ -45,13 +59,66 @@ class ForumController extends Controller
         $successOutput = '';
 
         if ($validation->fails()) {
-            foreach ($validation->messages()->getMessages() as $field_name => $messages) {
+            foreach ($validation->messages()->getMessages() as $messages) {
                 $errorArray[] = $messages;
             }
         } else {
-            $forumObject = new Forum();
-            $forumObject->storeForum($request);
+           (new Forum)->storeForum($request);
             $successOutput = '<div class="alert alert-success">Your forum post successful</div>';
+        }
+
+        $output = [
+            'error'   => $errorArray,
+            'success' => $successOutput
+        ];
+
+        echo json_encode($output);
+    }
+
+    public function storeComment(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'comment' => ['required', 'string'],
+            'photo'   => ['mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024,],
+        ]);
+
+        $errorArray    = [];
+        $successOutput = '';
+
+        if ($validation->fails()) {
+            foreach ($validation->messages()->getMessages() as $messages) {
+                $errorArray[] = $messages;
+            }
+        } else {
+            (new ForumComment)->storeComment($request);
+            $successOutput = '<div class="alert alert-success">Comment Successful</div>';
+        }
+
+        $output = [
+            'error'   => $errorArray,
+            'success' => $successOutput
+        ];
+
+        echo json_encode($output);
+    }
+
+    public function storeReply(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'reply' => ['required', 'string'],
+            'photo' => ['mimes:' . implode(',', getFileExtensions(3)), 'max:' . settings('max_file_size') * 1024,],
+        ]);
+
+        $errorArray    = [];
+        $successOutput = '';
+
+        if ($validation->fails()) {
+            foreach ($validation->messages()->getMessages() as $messages) {
+                $errorArray[] = $messages;
+            }
+        } else {
+            (new ForumCommentReply)->storeReply($request);
+            $successOutput = '<div class="alert alert-success">Reply Done</div>';
         }
 
         $output = [

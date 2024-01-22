@@ -35,14 +35,14 @@ class ForumComment extends Model
 
         if ($photo) {
 
-            $response = uploadImage($photo, 'public/images/forumComments/', 'comments', '465*260');
+            $response = uploadImage($photo, 'public/images/forum-comments/', 'comments', '465*260');
 
             if (!$response['status']) {
                 session()->flash('error', $response['message']);
                 return;
             }
 
-            $this->photo = 'public/images/forumComments/' . $response['file_name'];
+            $this->photo = 'public/images/forum-comments/' . $response['file_name'];
         }
 
         $this->forum_id = $request->forum_id;
