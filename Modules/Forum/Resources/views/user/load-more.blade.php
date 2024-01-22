@@ -20,8 +20,20 @@
             </div>
             <p>{{ str()->limit($item->description, 370) }}</p>
 
-            <div class="mt-2">
-                <a href="{{ route('user.forums.detail', [$item->id, strtolower(str_replace([' ', '_', '/'], '-', $item->title))]) }}" class="btn btn-sm btn-link text-muted ps-0 fw-bold"> {{ $item->comment?->user?->name }} {{ __('replied') }} {{ $item->comment?->created_at?->diffForHumans() }} </a>
+            <div class="mt-2 d-flex justify-content-between align-items-center">
+                @if ($item->comment)
+                    <a href="{{ route('user.forums.detail', [$item->id, strtolower(str_replace([' ', '_', '/'], '-', $item->title))]) }}" class="btn btn-sm btn-link text-muted ps-0 fw-bold"> {{ $item->comment?->user?->name }} {{ __('replied') }} {{ $item->comment?->created_at?->diffForHumans() }} </a>
+                @endif
+
+                <div class="float-left">
+                    @foreach ($item->comments as $comment)
+                        @break($loop->index == 3)
+                        <img src="{{ file_exists($comment->user?->photo) ? asset($comment->user?->photo) : asset('public/images/dummy/user.png') }}" class="rounded-circle mln-10" height="42">
+                    @endforeach
+                    @if (count($item->comments) > 3)
+                        <img src="" alt="{{ '+' . count($item->comments) - 3 }}" class="rounded-circle mln-10 bg-primary p4 fs-3 text-white" height="42">
+                    @endif
+                </div>
             </div>
         </div>
     </div>

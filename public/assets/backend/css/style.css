@@ -29,3 +29,10 @@
 .dropify-wrapper .dropify-message span.file-icon::before {
     content: '';
 }
+
+.mln-10 {
+    margin-left: -10px;
+}
+.mrn-45 {
+    margin-right: -45px;
+}

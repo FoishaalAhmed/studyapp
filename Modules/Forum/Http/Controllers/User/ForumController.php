@@ -22,13 +22,13 @@ class ForumController extends Controller
 
     public function index()
     {
-        $forums = Forum::with(['user', 'comment', 'comment.user'])->latest()->paginate(20);
+        $forums = Forum::with(['user', 'comment', 'comments', 'comment.user', 'comments.user'])->latest()->paginate(20);
         return view('forum::user.index', compact('forums'));
     }
 
     public function loadMore() 
     {
-        $forums = Forum::with(['user', 'comment', 'comment.user'])->latest()->paginate(20);
+        $forums = Forum::with(['user', 'comments', 'comment','comment.user', 'comments.user'])->latest()->paginate(20);
         return view('forum::user.load-more', compact('forums'));
     }
 
