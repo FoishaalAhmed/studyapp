@@ -149,10 +149,10 @@ class Exam extends Model
         $exam->negative_mark = $request->negative_mark;
         $this->description = $request->description;
         $exam->time = $request->time;
-        $exam->start_date = $request->exam_type == 1 ? date('Y-m-d', strtotime($request->start_date)) : null;
-        $exam->start_time = $request->exam_type == 1 ? date('H:i', strtotime($request->start_time)) : null;
-        $exam->result_date = $request->exam_type == 1 ? date('Y-m-d', strtotime($request->result_date)) : null;
-        $exam->result_time = $request->exam_type == 1 ? date('H:i', strtotime($request->result_time)) : null;
+        $exam->start_date = date('Y-m-d', strtotime($request->start_date));
+        $exam->start_time = date('H:i', strtotime($request->start_time));
+        $exam->result_date = date('Y-m-d', strtotime($request->result_date));
+        $exam->result_time = date('H:i', strtotime($request->result_time));
         $exam->note = $request->exam_type == 1 ? $request->note : null;
         $updateExam = $exam->save();
 

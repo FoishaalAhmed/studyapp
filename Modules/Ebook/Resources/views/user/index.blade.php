@@ -14,7 +14,6 @@
                 </div>
             </div>
             <!-- end page title -->
-            @include('alert')
             <div class="row">
                 @foreach ($ebooks as $item)
                     <div class="col-md-6 col-lg-4 col-xl-3">

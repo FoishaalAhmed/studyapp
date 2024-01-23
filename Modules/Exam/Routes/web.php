@@ -1,14 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Exam\Http\Controllers\Admin\{
-    ExamController, 
-    ExamTypeController, 
-    ExamQuestionController
-};
-use Modules\Exam\Http\Controllers\Writer\{
-    ExamController as WriterExamController,
-    ExamQuestionController as WriterExamQuestionController
+use Modules\Exam\Http\Controllers\{
+    Admin\ExamController, 
+    Admin\ExamTypeController, 
+    Admin\ExamQuestionController,
+    User\ExamController as UserExamController,
+    Writer\ExamController as WriterExamController,
+    Writer\ExamQuestionController as WriterExamQuestionController
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -48,4 +47,19 @@ Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer'
 
     Route::resource('exam-questions', WriterExamQuestionController::class)
         ->except(['destroy']);
+});
+
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function () {
+
+    Route::controller(UserExamController::class)->prefix('exams')->as('exams.')
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('all-live-exams', 'live')->name('live');
+        Route::get('all-subject-exams', 'subject')->name('subject');
+        Route::get('all-chapter-exams', 'chapter')->name('chapter');
+        Route::get('exams/detail/{exam}', 'detail')->name('detail');
+        Route::get('exams/enroll/{exam}', 'enroll')->name('enroll');
+        Route::get('exams/{exam}', 'exam')->name('exam');
+        Route::get('exams/{exam}', 'store')->name('store');
+    });
 });

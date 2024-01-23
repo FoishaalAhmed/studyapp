@@ -24,10 +24,10 @@ class ExamRequest extends FormRequest
             'negative_mark' => ['required', 'numeric'],
             'time' => ['required', 'numeric'],
             'price' => ['required_if:type,1'],
-            'start_date' => ['required_if:exam_type,==,1'],
-            'start_time' => ['required_if:exam_type,==,1'],
-            'result_date' => ['required_if:exam_type,==,1'],
-            'result_time' => ['required_if:exam_type,==,1'],
+            'start_date' => ['required'],
+            'start_time' => ['required'],
+            'result_date' => ['required'],
+            'result_time' => ['required'],
             'note' => ['required_if:exam_type,==,1'],
         ];
 
