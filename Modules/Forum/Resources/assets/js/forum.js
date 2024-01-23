@@ -8,7 +8,6 @@ $('#load-more').on('click', function() {
 
 function loadMoreData(paginate) {
     $.ajax({
-        
         url:  url,
         type: 'get',
         datatype: 'html',
@@ -27,6 +26,37 @@ function loadMoreData(paginate) {
         } else {
             $('#load-more').text(loadMoreText);
             $('#new-forum-item').append(data);
+        }
+    })
+}
+
+$('#load-more-comment').on('click', function() {
+    var page = $(this).data('paginate');
+    loadMoreCommentData(page);
+    $(this).data('paginate', page + 1);
+});
+
+function loadMoreCommentData(paginate) {
+    $.ajax({
+        url:  commentLoadUrl,
+        type: 'get',
+        datatype: 'html',
+        data: {
+            'page': paginate,
+            'forum_id': forumId
+        },
+        beforeSend: function() {
+            $('#load-more-comment').text(loadingText);
+        }
+    })
+    .done(function(data) {
+        if(data.length == 0) {
+            $('.invisible').removeClass('invisible');
+            $('#load-more-comment').hide();
+            return false;
+        } else {
+            $('#load-more-comment').text(loadMoreText);
+            $('#new-comment-item').append(data);
         }
     })
 }

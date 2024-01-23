@@ -86,7 +86,7 @@
                                             @foreach ($item->replies as $reply)
                                                 <div class="d-flex align-items-start mt-3">
                                                     <a class="pe-2" href="#">
-                                                        <img src="{{ file_exists($reply->user?->photo) ? asset($reply->user?->photo) : asset('public/images/dummy/user.png') }}" class="avatar-sm rounded-circle">
+                                                        <img src="{{ file_exists($reply->user?->photo) ? asset($reply->user?->photo) : asset('public/images/dummy/user.png') }}" class="avatar-sm rounded">
                                                     </a>
                                                     <div class="w-100">
                                                         <h5 class="mt-0"><a href="#" class="text-reset">{{ optional($reply->user)->name }}</a> <small class="text-muted">{{ $reply->created_at->diffForHumans() }}</small></h5>
@@ -100,7 +100,7 @@
                                             @endforeach
                                             <div class="d-flex align-items-start mt-2">
                                                 <a class="pe-2" href="#">
-                                                    <img src="{{ file_exists(auth()->user()->photo) ? asset(auth()->user()->photo) : asset('public/images/dummy/user.png') }}" class="rounded-circle" height="31">
+                                                    <img src="{{ file_exists(auth()->user()->photo) ? asset(auth()->user()->photo) : asset('public/images/dummy/user.png') }}" class="rounded" height="31">
                                                 </a>
                                                 <div class="w-100">
                                                     <input type="text" class="form-control border-0 form-control-sm" data-bs-toggle="modal" data-bs-target="#reply-modal" placeholder="{{ __('Write a relpy') }}" data-id="{{ $item->id }}">
@@ -113,19 +113,20 @@
                                     
                                 </div>
                             @endforeach
+                            <div id="new-comment-item"></div>
                             <div class="d-flex align-items-start mt-3">
-                                <img src="{{ file_exists(auth()->user()->photo) ? asset(auth()->user()->photo) : asset('public/images/dummy/user.png') }}" height="32" class="align-self-start rounded me-2" alt="Arya Stark">
+                                <img src="{{ file_exists(auth()->user()->photo) ? asset(auth()->user()->photo) : asset('public/images/dummy/user.png') }}" height="32" class="align-self-start rounded me-2">
                                 <div class="w-100">
                                     <input type="text" class="form-control form-control-light border-0 form-control-sm" data-bs-toggle="modal" data-bs-target="#comment-modal" data-id="{{ $forum->id }}" placeholder="{{ __('Write a comment') }}">
                                 </div> <!-- end medi-body -->
                             </div>
                         </div>
                     </div>
-                    <div id="new-forum-item"></div>
+                    
 
                     <!-- loader -->
                     <div class="text-center mb-3">
-                        <button class="btn btn-outline-primary waves-effect waves-light" id="load-more" data-paginate="2"> {{ __('Load more') }} </button>
+                        <button class="btn btn-outline-primary waves-effect waves-light" id="load-more-comment" data-paginate="2"> {{ __('Load more') }} </button>
                         <p class="invisible text-center">{{ __('No more forum post') }}</p>
                     </div>
                 </div>
@@ -213,6 +214,7 @@
     <script>
         'use strict';
         var csrf = '{{ csrf_token() }}';
+        var forumId = '{{ $forum->id }}';
         var loadingText = "{{ __('Loading...') }}";
         var loadMoreText = "{{ __('Load More') }}";
         var commentLoadUrl = '{{ route("user.forums.load.comment") }}';

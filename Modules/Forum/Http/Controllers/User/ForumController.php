@@ -32,6 +32,16 @@ class ForumController extends Controller
         return view('forum::user.load-more', compact('forums'));
     }
 
+    public function loadMoreComment() 
+    {
+        $comments = ForumComment::with([
+                'replies:id,forum_comment_id,reply,photo,created_at,user_id',
+                'replies.user:id,name,photo',
+                'user:id,name,photo',
+            ])->where('forum_id', request()->forum_id)->latest()->paginate(20);
+        return view('forum::user.load-more-comment', compact('comments'));
+    }
+
     public function detail(Forum $forum)
     {
         $data = [
