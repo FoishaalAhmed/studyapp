@@ -57,9 +57,10 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::get('all-live-exams', 'live')->name('live');
         Route::get('all-subject-exams', 'subject')->name('subject');
         Route::get('all-chapter-exams', 'chapter')->name('chapter');
-        Route::get('exams/detail/{exam}', 'detail')->name('detail');
+        Route::get('exams/detail/{exam}/{title}', 'detail')->name('detail');
         Route::get('exams/enroll/{exam}', 'enroll')->name('enroll');
-        Route::get('exams/{exam}', 'exam')->name('exam');
-        Route::get('exams/{exam}', 'store')->name('store');
+        Route::get('exams/{exam}/{title}', 'exam')->name('exam');
+        Route::get('exams/result/{exam}/{title}', 'result')->name('result');
+        Route::post('exams/{exam}', 'store')->name('store');
     });
 });

@@ -13,10 +13,11 @@ class ExamUser extends Model
         'user_id', 'exam_id'
     ];
 
-    public function storeExamUser(Object $request)
+    public static function storeExamUser($examId)
     {
-        $this->exam_id = $request->exam_id;
-        $this->user_id = auth()->id();
-        $this->save();
+        $examUser = new self;
+        $examUser->exam_id = $examId;
+        $examUser->user_id = auth()->id();
+        $examUser->save();
     }
 }

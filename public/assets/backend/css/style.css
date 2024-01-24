@@ -36,3 +36,11 @@
 .mrn-45 {
     margin-right: -45px;
 }
+
+.w-fit {
+    width: fit-content;
+}
+
+.ml-2 {
+    margin-left: 15px;
+}

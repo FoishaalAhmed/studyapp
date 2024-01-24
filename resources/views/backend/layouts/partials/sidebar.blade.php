@@ -477,6 +477,14 @@
                 @endif
 
                 @if (auth()->user()->hasRole('User'))
+                    <li class="menu-item {{ request()->is('user/exams') || request()->is('user/exams/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('user.exams.index') }}" class="menu-link {{ request()->is('user/exams') || request()->is('user/exams/*') ? 'active' : '' }}">
+                            <span class="menu-icon">
+                                <i class="fe-aperture"></i>
+                            </span>
+                            <span class="menu-text"> {{ __('Exams') }} </span>
+                        </a>
+                    </li>
                     @if (module('Ebook') && isActive('Ebook'))
                         <li class="menu-item {{ request()->is('user/ebooks') || request()->is('user/ebooks/*') ? 'menuitem-active' : '' }}">
                             <a href="{{ route('user.ebooks.all.categories') }}" class="menu-link {{ request()->is('user/ebooks') || request()->is('user/ebooks/*') ? 'active' : '' }}">

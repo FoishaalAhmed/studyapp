@@ -2,6 +2,7 @@
 
 namespace Modules\Exam\Entities;
 
+use DB, Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,7 +24,9 @@ class ExamQuestionAnswer extends Model
                             'exam_id' => $request->exam_id,
                             'user_id' => auth()->id(),
                             'given_answer' => $value,
-                            'exam_question_id' => $request->exam_question_id[$key]
+                            'exam_question_id' => $request->exam_question_id[$key],
+                            'created_at' => date('Y-m-d h:i:s'),
+                            'updated_at' => date('Y-m-d h:i:s'),
                         ];
                     }
                 }
@@ -41,8 +44,8 @@ class ExamQuestionAnswer extends Model
             return 'Exam Answer Submitted Successfully!';
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::info('Exam Answer');
-            \Log::info($e->getMessage());
+            Log::info('Exam Answer');
+            Log::info($e->getMessage());
             return 'Something Went Wrong. Try again.';
         }
     }
