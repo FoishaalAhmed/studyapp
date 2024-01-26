@@ -44,3 +44,22 @@
 .ml-2 {
     margin-left: 15px;
 }
+
+.hrm-0 {
+    margin: 0px;
+}
+.bg-sayn {
+    background-color: #8DE2EF;
+}
+
+.bg-meta {
+    background-color: #F89F93;
+}
+
+.p-fixed {
+    position: fixed;
+}
+
+.r-100 {
+    right: 100px
+}

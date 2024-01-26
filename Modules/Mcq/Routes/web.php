@@ -1,13 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Mcq\Http\Controllers\Admin\{
-    QuestionController,
-    ModelTestController
-};
-use Modules\Mcq\Http\Controllers\Writer\{
-    QuestionController as WriterQuestionController,
-    ModelTestController as WriterModelTestController
+use Modules\Mcq\Http\Controllers\{
+    User\McqController,
+    Admin\QuestionController,
+    Admin\ModelTestController,
+    Writer\QuestionController as WriterQuestionController,
+    Writer\ModelTestController as WriterModelTestController
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -41,4 +40,19 @@ Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['writer'
 
     Route::resource('mcq-questions', WriterQuestionController::class)
         ->except(['destroy']);
+});
+
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'auth']], function () {
+    Route::controller(McqController::class)->prefix('mcq')->as('mcq.')
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('all-categories', 'allCategory')->name('all.categories');
+        Route::get('categories/{category}/{title}', 'category')->name('categories');
+        Route::get('read/{model}/{name}', 'read')->name('read');
+        Route::get('practice/{model}/{name}', 'practice')->name('practice');
+        Route::get('exam/{model}/{name}', 'exam')->name('exam');
+        Route::post('exam/store/{model}', 'store')->name('exam.store');
+        Route::get('result/{model}/{name}', 'result')->name('result');
+
+    });
 });
