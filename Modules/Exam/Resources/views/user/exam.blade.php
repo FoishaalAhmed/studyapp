@@ -116,9 +116,8 @@
         }
 
         // Set the date we're counting down to
-        // var countDownDate = new Date("{{ $myDateTime }}").getTime();
-        var countDownDate = 1706130342800;
-
+        var countDownDate = new Date("{{ $myDateTime }}").getTime();
+        var remainingTime = "{{ __('Remaining Time') }}";
         // Update the count down every 1 second
         var x = setInterval(function() {
 
@@ -135,14 +134,14 @@
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Output the result in an element with id="demo"
-            document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+            document.getElementById("demo").innerHTML = remainingTime + ' : ' + hours + "h " + minutes + "m " + seconds + "s ";
 
             document.getElementById("totalTime").value = hours + " " + minutes + " " + seconds + " ";
 
-            // If the count down is over, write some text 
+            // If the count down is over, submit exam form
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("demo").innerHTML = "EXPIRED";
+                 $('#exam-form').trigger('submit');
             }
         }, 1000);
 

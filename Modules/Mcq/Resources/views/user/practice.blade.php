@@ -101,7 +101,7 @@
 
     // Set the date we're counting down to
     var countDownDate = new Date("{{ $myDateTime }}").getTime();
-    var remainingTime = "{{ __('Remaining Time') }}"
+    var remainingTime = "{{ __('Remaining Time') }}";
 
     // Update the count down every 1 second
     var x = setInterval(function() {
@@ -111,9 +111,6 @@
 
         // Find the distance between now and the count down date
         var distance = countDownDate - now;
-
-        console.log(countDownDate);
-        console.log(now);
 
         // Time calculations for days, hours, minutes and seconds
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
