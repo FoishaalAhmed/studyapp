@@ -51,7 +51,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::get('read/{model}/{name}', 'read')->name('read');
         Route::get('practice/{model}/{name}', 'practice')->name('practice');
         Route::get('exam/{model}/{name}', 'exam')->name('exam');
-        Route::post('exam/store/{model}', 'store')->name('exam.store');
+        Route::post('exam/store', 'store')->name('exam.store');
         Route::get('result/{model}/{name}', 'result')->name('result');
 
     });

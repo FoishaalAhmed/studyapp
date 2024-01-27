@@ -6,10 +6,12 @@ use App\Enums\CategoryType;
 use App\Enums\ContentType;
 use App\Enums\Status;
 use App\Models\Buy;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Mcq\Entities\ModelTest;
 use Modules\Subject\Entities\{CategorySubject, Subject};
 use Modules\Category\Entities\{CategoryUser, ChildCategory, SubCategory};
+use Modules\Mcq\Entities\ModelQuestionAnswer;
 use Modules\Mcq\Entities\Question;
 
 class McqController extends Controller
@@ -61,4 +63,34 @@ class McqController extends Controller
 
         return view('mcq::user.practice', compact('questions', 'model'));
     }
+
+    public function exam(ModelTest $model)
+    {
+        $questions = Question::where('model_test_id', $model->id)->get();
+        return view('mcq::user.exam', compact('questions', 'model'));
+    }
+
+    function store(Request $request) 
+    {        
+        $model = ModelTest::findOrFail($request->model_test_id);
+
+        $hour = round($model->time / 60);
+        $minute = $model->time - ($hour * 60);
+        $myDateTime = strtotime('+' . $hour . ' hours' . $minute . 'minutes');
+        $totalTime = explode(' ', $request->total_time);
+        $totalTime = strtotime('+' . $totalTime[0] . ' hours' . $totalTime[1] . 'minutes');
+        $request['total_time'] = ($myDateTime - $totalTime) / 60;
+
+        (new ModelQuestionAnswer)->storeModelQuestionAnswer($request);
+
+        session()->flash('success', 'Exam Successfully Completed. Here Is The Results For You');
+        return redirect()->route('user.mcq.result', [$model->id, strtolower(str_replace([' ', '_', '&'], '-', $model->title))]);
+    }
+
+    function result(ModelTest $model)
+    {
+        $questions = Question::with('given_answer')->where('model_test_id', $model->id)->get();
+        return view('mcq::user.result', compact('questions'));
+    }
+
 }

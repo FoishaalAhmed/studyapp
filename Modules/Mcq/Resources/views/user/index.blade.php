@@ -38,7 +38,7 @@
                             <div class="card-body">
                                 <p class="card-text"><b style="color: {{ $titleColor[$x % 3] }}">{{ $progress . '%' }}</b> {{ __('completed with success') }}</p>
                                 <div class="progress mb-2">
-                                    <div class="progress-bar bg-{{ $colorArray[$x % 3] }}" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-{{ $colorArray[$x % 3] }}" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 
                             </div>

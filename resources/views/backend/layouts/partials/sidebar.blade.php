@@ -477,6 +477,14 @@
                 @endif
 
                 @if (auth()->user()->hasRole('User'))
+                    <li class="menu-item {{ request()->is('user/mcq') || request()->is('user/mcq/*') ? 'menuitem-active' : '' }}">
+                        <a href="{{ route('user.mcq.all.categories') }}" class="menu-link {{ request()->is('user/mcq') || request()->is('user/mcq/*') ? 'active' : '' }}">
+                            <span class="menu-icon">
+                                <i class="fe-help-circle"></i>
+                            </span>
+                            <span class="menu-text"> {{ __('Mcq') }} </span>
+                        </a>
+                    </li>
                     <li class="menu-item {{ request()->is('user/exams') || request()->is('user/exams/*') ? 'menuitem-active' : '' }}">
                         <a href="{{ route('user.exams.index') }}" class="menu-link {{ request()->is('user/exams') || request()->is('user/exams/*') ? 'active' : '' }}">
                             <span class="menu-icon">
