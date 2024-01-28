@@ -3,14 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{
-    DashboardController,
+    HelperController,
     ProfileController,
-    HelperController
+    DashboardController,
+    Frontend\HomeController
 };
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
 
@@ -22,7 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::post('get-sub-category-by-category', [HelperController::class, 'getSubCategoryByCategory'])->name('get.sub-category-by-category');
 
     /** Helpers route end here **/
-
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::view('profile', 'backend.profile')->name('profile');
