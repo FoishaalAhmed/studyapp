@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/frontend/images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset(getFavIcon()) }}">
     <!-- CSS -->
     @include('layouts.partials.css')
 
@@ -62,10 +62,10 @@
                             <div class="logo">
                                 <a href="{{ url('/') }}">
                                     <img class="logo-light"
-                                        src="{{ asset('public/frontend/images/logo/logo-dark.png') }}"
+                                        src="{{ asset(darkLogo()) }}"
                                         alt="Corporate Logo">
                                     <img class="logo-dark"
-                                        src="{{ asset('public/frontend/images/logo/logo-white.png') }}"
+                                        src="{{ asset(lightLogo()) }}"
                                         alt="Corporate Logo">
                                 </a>
                             </div>
@@ -108,10 +108,10 @@
                         <div class="logo">
                             <a href="index.html">
                                 <img class="logo-light"
-                                    src="{{ asset('public/frontend/images/logo/logo-dark.png') }}"
+                                    src="{{ asset(darkLogo()) }}"
                                     alt="Corporate Logo">
                                 <img class="logo-dark"
-                                    src="{{ asset('public/frontend/images/logo/logo-white.png') }}"
+                                    src="{{ asset(lightLogo()) }}"
                                     alt="Corporate Logo">
                             </a>
                         </div>
@@ -128,9 +128,9 @@
             <div class="edu-search-popup">
                 <div class="content-wrap">
                     <div class="site-logo">
-                        <img class="logo-light" src="{{ asset('public/frontend/images/logo/logo-dark.png') }}"
+                        <img class="logo-light" src="{{ asset(darkLogo()) }}"
                             alt="Corporate Logo">
-                        <img class="logo-dark" src="{{ asset('public/frontend/images/logo/logo-white.png') }}"
+                        <img class="logo-dark" src="{{ asset(lightLogo()) }}"
                             alt="Corporate Logo">
                     </div>
                     <div class="close-button">

@@ -23,7 +23,7 @@ class Setting extends Model
             $darkLogo = $request->file('dark_logo');
 
             if ($darkLogo) {
-                $response = uploadImage($darkLogo, 'public/images/settings/', 'dark_logo', $darkLogoOld);
+                $response = uploadImage($darkLogo, 'public/images/settings/', 'dark_logo', '98*20',  $darkLogoOld);
 
                 if (!$response['status']) {
                     DB::rollBack();
@@ -40,7 +40,7 @@ class Setting extends Model
             $lightLogo = $request->file('light_logo');
 
             if ($lightLogo) {
-                $response = uploadImage($lightLogo, 'public/images/settings/', 'light_logo', $lightLogoOld);
+                $response = uploadImage($lightLogo, 'public/images/settings/', 'light_logo', '98*20', $lightLogoOld);
 
                 if (!$response['status']) {
                     DB::rollBack();
