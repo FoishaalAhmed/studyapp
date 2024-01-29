@@ -51,7 +51,9 @@
             <li>
                 <ul class="submenu mega-sub-menu-01">
                     @foreach ($firstFiveExams as $examCategory)
-                        <li><a href="">{{ $examCategory['name'] }}</a> </li>
+                        <li>
+                            <a href="{{ route('exams.grid', ['view' => 'grid','category' => $examCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $examCategory['name']))]) }}">{{ $examCategory['name'] }}</a> 
+                        </li>
                     @endforeach
 
                 </ul>
@@ -59,14 +61,18 @@
             <li>
                 <ul class="submenu mega-sub-menu-01">
                     @foreach ($secontFiveExams as $examCategory)
-                        <li><a href="">{{ $examCategory['name'] }}</a></li>
+                        <li>
+                            <a href="{{ route('exams.grid', ['view' => 'grid','category' => $examCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $examCategory['name']))]) }}">{{ $examCategory['name'] }}</a>
+                        </li>
                     @endforeach
                 </ul>
             </li>
             <li>
                 <ul class="submenu mega-sub-menu-01">
                     @foreach ($thirdFiveExams as $examCategory)
-                        <li><a href="">{{ $examCategory['name'] }}</a></li>
+                        <li>
+                            <a href="{{ route('exams.grid', ['view' => 'grid','category' => $examCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $examCategory['name']))]) }}">{{ $examCategory['name'] }}</a>
+                        </li>
                     @endforeach
                 </ul>
             </li>

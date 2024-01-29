@@ -76,7 +76,7 @@ class McqController extends Controller
             'model'  => $model,
             'models' => ModelTest::with(['category:id,name'])
                 ->withCount(['questions', 'mark'])
-                ->where('child_category_id', $model->child_category_id)
+                ->where(['child_category_id' => $model->child_category_id, 'status' => Status::PUBLISHED])
                 ->where('id', '!=', $id)
                 ->latest('questions_count')
                 ->take(6)

@@ -1,0 +1,54 @@
+.count {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.count .countdown-section {
+    margin-right: 10px;
+    text-align: center;
+}
+
+.count .countdown-section:last-child {
+    margin-right: 0;
+}
+
+.count .countdown-number {
+    font-size: 20px;
+    font-weight: var(--p-semi-bold);
+    line-height: 1;
+    margin-bottom: 10px;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%
+}
+
+.count .countdown-number.day {
+    background-color: rgba(26, 182, 157, .1);
+    color: var(--color-primary);
+}
+
+.count .countdown-number.hour {
+    background-color: rgba(238, 74, 98, .1);
+    color: var(--color-secondary);
+}
+
+.count .countdown-number.minute {
+    background-color: rgba(142, 86, 255, .1);
+    color: var(--color-extra02);
+}
+
+.count .countdown-number.second {
+    background-color: rgba(248, 148, 31, .1);
+    color: var(--color-extra05);
+}
+
+.count .countdown-unit {
+    line-height: 1;
+    font-size: 15px;
+    font-weight: var(--p-medium);
+    color: var(--color-body);
+}

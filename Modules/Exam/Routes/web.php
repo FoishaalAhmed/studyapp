@@ -7,7 +7,8 @@ use Modules\Exam\Http\Controllers\{
     Admin\ExamQuestionController,
     User\ExamController as UserExamController,
     Writer\ExamController as WriterExamController,
-    Writer\ExamQuestionController as WriterExamQuestionController
+    Frontend\ExamController as FrontendExamController,
+    Writer\ExamQuestionController as WriterExamQuestionController,
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -64,3 +65,12 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::post('exams/{exam}', 'store')->name('store');
     });
 });
+
+Route::controller(FrontendExamController::class)->prefix('exams')->as('exams.')->group(function () {
+    Route::get('', 'index')->name('grid');
+    Route::get('list', 'list')->name('list');
+    Route::get('search', 'search')->name('search');
+    Route::get('detail', 'detail')->name('detail');
+    Route::get('category', 'typeExam')->name('category');
+});
+
