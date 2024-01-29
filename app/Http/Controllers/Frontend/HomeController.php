@@ -25,7 +25,7 @@ class HomeController extends Controller
             'exams' => ExamQuestion::count(),
             'sheet' => isActive('LectureSheet') ? LectureSheet::count() : 0,
             'jobs' => isActive('Job') ? Job::latest()->take(6)->get() : [],
-            'mcqs'=> ModelTest::withCount(['questions', 'mark'])->latest()->take(3)->get(),
+            'mcqs'=> ModelTest::withCount(['questions', 'mark'])->latest()->take(6)->get(),
             'categories' => ChildCategory::withCount('models')->latest('models_count')->take(12)->get(),
             'student' => User::whereHas("roles", function ($query) {$query->where("name", "User");})->count(),
         ];

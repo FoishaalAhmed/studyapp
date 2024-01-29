@@ -12,8 +12,8 @@
             <li>
                 <ul class="submenu mega-sub-menu-01">
                     @foreach ($firstMcqFive as $mcqCategory)
-                        <li><a
-                                href="">{{ $mcqCategory['name'] }}</a>
+                        <li>
+                            <a href="{{ route('mcq.grid', ['category' => $mcqCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $mcqCategory['name']))]) }}">{{ $mcqCategory['name'] }}</a>
                         </li>
                     @endforeach
 
@@ -22,8 +22,8 @@
             <li>
                 <ul class="submenu mega-sub-menu-01">
                     @foreach ($secontMcqFive as $mcqCategory)
-                        <li><a
-                                href="">{{ $mcqCategory['name'] }}</a>
+                        <li>
+                            <a href="{{ route('mcq.grid', ['category' => $mcqCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $mcqCategory['name']))]) }}">{{ $mcqCategory['name'] }}</a>
                         </li>
                     @endforeach
                 </ul>
@@ -31,8 +31,8 @@
             <li>
                 <ul class="submenu mega-sub-menu-01">
                     @foreach ($thirdMcqFive as $mcqCategory)
-                        <li><a
-                                href="">{{ $mcqCategory['name'] }}</a>
+                        <li>
+                            <a href="{{ route('mcq.grid', ['category' => $mcqCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $mcqCategory['name']))]) }}">{{ $mcqCategory['name'] }}</a>
                         </li>
                     @endforeach
                 </ul>

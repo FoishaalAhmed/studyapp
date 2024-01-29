@@ -12,7 +12,7 @@
                                 class="color-secondary">{{ $exams + $sheet + $mcq + $ebook }}+</span> <br>Best Online Courses From EduBlink</h1>
                         <p data-sal-delay="200" data-sal="slide-up" data-sal-duration="1000">Engineering-Medical-Varsity-BCS or Bank Job- Whatever the goal, here is the way to achieve it.</p>
                         <div class="banner-btn" data-sal-delay="400" data-sal="slide-up" data-sal-duration="1000">
-                            <a href="" class="edu-btn">Find courses <i class="icon-4"></i></a>
+                            <a href="{{ route('mcq.grid') }}" class="edu-btn">Find courses <i class="icon-4"></i></a>
                         </div>
                         <ul class="shape-group">
                             <li class="shape-1 scene" data-sal-delay="1000" data-sal="fade" data-sal-duration="1000">
@@ -121,7 +121,7 @@
                                 <i class="icon-<?= $loop->odd ? '11' : '13' ?>"></i>
                             </div>
                             <div class="content">
-                                <a href="">
+                                <a href="{{ route('mcq.category', ['view' => 'grid', 'category' =>  $item->id, 'name' => strtolower(str_replace([' ', '&', '_'], '-', $item->name))]) }}">
                                     <h5 class="title">{{ $item->name }}</h5>
                                 </a>
                             </div>
@@ -272,7 +272,7 @@
                         <div class="edu-course course-style-1 course-box-shadow hover-button-bg-white">
                             <div class="inner">
                                 <div class="thumbnail">
-                                    <a href="">
+                                    <a href="{{ route('mcq.detail', ['title' => strtolower(str_replace([' ', '&', '_', '(', ')'], '-', $item->title)), 'mcq' => base64_encode($item->id)]) }}">
                                         <img src="{{ file_exists($item->photo) ? asset($item->photo) : asset('public/images/dummy/mcq.jpg') }}" style="height: 230px">
                                     </a>
                                 </div>
@@ -280,7 +280,7 @@
                                     <span
                                         class="course-level">{{ $item->type }}</span>
                                     <h6 class="title">
-                                        <a href="#">{{ $item->title }}</a>
+                                        <a href="{{ route('mcq.detail', ['title' => strtolower(str_replace([' ', '&', '_', '(', ')'], '-', $item->title)), 'mcq' => base64_encode($item->id)]) }}">{{ $item->title }}</a>
                                     </h6>
                                     
                                     <div class="course-price">{{ $item->type == "Premium" ? '৳' . $item->price : '' }}

@@ -5,8 +5,9 @@ use Modules\Mcq\Http\Controllers\{
     User\McqController,
     Admin\QuestionController,
     Admin\ModelTestController,
+    Frontend\McqController as FrontendMcqController,
     Writer\QuestionController as WriterQuestionController,
-    Writer\ModelTestController as WriterModelTestController
+    Writer\ModelTestController as WriterModelTestController,
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -55,4 +56,12 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::get('result/{model}/{name}', 'result')->name('result');
 
     });
+});
+
+Route::controller(FrontendMcqController::class)->prefix('mcq')->as('mcq.')->group(function () {
+    Route::get('', 'index')->name('grid');
+    Route::get('list', 'list')->name('list');
+    Route::get('search', 'search')->name('search');
+    Route::get('detail', 'detail')->name('detail');
+    Route::get('category', 'categoryMcq')->name('category');
 });
