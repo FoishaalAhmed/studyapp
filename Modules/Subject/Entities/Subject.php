@@ -2,10 +2,13 @@
 
 namespace Modules\Subject\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use DB;
+use Modules\Ebook\Entities\Ebook;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Category\Entities\Category;
-use DB;
+use Modules\Exam\Entities\{Exam, ExamQuestion};
+use Modules\LectureSheet\Entities\LectureSheet;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subject extends Model
 {

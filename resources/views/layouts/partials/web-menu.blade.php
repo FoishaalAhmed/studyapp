@@ -76,38 +76,40 @@
             </ul>
         </li>
 
-        <li class="has-droupdown">
-            <a href="javascript:;">{{ __('Ebook') }}</a>
-            @php
-                $firstFiveEbooks = array_slice($ebookSubCategories, 0, 5);
-                $secontFiveEbooks = array_slice($ebookSubCategories, 5, 5);
-                $thirdFiveEbooks = array_slice($ebookSubCategories, 10, 5);
-            @endphp
-            <ul class="mega-menu">
-                <li>
-                    <ul class="submenu mega-sub-menu-01">
-                        @foreach ($firstFiveEbooks as $ebookCategory)
-                            <li><a href="">{{ $ebookCategory['name'] }}</a> </li>
-                        @endforeach
+        @if (module('Ebook') && isActive('Ebook'))
+            <li class="has-droupdown">
+                <a href="javascript:;">{{ __('Ebook') }}</a>
+                @php
+                    $firstFiveEbooks = array_slice($ebookSubCategories, 0, 5);
+                    $secontFiveEbooks = array_slice($ebookSubCategories, 5, 5);
+                    $thirdFiveEbooks = array_slice($ebookSubCategories, 10, 5);
+                @endphp
+                <ul class="mega-menu">
+                    <li>
+                        <ul class="submenu mega-sub-menu-01">
+                            @foreach ($firstFiveEbooks as $ebookCategory)
+                                <li><a href="{{ route('ebooks.grid', ['category' => $ebookCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $ebookCategory['name']))]) }}">{{ $ebookCategory['name'] }}</a> </li>
+                            @endforeach
 
-                    </ul>
-                </li>
-                <li>
-                    <ul class="submenu mega-sub-menu-01">
-                        @foreach ($secontFiveEbooks as $ebookCategory)
-                            <li><a href="">{{ $ebookCategory['name'] }}</a> </li>
-                        @endforeach
-                    </ul>
-                </li>
-                <li>
-                    <ul class="submenu mega-sub-menu-01">
-                        @foreach ($thirdFiveEbooks as $ebookCategory)
-                            <li><a href="">{{ $ebookCategory['name'] }}</a> </li>
-                        @endforeach
-                    </ul>
-                </li>
-            </ul>
-        </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="submenu mega-sub-menu-01">
+                            @foreach ($secontFiveEbooks as $ebookCategory)
+                                <li><a href="{{ route('ebooks.grid', ['category' => $ebookCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $ebookCategory['name']))]) }}">{{ $ebookCategory['name'] }}</a> </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="submenu mega-sub-menu-01">
+                            @foreach ($thirdFiveEbooks as $ebookCategory)
+                                <li><a href="{{ route('ebooks.grid', ['category' => $ebookCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $ebookCategory['name']))]) }}">{{ $ebookCategory['name'] }}</a> </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        @endif
 
         <li class="has-droupdown">
             <a href="javascript:;">{{ __('Lecture Sheet') }}</a>

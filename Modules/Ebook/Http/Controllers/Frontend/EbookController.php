@@ -42,7 +42,7 @@ class EbookController extends Controller
 
         $data = [
             'subjects' => Subject::withCount('ebooks')->latest('ebooks_count')->take(10)->get(),
-            'ebooks'   => Ebook::withCount('buys')->with('subject:id,name')->where(['subject_id' => request()->category, 'status' => Status::PUBLISHED])->latest()->paginate(16),
+            'ebooks'   => Ebook::withCount('buys')->with('subject:id,name')->where(['child_category_id' => request()->category, 'status' => Status::PUBLISHED])->latest()->paginate(16),
             'categories' => ChildCategory::withCount('ebooks')->whereIn('sub_category_id', $categories)->whereIn('type', [CategoryType:: Ebook, CategoryType::CommonEbook])->latest('ebooks_count')->take(10)->get()
         ];
 
