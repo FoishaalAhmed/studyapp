@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Modules\LectureSheet\Http\Controllers\{
     Admin\LectureSheetController,
     User\LectureSheetController as UserLectureSheetController,
-    Writer\LectureSheetController as WriterLectureSheetController
+    Writer\LectureSheetController as WriterLectureSheetController,
+    Frontend\LectureSheetController as FrontendLectureSheetController
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -33,4 +34,14 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::get('download/{sheet}', 'download')->name('download');
         Route::get('read/{sheet}/{chapter}', 'read')->name('read');
     });
+});
+Route::controller(FrontendLectureSheetController::class)->prefix('sheets')->as('sheets.')->group(function () {
+
+    Route::get('', 'index')->name('grid');
+    Route::get('list', 'list')->name('list');
+    Route::get('search', 'search')->name('search');
+    Route::get('detail', 'detail')->name('detail');
+    Route::get('categories', 'categorySheet')->name('category');
+    Route::get('subject', 'subjectSheet')->name('subject');
+
 });

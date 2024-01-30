@@ -113,42 +113,46 @@
             </ul>
         </li>
     @endif
-    <li class="has-droupdown">
-        <a href="javascript:;">{{ __('Lecture Sheet') }}</a>
-        @php
-            $firstFiveSheets = array_slice($sheetSubCategories, 0, 5);
-            $secontFiveSheets = array_slice($sheetSubCategories, 5, 5);
-            $thirdFiveSheets = array_slice($sheetSubCategories, 10, 5);
-        @endphp
-        <ul class="mega-menu">
-            <li>
-                <ul class="submenu mega-sub-menu-01">
-                    @foreach ($firstFiveSheets as $sheetCategory)
-                        <li><a href="">{{ $sheetCategory['name'] }}</a> </li>
-                    @endforeach
+    @if (module('LectureSheet') && isActive('LectureSheet'))
+        <li class="has-droupdown">
+            <a href="javascript:;">{{ __('Lecture Sheet') }}</a>
+            @php
+                $firstFiveSheets = array_slice($sheetSubCategories, 0, 5);
+                $secontFiveSheets = array_slice($sheetSubCategories, 5, 5);
+                $thirdFiveSheets = array_slice($sheetSubCategories, 10, 5);
+            @endphp
+            <ul class="mega-menu">
+                <li>
+                    <ul class="submenu mega-sub-menu-01">
+                        @foreach ($firstFiveSheets as $sheetCategory)
+                            <li>
+                                <a href="{{ route('sheets.grid', ['category' => $sheetCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $sheetCategory['name']))]) }}">{{ $sheetCategory['name'] }}</a> 
+                            </li>
+                        @endforeach
 
-                </ul>
-            </li>
-            <li>
-                <ul class="submenu mega-sub-menu-01">
-                    @foreach ($secontFiveSheets as $sheetCategory)
-                        <li><a
-                                href="">{{ $sheetCategory['name'] }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
-            <li>
-                <ul class="submenu mega-sub-menu-01">
-                    @foreach ($thirdFiveSheets as $sheetCategory)
-                        <li><a
-                                href="">{{ $sheetCategory['name'] }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            </li>
-        </ul>
-    </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="submenu mega-sub-menu-01">
+                        @foreach ($secontFiveSheets as $sheetCategory)
+                            <li>
+                                <a href="{{ route('sheets.grid', ['category' => $sheetCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $sheetCategory['name']))]) }}">{{ $sheetCategory['name'] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li>
+                    <ul class="submenu mega-sub-menu-01">
+                        @foreach ($thirdFiveSheets as $sheetCategory)
+                            <li>
+                                <a href="{{ route('sheets.grid', ['category' => $sheetCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $sheetCategory['name']))]) }}">{{ $sheetCategory['name'] }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    @endif
 
     <li><a href="#">{{ __('Jobs') }}</a></li>
 
