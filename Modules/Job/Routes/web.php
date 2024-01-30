@@ -7,8 +7,9 @@ use Modules\Job\Http\Controllers\{
     Admin\JobCategoryController,
     User\JobController as UserJobController,
     Writer\JobController as WriterJobController,
-    Writer\JobCategoryController as WriterJobCategoryController,
+    Frontend\JobController as FrontendJobController, 
     Writer\JobUserController as WriterJobUserController,
+    Writer\JobCategoryController as WriterJobCategoryController,
 };
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin','auth', 'ip_middleware']], function () {
@@ -45,3 +46,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['user', 'aut
         Route::get('detail/{job}/{title}', 'detail')->name('detail');
     });
 });
+
+Route::controller(FrontendJobController::class)->as('jobs.')->prefix('jobs')->group(fn() => [
+    Route::get('', 'index')->name('grid'),
+    Route::get('list', 'list')->name('list'),
+    Route::get('search', 'search')->name('search'),
+    Route::get('detail', 'detail')->name('detail'),
+    Route::get('category', 'typeJob')->name('category'),
+]);

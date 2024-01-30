@@ -1,7 +1,5 @@
 <nav class="mainmenu-nav">
     <ul class="mainmenu">
-        <li><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
-
         <li class="has-droupdown">
             @php
                 $firstMcqFive = array_slice($mcqSubCategories, 0, 5);
@@ -152,40 +150,46 @@
             </li>
         @endif
 
-        <li class="has-droupdown">
-            <a href="javascript:;">{{ __('Jobs') }}</a>
-            @php
-                $firstFiveJobs = array_slice($jobCategories, 0, 5);
-                $secontFiveJobs = array_slice($jobCategories, 5, 5);
-                $thirdFiveJobs = array_slice($jobCategories, 10, 5);
-            @endphp
-            <ul class="mega-menu">
-                <li>
-                    <ul class="submenu mega-sub-menu-01">
-                        @foreach ($firstFiveJobs as $jobCategory)
-                            <li><a href="">{{ $jobCategory['name'] }}</a></li>
-                        @endforeach
+        @if (module('Job') && isActive('Job'))
+            <li class="has-droupdown">
+                <a href="javascript:;">{{ __('Jobs') }}</a>
+                @php
+                    $firstFiveJobs = array_slice($jobCategories, 0, 5);
+                    $secontFiveJobs = array_slice($jobCategories, 5, 5);
+                    $thirdFiveJobs = array_slice($jobCategories, 10, 5);
+                @endphp
+                <ul class="mega-menu">
+                    <li>
+                        <ul class="submenu mega-sub-menu-01">
+                            @foreach ($firstFiveJobs as $jobCategory)
+                                <li>
+                                    <a href="{{ route('jobs.grid', ['view' => 'grid','category' => $jobCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $jobCategory['name']))]) }}">{{ $jobCategory['name'] }}</a>
+                                </li>
+                            @endforeach
 
-                    </ul>
-                </li>
-                <li>
-                    <ul class="submenu mega-sub-menu-01">
-                        @foreach ($secontFiveJobs as $jobCategory)
-                            <li><a href="">{{ $jobCategory['name'] }}</a></li>
-                        @endforeach
-                    </ul>
-                </li>
-                <li>
-                    <ul class="submenu mega-sub-menu-01">
-                        @foreach ($thirdFiveJobs as $jobCategory)
-                            <li><a href="">{{ $jobCategory['name'] }}</a></li>
-                        @endforeach
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        
-        <li><a href="">{{ __('Forums') }}</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="submenu mega-sub-menu-01">
+                            @foreach ($secontFiveJobs as $jobCategory)
+                                <li>
+                                    <a href="{{ route('jobs.grid', ['view' => 'grid','category' => $jobCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $jobCategory['name']))]) }}">{{ $jobCategory['name'] }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                    <li>
+                        <ul class="submenu mega-sub-menu-01">
+                            @foreach ($thirdFiveJobs as $jobCategory)
+                                <li>
+                                    <a href="{{ route('jobs.grid', ['view' => 'grid','category' => $jobCategory['id'], 'name' => strtolower(str_replace([' ', '&', '_'], '-', $jobCategory['name']))]) }}">{{ $jobCategory['name'] }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        @endif
 
         <li><a href="">{{ __('Blog') }}</a></li>
 

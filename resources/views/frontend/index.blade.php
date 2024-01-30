@@ -151,7 +151,7 @@
                             <div class="edu-event event-style-1">
                                 <div class="inner">
                                     <div class="thumbnail">
-                                        <a href="">
+                                        <a href="{{ route('jobs.detail', ['title' => strtolower(str_replace([' ', '&', '_', '(', ')'], '-', $item->title)), 'job' => base64_encode($item->id)]) }}">
                                             <img src="{{ file_exists($item->photo) ? asset($item->photo) : asset('public/images/dummy/job.jpg')}}" alt="Course Meta" style="height: 225px">
                                         </a>
                                         <div class="event-time">
@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                     <div class="content">
-                                        <h5 class="title"><a href="">{{ $item->title }}</a></h5>
+                                        <h5 class="title"><a href="{{ route('jobs.detail', ['title' => strtolower(str_replace([' ', '&', '_', '(', ')'], '-', $item->title)), 'job' => base64_encode($item->id)]) }}">{{ $item->title }}</a></h5>
                                         {!! Str::limit(strip_tags($item->description), 150) !!}
                                         <ul class="event-meta">
                                             <li><i class="icon-60"></i>{{ $item->salary != 0 ? '৳ ' . $item->salary . ' ' . __('BDT') : __('Negotiable') }}
@@ -188,7 +188,7 @@
                     @endforeach
 
                     <div class="course-view-all" data-sal-delay="150" data-sal="slide-up" data-sal-duration="1200">
-                        <a href="" class="edu-btn">{{ __('View All') }} <i class="icon-4"></i></a>
+                        <a href="{{ route('jobs.grid') }}" class="edu-btn">{{ __('View All') }} <i class="icon-4"></i></a>
                     </div>
                 </div>
             </div>
