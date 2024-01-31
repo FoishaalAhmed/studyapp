@@ -7,23 +7,18 @@
                         <div class="logo">
                             <a href="{{ url('/') }}">
                                 <img class="logo-light"
-                                    src="{{ asset('public/frontend/images/logo/logo-dark.png') }}"
+                                    src="{{ asset(darkLogo()) }}"
                                     alt="Corporate Logo">
                                 <img class="logo-dark"
-                                    src="{{ asset('public/frontend/images/logo/logo-white.png') }}"
+                                    src="{{ asset(lightLogo()) }}"
                                     alt="Corporate Logo">
                             </a>
                         </div>
-                        <p class="description">
-                            {{ __('Lorem ipsum dolor amet consecto adi pisicing elit sed eiusm tempor incidid unt labore dolore.') }}
-                        </p>
                         <div class="widget-information">
                             <ul class="information-list">
-                                <li><span>{{ __('Add') }}:</span>70-80 Upper St Norwich NR2</li>
-                                <li><span>{{ __('Call') }}:</span><a href="tel:+011235641231">+01 123 5641
-                                        231</a></li>
-                                <li><span>{{ __('Email') }}:</span><a href="mailto:info@edublink.com"
-                                        target="_blank">info@edublink.com</a></li>
+                                <li><span>{{ __('Add') }}:</span>{{ $contact->address }}</li>
+                                <li><span>{{ __('Call') }}:</span><a href="tel:+011235641231">{{ $contact->phone }}</a></li>
+                                <li><span>{{ __('Email') }}:</span><a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -33,12 +28,24 @@
                         <h4 class="widget-title">{{ __('Online Platform') }}</h4>
                         <div class="inner">
                             <ul class="footer-link link-hover">
-                                <li><a href="">{{ __('About') }}</a></li>
-                                <li><a href="">{{ __('MCQ') }}</a></li>
-                                <li><a href="">{{ __('Exams') }}</a></li>
-                                <li><a href="">{{ __('Ebooks') }}</a></li>
-                                <li><a href="">{{ __('Lecture Sheets') }}</a></li>
-                                <li><a href="">{{ __('Jobs') }}</a></li>
+                                @if (module('Page') && isActive('Page'))
+                                    <li><a href="{{ route('about') }}">{{ __('About') }}</a></li>
+                                @endif
+
+                                <li><a href="{{ route('mcq.grid') }}">{{ __('MCQ') }}</a></li>
+                                <li><a href="{{ route('exams.grid') }}">{{ __('Exams') }}</a></li>
+
+                                @if (module('Ebook') && isActive('Ebook'))
+                                    <li><a href="{{ route('ebooks.grid') }}">{{ __('Ebooks') }}</a></li>
+                                @endif
+
+                                @if (module('LectureSheet') && isActive('LectureSheet'))
+                                    <li><a href="{{ route('sheets.grid') }}">{{ __('Lecture Sheets') }}</a></li>
+                                @endif
+
+                                @if (module('Job') && isActive('Job'))
+                                    <li><a href="{{ route('jobs.grid') }}">{{ __('Jobs') }}</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -48,12 +55,13 @@
                         <h4 class="widget-title">{{ __('Links') }}</h4>
                         <div class="inner">
                             <ul class="footer-link link-hover">
-                                <li><a href="">{{ __('Forum') }}</a></li>
-                                <li><a href="">{{ __('Blog') }}</a></li>
-                                <li><a href="">{{ __('Contact Us') }}</a></li>
-                                <li><a href="">{{ __('FAQ\'s') }}</a></li>
-                                <li><a href="">{{ __('Sign In') }}</a></li>
-                                <li><a href="">{{ __('Registration') }}</a></li>
+                                @if (module('Blog') && isActive('Blog'))
+                                    <li><a href="{{ route('blogs.index') }}">{{ __('Blog') }}</a></li>
+                                @endif
+                                <li><a href="{{ route('contact') }}">{{ __('Contact Us') }}</a></li>
+                                <li><a href="{{ route('faqs') }}">{{ __('FAQ\'s') }}</a></li>
+                                <li><a href="{{ route('login') }}">{{ __('Sign In') }}</a></li>
+                                <li><a href="{{ route('register') }}">{{ __('Registration') }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -67,18 +75,13 @@
                             </p>
                             <div class="input-group footer-subscription-form">
                                 <input type="email" class="form-control" placeholder="Your email">
-                                <button class="edu-btn btn-medium" type="button">{{ __('Subscribe') }} <i
-                                        class="icon-4"></i></button>
+                                <button class="edu-btn btn-medium" type="button">{{ __('Subscribe') }} <i class="icon-4"></i></button>
                             </div>
                             <ul class="social-share icon-transparent">
-                                <li><a href="{{ $contact->facebook }}" class="color-fb"><i
-                                            class="icon-facebook"></i></a></li>
-                                <li><a href="{{ $contact->instagram }}" class="color-ig"><i
-                                            class="icon-instagram"></i></a></li>
-                                <li><a href="{{ $contact->twitter }}" class="color-twitter"><i
-                                            class="icon-twitter"></i></a></li>
-                                <li><a href="{{ $contact->linkedin }}" class="color-linkd"><i
-                                            class="icon-linkedin2"></i></a>
+                                <li><a href="{{ $contact->facebook }}" class="color-fb"><i class="icon-facebook"></i></a></li>
+                                <li><a href="{{ $contact->instagram }}" class="color-ig"><i class="icon-instagram"></i></a></li>
+                                <li><a href="{{ $contact->twitter }}" class="color-twitter"><i class="icon-twitter"></i></a></li>
+                                <li><a href="{{ $contact->linkedin }}" class="color-linkd"><i class="icon-linkedin2"></i></a>
                                 </li>
                             </ul>
                         </div>
@@ -92,8 +95,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="inner text-center">
-                        <p>{{ __('Copyright') }} {{ date('Y') }} <a href="{{ url('/') }}"
-                                target="_blank">{{ __('EduBlink') }}</a>. {{ __('All Rights Reserved') }}
+                        <p>{{ __('Copyright') }} {{ date('Y') }} 
+                            <a href="{{ url('/') }}" target="_blank">{{ settings('name') }}</a>
+                            . {{ __('All Rights Reserved') }}
                         </p>
                     </div>
                 </div>
