@@ -1,5 +1,4 @@
 <ul class="mainmenu">
-    <li><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
 
     <li class="has-droupdown">
         @php
@@ -113,6 +112,7 @@
             </ul>
         </li>
     @endif
+    
     @if (module('LectureSheet') && isActive('LectureSheet'))
         <li class="has-droupdown">
             <a href="javascript:;">{{ __('Lecture Sheet') }}</a>
@@ -195,8 +195,9 @@
         </li>
     @endif
 
-    <li><a href="">{{ __('Blog') }}</a></li>
-
+    @if (module('Blog') && isActive('Blog'))
+    <li><a href="{{ route('blogs.index') }}">{{ __('Blog') }}</a></li>
+    @endif
     <li class="has-droupdown"><a href="#">{{ __('About') }}</a>
         <ul class="submenu">
 

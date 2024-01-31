@@ -191,7 +191,9 @@
             </li>
         @endif
 
-        <li><a href="">{{ __('Blog') }}</a></li>
+        @if (module('Blog') && isActive('Blog'))
+            <li><a href="{{ route('blogs.index') }}">{{ __('Blog') }}</a></li>
+        @endif
 
         <li class="has-droupdown"><a href="#">{{ __('About') }}</a>
             <ul class="submenu">

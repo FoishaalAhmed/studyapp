@@ -106,7 +106,7 @@
                 <div class="inner">
                     <div class="header-top">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="{{ url('/') }}">
                                 <img class="logo-light"
                                     src="{{ asset(darkLogo()) }}"
                                     alt="Corporate Logo">

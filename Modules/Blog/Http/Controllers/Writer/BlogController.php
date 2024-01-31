@@ -5,7 +5,6 @@ namespace Modules\Blog\Http\Controllers\Writer;
 use Illuminate\Http\Request;
 use Modules\Blog\Entities\Blog;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Redirect;
 use Modules\Blog\Http\Requests\BlogRequest;
 use Modules\Blog\DataTables\Writer\BlogsDataTable;
 
