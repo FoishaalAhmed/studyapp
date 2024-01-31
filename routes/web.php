@@ -6,10 +6,13 @@ use App\Http\Controllers\{
     HelperController,
     ProfileController,
     DashboardController,
-    Frontend\HomeController
+    Frontend\HomeController,
+    Frontend\ContactController
 };
 
 Route::get('/', [HomeController::class, 'index']);
+Route::view('contact', 'frontend.contact')->name('contact');
+Route::get('faqs', [ContactController::class, 'faq'])->name('faqs');
 
 Route::middleware('auth')->group(function () {
 

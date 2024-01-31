@@ -21,7 +21,7 @@ Route::group(['prefix' => 'writer', 'as' => 'writer.', 'middleware' => ['auth', 
 });
 
 Route::controller(FrontendBlogController::class)->as('blogs.')->prefix('blogs')->group(fn() => [
-    Route::get('blogs', 'index')->name('index'),
+    Route::get('', 'index')->name('index'),
     Route::get('blog-detail', 'detail')->name('detail'),
     Route::get('blog-search', 'search')->name('search'),
     Route::get('tag-blogs', 'tag')->name('tag')

@@ -200,15 +200,11 @@
 
                 <li><a href="">{{ __('About Us') }}</a></li>
 
-                <li><a
-                        href="">{{ __('Privacy Policy') }}</a>
-                </li>
+                <li><a href="">{{ __('Privacy Policy') }}</a></li>
 
-                <li><a
-                        href="">{{ __('Terms & Conditions') }}</a>
-                </li>
+                <li><a href="">{{ __('Terms & Conditions') }}</a></li>
 
-                <li><a href="">{{ __('FAQ') }}</a></li>
+                <li><a href="{{ route('faqs') }}">{{ __('FAQ') }}</a></li>
 
             </ul>
         </li>
