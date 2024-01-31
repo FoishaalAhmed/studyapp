@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\UserAccess\Http\Controllers\QueryController;
-
 use App\Http\Controllers\{
     HelperController,
     ProfileController,

@@ -201,15 +201,13 @@
     <li class="has-droupdown"><a href="#">{{ __('About') }}</a>
         <ul class="submenu">
 
-            <li><a href="">{{ __('About Us') }}</a></li>
+            @if (module('Page') && isActive('Page'))
+                <li><a href="{{ route('about') }}">{{ __('About Us') }}</a></li>
 
-            <li><a
-                    href="">{{ __('Privacy Policy') }}</a>
-            </li>
+                <li><a href="{{ route('pages', 'privacy-policy') }}">{{ __('Privacy Policy') }}</a></li>
 
-            <li><a
-                    href="">{{ __('Terms & Conditions') }}</a>
-            </li>
+                <li><a href="{{ route('pages', 'terms-condition') }}">{{ __('Terms & Conditions') }}</a></li>
+            @endif
 
             <li><a href="{{ route('faqs') }}">{{ __('FAQ') }}</a></li>
 
