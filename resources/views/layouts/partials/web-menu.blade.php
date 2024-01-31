@@ -195,9 +195,11 @@
             <li><a href="{{ route('blogs.index') }}">{{ __('Blog') }}</a></li>
         @endif
 
-        <li class="has-droupdown"><a href="#">{{ __('About') }}</a>
-            <ul class="submenu">
+        <li class="has-droupdown">
 
+            <a href="#">{{ __('About') }}</a>
+
+            <ul class="submenu">
                 <li><a href="">{{ __('About Us') }}</a></li>
 
                 <li><a href="">{{ __('Privacy Policy') }}</a></li>
@@ -205,9 +207,9 @@
                 <li><a href="">{{ __('Terms & Conditions') }}</a></li>
 
                 <li><a href="{{ route('faqs') }}">{{ __('FAQ') }}</a></li>
-
             </ul>
         </li>
-        <li><a href="">{{ __('Contact') }}</a></li>
+
+        <li><a href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
     </ul>
 </nav>

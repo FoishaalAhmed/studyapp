@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\UserAccess\Http\Controllers\QueryController;
 
 use App\Http\Controllers\{
     HelperController,
@@ -13,6 +14,7 @@ use App\Http\Controllers\{
 Route::get('/', [HomeController::class, 'index']);
 Route::view('contact', 'frontend.contact')->name('contact');
 Route::get('faqs', [ContactController::class, 'faq'])->name('faqs');
+Route::post('queries/store', [QueryController::class, 'store'])->name('queries.store');
 
 Route::middleware('auth')->group(function () {
 

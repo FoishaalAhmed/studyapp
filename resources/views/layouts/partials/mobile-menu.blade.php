@@ -216,10 +216,10 @@
         </ul>
     </li>
 
-    <li><a href="">{{ __('Contact') }}</a></li>
+    <li><a href="{{ route('contact') }}">{{ __('Contact') }}</a></li>
 
-    <li><a href="">{{ __('Login') }}</a></li>
+    <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
 
-    <li><a href="">{{ __('Registration') }}</a></li>
+    <li><a href="{{ route('register') }}">{{ __('Registration') }}</a></li>
 
 </ul>

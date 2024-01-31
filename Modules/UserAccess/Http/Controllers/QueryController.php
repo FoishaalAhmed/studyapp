@@ -23,31 +23,29 @@ class QueryController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-
+            'message' => ['required', 'string'],
             'name'    => ['required', 'string', 'max:255'],
             'email'   => ['required', 'email', 'max:255'],
             'phone'   => ['required', 'string', 'max:15'],
             'subject' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string'],
-
         ]);
 
-        $error_array    = [];
-        $success_output = '';
+        $errors = [];
+        $successMessage = '';
 
         if ($validation->fails()) {
             foreach ($validation->messages()->getMessages() as $field_name => $messages) {
-                $error_array[] = $messages;
+                $errors[] = $messages;
             }
         } else {
             (new Query())->storeQuery($request);
-
-            $success_output = '<div class="alert alert-success"> Query Send Successfully! </div>';
+            $message = __('Query Send Successfully!');
+            $successMessage = '<div class="alert alert-success"> ' . $message . ' </div>';
         }
 
         $output = [
-            'error'   => $error_array,
-            'success' => $success_output
+            'errors'   => $errors,
+            'success' => $successMessage
         ];
 
         echo json_encode($output);
