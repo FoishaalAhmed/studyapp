@@ -76,7 +76,6 @@
                                 <h4 class="widget-title">{{ __('Search') }}</h4>
                                 <div class="content">
                                     <form class="blog-search" action="{{ route('blogs.search') }}">
-                                        @csrf
                                         <input type="text" placeholder="{{ __('Search') }}" name="search" required>
                                         <button type="submit" class="search-button"><i class="icon-2"></i></button>
                                     </form>
