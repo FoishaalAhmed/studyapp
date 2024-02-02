@@ -12,4 +12,18 @@ class CategoryUser extends Model
     protected $fillable = [
         'user_id', 'category_id',
     ];
+
+    public function storeUserCategories(object $request)
+    {
+        foreach ($request->category_id as $value) {
+            $data[] = [
+                'user_id' => $request->user_id,
+                'category_id' => $value,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        self::insert($data);
+    }
 }

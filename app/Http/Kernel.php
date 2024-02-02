@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'user' => \App\Http\Middleware\User::class,
         'writer' => \App\Http\Middleware\Writer::class,
         'ip_middleware' => \App\Http\Middleware\IpMiddleware::class,
+        'ensure.api.headers' => \App\Http\Middleware\EnsureApiHeaders::class,
     ];
 }

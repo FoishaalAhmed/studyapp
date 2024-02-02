@@ -59,3 +59,6 @@ CREATE TABLE
 -- Buys
 
 ALTER TABLE `buys` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'In Review' COMMENT 'Confirmed, In Review';
+
+--Personal Access Token
+ALTER TABLE `personal_access_tokens` ADD `expires_at` TIMESTAMP NULL DEFAULT NULL AFTER `abilities`;

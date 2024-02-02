@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CustomFromRequest extends FormRequest
+class CustomFormRequest extends FormRequest
 {
     use ApiResponse;
 

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Laravel\Sanctum\HasApiTokens;
 use Exception;
 
@@ -139,5 +140,55 @@ class User extends Authenticatable
         $userDelete
             ? session()->flash('success', 'User Deleted Successfully!')
             : session()->flash('error', 'Something Went Wrong!');
+    }
+
+    function storeUserInfo(object $request)
+    {
+        $user = $token = null;
+
+        DB::transaction(function () use ($request, &$user, &$token) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->age = $request->age;
+            $user->gender = $request->gender;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            $role = Role::where('name', 'User')->first();
+            $user->assignRole($role);
+            $token = $user->createToken('myAppToken')->plainTextToken;
+        });
+
+        return [
+            'user_id' => $user->id,
+            'token' => $token
+        ];
+    }
+
+    function storeUserSocialRegistrationInfo(object $request)
+    {
+        $user = $token = null;
+
+        DB::transaction(function () use ($request, &$user, &$token) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->age = $request->age;
+            $user->gender = $request->gender;
+            $user->password = Hash::make('12345678');
+            $user->save();
+
+            $role = Role::where('name', 'User')->first();
+            $user->assignRole($role);
+            $token = $user->createToken('myAppToken')->plainTextToken;
+        });
+
+        return [
+            'user_id' => $user->id,
+            'token' => $token
+        ];
     }
 }
