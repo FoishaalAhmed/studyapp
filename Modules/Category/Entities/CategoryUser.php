@@ -26,4 +26,20 @@ class CategoryUser extends Model
 
         self::insert($data);
     }
+
+    public function updateUserCategory($request)
+    {
+        $this->where('user_id', auth()->id())->delete();
+        
+        foreach ($request->category_id as $value) {
+            $data[] = [
+                'user_id' => auth()->id(),
+                'category_id' => $value,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        self::insert($data);
+    }
 }

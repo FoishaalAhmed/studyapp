@@ -58,8 +58,7 @@ class AppUserCategoryService
 
     public function getAppUserSubCategories(Int $categoryId)
     {
-        $categoriesIds = [];
-        $categories = [];
+        $categoriesIds = $categories = [];
 
         $uniqueTypes = array_values(array_column(AppUserCategory::where('category_id', $categoryId)->get()->toArray(), null, 'type'));
 

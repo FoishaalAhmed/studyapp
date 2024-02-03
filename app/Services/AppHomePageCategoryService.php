@@ -165,24 +165,4 @@ class AppHomePageCategoryService
 
         return $response;
     }
-
-    public function getAppCommonChildCategories()
-    {
-        $result = [];
-
-        AppHomePageCategory::where('type', request()->type)->where('sub_category_id', request()->sub_category_id)->get(['type', 'title', 'categories'])->map(function ($item) use (&$result) {
-
-            $categoryIds = explode(',', $item->categories);
-
-            $subcategories = ChildCategory::whereIn('id', $categoryIds)->get(['id', 'name', 'photo']);
-
-            $result[] = [
-                'title'      => $item->title,
-                'type'       => $item->type,
-                'subcategories' => $subcategories,
-            ];
-        });
-
-        return $result;
-    }
 }

@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\RegistrationRequest;
-use App\Http\Requests\Api\SocialRegistrationRequest;
-use App\Http\Requests\Api\UserCategoryRequest;
-use App\Http\Requests\Api\LoginRequest;
-use App\Http\Requests\Api\SocialLoginRequest;
 use Illuminate\Support\Facades\Hash;
-use Modules\Category\Entities\Category;
-use Modules\Category\Entities\CategoryUser;
+use Modules\Category\Entities\{Category, CategoryUser};
+use App\Http\Requests\Api\{
+    LoginRequest,
+    SocialLoginRequest,
+    RegistrationRequest,
+    UserCategoryRequest,
+    SocialRegistrationRequest
+};
 
 class AuthController extends Controller
 {

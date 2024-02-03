@@ -100,7 +100,6 @@ class AppUserChildCategoryService
             }
         });
 
-
         $data = [
             'categories' => SubCategory::whereIn('type', $types)->whereIn('id', $category)->oldest('name')->get(['id', 'name']),
             'subCategories' => ChildCategory::whereIn('type', $types)->where('sub_category_id', $appUserChildCategory->sub_category_id)->oldest('name')->get(['id', 'name']),
@@ -110,19 +109,19 @@ class AppUserChildCategoryService
         return $data;
     }
 
-    public function getAppUserChildCategoryData()
+    public function getAppUserChildCategoryData($subCategoryId)
     {
         $result = [];
 
-        AppUserChildCategory::where('type', request()->type)->where('sub_category_id', request()->sub_category_id)->get(['type', 'title', 'categories'])->map(function ($item) use (&$result) {
+        AppUserChildCategory::where('type', request()->type)->where('sub_category_id', $subCategoryId)->get(['type', 'title', 'categories'])->map(function ($item) use (&$result) {
 
             $categoryIds = explode(',', $item->categories);
 
             $childCategories = ChildCategory::whereIn('id', $categoryIds)->get(['id', 'name', 'photo']);
 
             $result[] = [
-                'title'      => $item->title,
-                'type'       => $item->type,
+                'type' => $item->type,
+                'title' => $item->title,
                 'childCategories' => $childCategories,
             ];
         });
