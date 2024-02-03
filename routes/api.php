@@ -12,5 +12,6 @@ Route::controller(AuthController::class)->group(fn () => [
     Route::post('store-user-categories', 'storeUserCategories'),
 ]);
 
-
-
+Route::group(['middleware' => 'auth:sanctum'], fn () => [
+    Route::post('logout', [AuthController::class, 'logout'])
+]);

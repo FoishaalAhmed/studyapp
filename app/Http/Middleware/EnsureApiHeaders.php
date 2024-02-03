@@ -27,7 +27,11 @@ class EnsureApiHeaders
             return $this->unprocessableResponse([], 'Content-Type header is required');
         }
 
-        return $next($request);
+        // Check if Accept header value
+        if ($request->header('Accept') != 'application/json') {
+            return $this->unprocessableResponse([], 'Accept header value is incorrect');
+        }
 
+        return $next($request);
     }
 }
