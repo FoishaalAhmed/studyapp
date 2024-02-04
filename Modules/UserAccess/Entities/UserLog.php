@@ -21,7 +21,7 @@ class UserLog extends Model
     public function storeUserLog(Object $request)
     {
         $this->user_id = auth()->id();
-        $this->module = $request->module;
+        $this->module  = $request->module;
         $this->save();
     }
 

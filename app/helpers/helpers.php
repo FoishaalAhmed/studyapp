@@ -51,6 +51,24 @@ if (!function_exists('isActive')) {
     }
 }
 
+/**
+ * get Active modules.
+ *
+ * @return array
+ */
+
+if (!function_exists('getActiveModules')) {
+    /**
+     * get Active modules.
+     *
+     * @return array
+     */
+    function getActiveModules(): array
+    {
+        return \Nwidart\Modules\Facades\Module::getByStatus(1);
+    }
+}
+
 if (!function_exists('uploadImage')) {
 
     /**
