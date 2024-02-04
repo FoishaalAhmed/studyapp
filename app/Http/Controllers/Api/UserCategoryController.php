@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\ChildCategoryRequest;
-use App\Http\Requests\Api\SubCategoryRequest;
-use App\Http\Requests\Api\UpdateUserCategoryRequest;
 use Modules\Job\Entities\JobCategory;
-use App\Services\AppHomePageCategoryService;
-use App\Services\AppUserCategoryService;
-use App\Services\AppUserChildCategoryService;
 use Modules\Category\Entities\{Category, CategoryUser};
 use Modules\Subject\Entities\{Subject, CategorySubject};
+use App\Http\Requests\Api\{ChildCategoryRequest, SubCategoryRequest, UpdateUserCategoryRequest};
+use App\Services\{AppHomePageCategoryService,AppUserCategoryService, AppUserChildCategoryService};
 
 class UserCategoryController extends Controller
 {

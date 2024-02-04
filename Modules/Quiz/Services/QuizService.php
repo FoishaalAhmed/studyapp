@@ -2,9 +2,16 @@
 
 namespace Modules\Quiz\Services;
 
+use App\Enums\Status;
+use Modules\Quiz\Entities\Quiz;
+use Illuminate\Support\Collection;
+use Modules\Quiz\Entities\QuizQuestion;
+use Modules\Quiz\Entities\QuizUser;
+use Modules\Quiz\Transformers\QuizResource;
+
 class QuizService
 {
-    public function quizQuestionData(object $questions, int $quizId):array
+    public function quizQuestionData(object $questions, int $quizId): array
     {
         foreach ($questions as $key => $value) {
             $quizQuestionData[] = [
@@ -52,5 +59,57 @@ class QuizService
         }
 
         return $level;
+    }
+
+    public function getQuizLevel(object $request): array
+    {
+        $categoryId = $request->category;
+        $level = $request->level;
+
+        $quizzes = Quiz::withCount([
+            'questions' => fn ($query) =>
+            [
+                $query->where('level', $level)
+            ]
+        ])->where(['category_id' => $categoryId, 'status' => Status::PUBLISHED])
+            ->whereHas('questions', fn ($query) => [
+                $query->where('level', $level)
+            ])->oldest()->get(['id', 'title', 'photo', 'price']);
+
+        $quizzes->map(function ($quiz, $key) {
+            $quiz->title = 'Level ' . $key + 1;
+            return $quiz;
+        });
+
+        $userCompletedLevels = QuizUser::where(['level' => $level, 'user_id' => auth()->id()])->pluck('quiz_id')->toArray();
+
+        return [
+            'levels' => QuizResource::collection($quizzes),
+            'userCompletedLevels' => $userCompletedLevels
+        ];
+    }
+
+    public function getQuizQuestions($request): Collection
+    {
+        $quizId = $request->quiz;
+        $level  = $request->level;
+        return QuizQuestion::where(['quiz_id' => $quizId, 'level' => $level])->get(['question', 'answer1', 'answer2', 'answer3', 'answer4', 'correct_answer', 'level']);
+    }
+
+    public function quizLevelComplete($request)
+    {
+        $quizId = $request->quiz;
+        $level  = $request->level;
+        $quizUser = QuizUser::where(['user_id' => auth()->id(), 'quiz_id' => $quizId, 'level' => $level])->first();
+
+        if (is_null($quizUser)) {
+            QuizUser::insert([
+                'user_id' => auth()->id(),
+                'quiz_id' => $quizId,
+                'level'   => $level,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
