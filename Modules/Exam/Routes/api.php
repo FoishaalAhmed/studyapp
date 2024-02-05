@@ -1,18 +1,24 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Exam\Http\Controllers\Api\{ExamController, ExamQuestionAnswerController, ExamUserController};
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::group(['middleware' => 'auth:sanctum'], fn () => [
+    Route::controller(ExamController::class)->group(fn () => [
+        Route::get('live-exam', 'live'),
+        Route::get('exam-subjects', 'subjects'),
+        Route::get('exam-result/{exam_id}', 'result'),
+        Route::get('exam-question/{exam_id}', 'question'),
+        Route::get('live-exam-detail/{id}', 'liveExamDetail'),
+        Route::get('subject-based-exam/{subject_id}', 'subjectExam'),
+        Route::get('chapter-based-exam/{subject_id}', 'subjectChapter'),
+    ]),
 
-Route::middleware('auth:api')->get('/exam', function (Request $request) {
-    return $request->user();
-});
+    Route::controller(ExamQuestionAnswerController::class)->group(fn () => [
+        Route::get('exam-answers', 'index'),
+        Route::post('exam-answers/store', 'store'),
+        Route::get('exam-answers/{exam_id}', 'answers'),
+    ]),
+
+    Route::post('exam-enroll', [ExamUserController::class, 'store'])
+]);
