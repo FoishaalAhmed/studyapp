@@ -1,18 +1,17 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Ebook\Http\Controllers\Api\EbookController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/ebook', function (Request $request) {
-    return $request->user();
-});
+Route::group(['middleware' => 'auth:sanctum'], fn () => [
+    Route::controller(EbookController::class)->group(fn () => [
+        Route::get('ebooks', 'index'),
+        Route::get('ebooks/{id}', 'ebook'),
+        Route::get('ebook-categories', 'category'),
+        Route::get('subject-ebooks/{subject_id}', 'subjectEbook'),
+        Route::get('category-ebooks/{category_id}', 'categoryEbook'),
+        Route::get('ebook-sub-categories/{category_id}', 'commonChildCategory'),
+        Route::get('premium-ebook-categories/{category_id}', 'premiumChildCategory'),
+        Route::get('category-subject-ebooks/{category_id}/{subject_id}', 'categorySubjectEbook'),
+    ])
+]);
