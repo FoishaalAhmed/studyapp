@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
     AuthController,
     HelperController,
+    ProfileController,
     UserCategoryController
 };
 
@@ -30,5 +31,13 @@ Route::group(['middleware' => 'auth:sanctum'], fn () => [
         Route::post('user-log', 'userLog'),
         Route::get('active-modules', 'activeModules'),
         Route::get('user-subject-category', 'userCategoryAndSubject'),
+    ]),
+
+    Route::controller(ProfileController::class)->group(fn () => [
+        Route::get('profile', 'index'),
+        Route::post('photo-update', 'photo'),
+        Route::post('password-update', 'password'),
+        Route::post('info-update', 'info'),
+        Route::get('all-info', 'allInfo')
     ]),
 ]);
