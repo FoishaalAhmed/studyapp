@@ -1,18 +1,25 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Forum\Http\Controllers\Api\{
+    ForumController,
+    ForumCommentController,
+    ForumCommentReplyController
+};
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::group(['middleware' => 'auth:sanctum'], fn () => [
+    Route::controller(ForumController::class)->prefix('forums')->group(fn () => [
+        Route::get('', 'index'),
+        Route::post('store', 'store'),
+        Route::get('show/{id}', 'show')
+    ]),
 
-Route::middleware('auth:api')->get('/forum', function (Request $request) {
-    return $request->user();
-});
+    Route::controller(ForumCommentController::class)->prefix('forum-comments')->group(fn () => [
+        Route::post('vote', 'vote'),
+        Route::post('store', 'store'),
+        Route::post('correct-answer', 'correct'),
+
+    ]),
+
+    Route::post('forum-reply/store', [ForumCommentReplyController::class, 'store'])
+]);

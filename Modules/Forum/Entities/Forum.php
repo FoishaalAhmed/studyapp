@@ -14,13 +14,6 @@ class Forum extends Model
         'user_id', 'title', 'photo', 'tags', 'description', 'view', 'status',
     ];
 
-    public static $validateRule = [
-        'title' => ['required', 'string', 'max:255'],
-        'tags' => ['required', 'string', 'max:255'],
-        'description' => ['required', 'string'],
-        'photo' => ['mimes: jpeg,jpg,png,gif,webp', 'max: 1000', 'nullable']
-    ];
-
     public function comments()
     {
         return $this->hasMany(ForumComment::class);

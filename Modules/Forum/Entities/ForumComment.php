@@ -14,11 +14,6 @@ class ForumComment extends Model
         'forum_id', 'user_id', 'comment', 'photo',
     ];
 
-    public static $validateRule = [
-        'forum_id' => ['required', 'numeric'],
-        'comment' => ['required', 'string'],
-    ];
-
     public function replies()
     {
         return $this->hasMany(ForumCommentReply::class, 'forum_comment_id');

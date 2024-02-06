@@ -14,11 +14,6 @@ class ForumCommentReply extends Model
         'forum_comment_id', 'user_id', 'reply', 'photo',
     ];
 
-    public static $validateRule = [
-        'forum_comment_id' => ['required', 'numeric'],
-        'reply' => ['required', 'string'],
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
