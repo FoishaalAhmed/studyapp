@@ -9,13 +9,13 @@ Route::group(['middleware' => 'auth:sanctum'], fn () => [
         Route::get('exam-subjects', 'subjects'),
         Route::get('exam-result/{exam_id}', 'result'),
         Route::get('exam-question/{exam_id}', 'question'),
-        Route::get('live-exam-detail/{id}', 'liveExamDetail'),
+        Route::get('exam-detail/{id}', 'liveExamDetail'),
         Route::get('subject-based-exam/{subject_id}', 'subjectExam'),
         Route::get('chapter-based-exam/{subject_id}', 'subjectChapter'),
     ]),
 
     Route::controller(ExamQuestionAnswerController::class)->group(fn () => [
-        Route::get('exam-answers', 'index'),
+        Route::get('attend-exams', 'index'),
         Route::post('exam-answers/store', 'store'),
         Route::get('exam-answers/{exam_id}', 'answers'),
     ]),

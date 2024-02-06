@@ -88,7 +88,7 @@ class ExamController extends Controller
         $questions = ExamQuestion::with('answer')->where('exam_id', $examId)->get();
 
         $response = [
-            'rank' => $rank,
+            'rank' => $rank + 1,
             'questions' => $questions,
         ];
 
