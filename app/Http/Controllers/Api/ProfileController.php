@@ -30,7 +30,7 @@ class ProfileController extends Controller
             $this->profileObject->updateUserPhoto($request);
             return $this->successResponse(__('Profile Picture Updated Successfully!'));
         } catch (Exception $exception) {
-            return $this->unprocessableResponse($exception->getMessage());
+            return $this->unprocessableResponse([], $exception->getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ class ProfileController extends Controller
             $this->profileObject->updateUserPassword($request);
             return $this->successResponse(__('Password Updated Successfully!'));
         } catch (Exception $exception) {
-            return $this->unprocessableResponse($exception->getMessage());
+            return $this->unprocessableResponse([], $exception->getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ class ProfileController extends Controller
             $this->profileObject->updateUserInfo($request);
             return $this->successResponse(__('Profile Updated Successfully!'));
         } catch (Exception $exception) {
-            return $this->unprocessableResponse($exception->getMessage());
+            return $this->unprocessableResponse([], $exception->getMessage());
         }
     }
 

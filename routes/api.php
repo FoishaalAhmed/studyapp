@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
+    BuyController,
     AuthController,
     HelperController,
     ProfileController,
@@ -39,5 +40,10 @@ Route::group(['middleware' => 'auth:sanctum'], fn () => [
         Route::post('password-update', 'password'),
         Route::post('info-update', 'info'),
         Route::get('all-info', 'allInfo')
+    ]),
+
+    Route::controller(BuyController::class)->prefix('resource-buy')->group(fn () => [
+        Route::get('{type}', 'list'),
+        Route::post('store', 'store')
     ]),
 ]);

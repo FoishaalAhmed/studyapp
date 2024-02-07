@@ -13,13 +13,6 @@ class Buy extends Model
         'user_id', 'type', 'resource_id', 'price', 'payment_method', 'status',
     ];
 
-    public static $validateRule = [
-        'type' => ['required', 'string', 'max:100'],
-        'payment_method' => ['nullable', 'string', 'max:100'],
-        'resource_id' => ['required', 'numeric'],
-        'price' => ['required', 'numeric'],
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
