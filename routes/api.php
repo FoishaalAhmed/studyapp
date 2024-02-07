@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth:sanctum'], fn () => [
         Route::get('user-subject-category', 'userCategoryAndSubject'),
     ]),
 
-    Route::controller(ProfileController::class)->group(fn () => [
+    Route::controller(ProfileController::class)->prefix('profile')->group(fn () => [
         Route::get('profile', 'index'),
         Route::post('photo-update', 'photo'),
         Route::post('password-update', 'password'),
