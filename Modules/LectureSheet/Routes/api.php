@@ -1,18 +1,17 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\LectureSheet\Http\Controllers\Api\SheetController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/lecturesheet', function (Request $request) {
-    return $request->user();
-});
+Route::group(['middleware' => 'auth:sanctum'], fn () => [
+    Route::controller(SheetController::class)->group(fn () => [
+        Route::get('category-subject-sheets/{category_id}/{subject_id}', 'categorySubjectSheet'),
+        Route::get('category-sheets/{category_id}', 'categorySheet'),
+        Route::get('subject-sheets/{subject_id}', 'subjectSheet'),
+        Route::get('sheets', 'index'),
+        Route::get('sheet-categories', 'category'),
+        Route::get('sheet-sub-categories/{category_id}', 'subCategory'),
+        Route::get('sheet-detail', 'detail'),
+        Route::get('premium-sheet-categories/{category_id}', 'premiumSubCategory'),
+    ]),
+]);
