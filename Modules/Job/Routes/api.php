@@ -1,18 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Job\Http\Controllers\Api\JobController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-Route::middleware('auth:api')->get('/job', function (Request $request) {
-    return $request->user();
-});
+Route::group(['middleware' => 'auth:sanctum'], fn () => [
+    Route::controller(JobController::class)->group(fn () => [
+        Route::get('jobs', 'index'),
+        Route::get('job-categories', 'categories'),
+        Route::get('category-jobs/{id}', 'categoryJobs'),
+        Route::get('job-detail/{id}', 'detail'),
+        Route::post('apply-for-job', 'jobApply')
+    ]),
+]);

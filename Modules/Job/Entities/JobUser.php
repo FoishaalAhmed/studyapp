@@ -32,14 +32,14 @@ class JobUser extends Model
 
             foreach ($files as $key => $value) {
                 if ($request->title[$key] == null) continue;
-                $multiple_upload_path = 'public/images/jobDocuments/';
+                $multipleUploadPath = 'public/images/jobDocuments/';
                 $name                 = $value->getClientOriginalName();
                 $ext                  = strtolower($value->extension());
-                $multiple_image_name  = date('YmdHis') . '_' . $name . '.' . $ext;
-                $value->move($multiple_upload_path, $multiple_image_name);
+                $multipleImageName  = date('YmdHis') . '_' . $name . '.' . $ext;
+                $value->move($multipleUploadPath, $multipleImageName);
 
                 $jobUser           = new self;
-                $jobUser->document = $multiple_upload_path . $multiple_image_name;
+                $jobUser->document = $multipleUploadPath . $multipleImageName;
                 $jobUser->title    = $request->title[$key];
                 $jobUser->job_id   = $request->job_id;
                 $jobUser->user_id  = auth()->id();
