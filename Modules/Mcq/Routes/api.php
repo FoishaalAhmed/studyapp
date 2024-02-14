@@ -1,18 +1,26 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Mcq\Http\Controllers\Api\{McqController, QuestionAnswerController};
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::group(['middleware' => ['auth:sanctum']], fn () => [
 
-Route::middleware('auth:api')->get('/mcq', function (Request $request) {
-    return $request->user();
-});
+    Route::controller(McqController::class)->group(fn () => [
+        Route::get('category-subject-mcq/{category_id}/{subject_id}', 'categorySubjectModelTest'),
+        Route::get('category-mcq/{category_id}', 'categoryModelTest'),
+        Route::get('subject-mcq/{category_id}', 'subjectModelTest'),
+        Route::get('mcq-category', 'category'),
+        Route::get('mcq-sub-category/{category_id}', 'subCategory'),
+        Route::get('questions/{mcq_id}', 'questions'),
+        Route::get('model/search', 'search'),
+        Route::get('mcq/result/{mcq}', 'result'),
+        Route::get('premium-mcq-category/{category_id}', 'premiumSubCategory'),
+
+    ]),
+
+    Route::controller(QuestionAnswerController::class)->group(fn () => [
+        Route::get('mcq-answers', 'index'),
+        Route::get('mcq-answers/{mcq_id}', 'answers'),
+        Route::post('mcq-answers/store', 'store'),
+    ]),
+]);
