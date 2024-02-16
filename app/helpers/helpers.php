@@ -5,7 +5,7 @@ if (!function_exists('dataTableOptions')) {
     function dataTableOptions(array $options = [])
     {
         $default = [
-            'order' => [[0, 'desc']],
+            'order' => [[1, 'desc']],
             'pageLength' => settings('row_per_page')
         ];
 
