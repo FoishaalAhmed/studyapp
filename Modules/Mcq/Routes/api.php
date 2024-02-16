@@ -19,7 +19,7 @@ Route::group(['middleware' => ['auth:sanctum']], fn () => [
     ]),
 
     Route::controller(QuestionAnswerController::class)->group(fn () => [
-        Route::get('mcq-answers', 'index'),
+        Route::get('given-mcq', 'index'),
         Route::get('mcq-answers/{mcq_id}', 'answers'),
         Route::post('mcq-answers/store', 'store'),
     ]),

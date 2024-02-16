@@ -3,29 +3,33 @@
 namespace Modules\Mcq\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Modules\Mcq\Http\Requests\Api\QuestionAnswerRequest;
 use Modules\Mcq\Entities\{ModelQuestionAnswer, ModelTest, Question};
 
 class QuestionAnswerController extends Controller
 {
     public function index()
     {
-        $model_ids = ModelQuestionAnswer::where('user_id', auth()->id())->pluck('model_test_id')->toArray();
+        $modelIs = ModelQuestionAnswer::where('user_id', auth()->id())->pluck('model_test_id')->toArray();
+        $models = ModelTest::whereIn('id', $modelIs)->get(['id', 'title']);
 
-        $models = ModelTest::whereIn('id', $model_ids)->select('id', 'title')->get();
-
-        return response($models, 200);
+        return $this->successResponse($models);
     }
 
-    public function store(Request $request)
+    public function store(QuestionAnswerRequest $request)
     {
-        $message = (new ModelQuestionAnswer)->storeModelQuestionAnswer($request);
-        $response = ['message' => $message];
-        return response($response, 200);
+        try {
+            (new ModelQuestionAnswer)->storeModelQuestionAnswer($request);
+            return $this->successResponse(__('MCQ Answer Submitted Successfully!'));
+        } catch (\Exception $exception) {
+            return $this->unprocessableResponse([], __('Request can not be processed at this moment. Please try again.'));
+        }
+        
     }
 
-    public function answers($model_test_id)
+    public function answers($mcqId)
     {
-        $questions = Question::with(['given_answer'])->where('model_test_id', $model_test_id)->get();
-        return response($questions, 200);
+        $questions = Question::with(['given_answer'])->where('model_test_id', $mcqId)->get();
+        return $this->successResponse($questions);
     }
 }

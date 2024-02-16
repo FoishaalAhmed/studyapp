@@ -14,8 +14,7 @@ class ModelQuestionAnswer extends Model
 
     public function storeModelQuestionAnswer(Object $request)
     {
-        try {
-            DB::beginTransaction();
+        DB::transaction(function() use($request) {
             foreach ($request->given_answer as $key => $value) {
                 if ($value != null || $value != '') {
                     $data[] = [
@@ -37,14 +36,6 @@ class ModelQuestionAnswer extends Model
             $marks->wrong_answer = $request->wrong_answer;
             $marks->total_time = $request->total_time;
             $marks->save();
-            DB::commit();
-
-            return 'MCQ Answer Submitted Successfully!';
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::info('Exam Answer');
-            \Log::info($e->getMessage());
-            return 'Something Went Wrong. Try again.';
-        }
+        });
     }
 }
