@@ -5,13 +5,13 @@
             <!-- Topbar Brand Logo -->
             <div class="logo-box">
                 <!-- Brand Logo Light -->
-                <a href="index.html" class="logo-light">
+                <a href="{{ url('/') }}" class="logo-light">
                     <img src="{{ asset(lightLogo()) }}" alt="logo" class="logo-lg">
                     <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
                 </a>
 
                 <!-- Brand Logo Dark -->
-                <a href="index.html" class="logo-dark">
+                <a href="{{ url('/') }}" class="logo-dark">
                     <img src="{{ asset(darkLogo()) }}" alt="dark logo" class="logo-lg">
                     <img src="{{ asset(smallLogo()) }}" alt="small logo" class="logo-sm">
                 </a>
@@ -30,36 +30,6 @@
                 <a class="nav-link waves-effect waves-light" href="#" data-toggle="fullscreen">
                     <i class="fe-maximize font-22"></i>
                 </a>
-            </li>
-
-            <!-- Language flag dropdown  -->
-            <li class="dropdown d-none d-md-inline-block">
-                <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{ asset('public/assets/backend/images/flags/us.jpg') }}" alt="user-image" class="me-0 me-sm-1" height="18">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ asset('public/assets/backend/images/flags/germany.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ asset('public/assets/backend/images/flags/italy.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ asset('public/assets/backend/images/flags/spain.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="{{ asset('public/assets/backend/images/flags/russia.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
-                    </a>
-
-                </div>
             </li>
 
             <!-- Light/Dark Mode Toggle Button -->

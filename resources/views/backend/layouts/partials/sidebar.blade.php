@@ -232,7 +232,7 @@
                     @if (module('Job') && isActive('Job'))
                         <li class="menu-item {{ request()->is('admin/jobs') || request()->is('admin/jobs/*') || request()->is('admin/job-categories') || request()->is('admin/job-users') || request()->is('admin/job-users/*') ? 'menuitem-active' : '' }}">
                             <a href="#menuJob" data-bs-toggle="collapse" class="menu-link">
-                                <span class="menu-icon"><i class="fe-unlock"></i></span>
+                                <span class="menu-icon"><i class="fe-briefcase"></i></span>
                                 <span class="menu-text"> {{ __('Jobs') }} </span>
                                 <span class="menu-arrow"></span>
                             </a>
