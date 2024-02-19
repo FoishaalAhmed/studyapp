@@ -34,7 +34,6 @@ class QuizController extends Controller
      */
     public function create()
     {
-
         if (!request()->model_test_id) {
             session()->flash('error', __('Model Test Not Found.'));
             return redirect()->route('admin.mcqs.index');

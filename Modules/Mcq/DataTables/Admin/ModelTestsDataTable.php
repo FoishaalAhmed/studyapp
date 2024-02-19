@@ -39,12 +39,14 @@ class ModelTestsDataTable extends DataTable
 
                 $examCreate = '<a href="' . route('admin.exams.create', ["model_test_id" => $model->id]) . '" class="btn btn-outline-info waves-effect waves-light" title="'. __("New Exam") .'" tabindex="0" data-plugin="tippy" data-tippy-animation="shift-away" data-tippy-arrow="true"><i class="fe-plus-square"></i></a>&nbsp;';
 
+                $quizCreate = isActive('Quiz') ?  '<a href="' . route('admin.quizzes.create', ["model_test_id" => $model->id]) . '" class="btn btn-outline-primary waves-effect waves-light" title="'. __("New Quiz") .'" tabindex="0" data-plugin="tippy" data-tippy-animation="shift-away" data-tippy-arrow="true"><i class="fe-plus-square"></i></a>&nbsp;' : '';
+
                 $status = $model->status == 'Published' ? '<a href="' . route('admin.mcqs.status', [$model->id, 'In Review']) . '" class="btn btn-outline-success waves-effect waves-light"><i class="fe-thumbs-up "></i></a>&nbsp;' : '<a href="' . route('admin.mcqs.status', [$model->id, 'Published']) . '" class="btn btn-outline-danger waves-effect waves-light"><i class="fe-thumbs-down"></i></a>&nbsp;';
                 
                 $edit = '<a href="' . route('admin.mcqs.edit', $model->id) . '" class="btn btn-outline-info waves-effect waves-light"><i class="fe-edit"></i></a>&nbsp;';
 
                 $delete = '<a href="' . route('admin.mcqs.destroy', $model->id) . '" class="btn btn-outline-danger waves-effect waves-light delete-warning"><i class="fe-trash-2"></i></a>';
-                return $examCreate . $status . $edit . $delete;
+                return $examCreate . $quizCreate . $status . $edit . $delete;
             })
             ->rawColumns(['photo', 'title', 'action'])
             ->make(true);
